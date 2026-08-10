@@ -1,2 +1,2 @@
-export { Endereco } from "./Screens/Endereco";
+export { Endereco } from "./Screens/endereco";
 

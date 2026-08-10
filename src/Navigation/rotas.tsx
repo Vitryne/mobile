@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { colors } from "../Styles/commonStyles";
-import { RootStackParamList } from "../Types/navigation";
+import { colors } from "../Styles/estilosComuns";
+import { RootStackParamList } from "../Types/navegacao";
 
-import { HeaderBack } from "../Components/HeaderBack";
+import { HeaderBack } from "../Components/botaoVoltar";
 import { Endereco } from "../Screens/Address";
 import { MenuCarrinho } from "../Screens/Cart";
 import { PedidoConfirmado } from "../Screens/Order";

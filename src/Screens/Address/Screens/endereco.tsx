@@ -3,9 +3,9 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { Stepper } from "../../../Components/Stepper/Stepper";
-import { colors, commonStyles } from "../../../Styles/commonStyles";
-import { RootStackParamList } from "../../../Types/navigation";
-import { CardEndereco } from "../Components/AddressCard/CardEndereco";
+import { colors, commonStyles } from "../../../Styles/estilosComuns";
+import { RootStackParamList } from "../../../Types/navegacao";
+import { CardEndereco } from "../Components/AddressCard/cardEndereco";
 import { styles } from "./styles";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Endereco">;

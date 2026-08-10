@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { colors, radius, spacing } from "../../../../Styles/commonStyles";
+import { colors, radius, spacing } from "../../../../Styles/estilosComuns";
 
 export const styles = StyleSheet.create({
   option: {

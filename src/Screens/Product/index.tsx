@@ -1,2 +1,2 @@
-export { Produto } from "./Screens/Produto";
+export { Produto } from "./Screens/produto";
 
