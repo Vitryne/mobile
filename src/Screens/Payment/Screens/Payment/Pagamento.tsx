@@ -5,7 +5,7 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 import { Stepper } from "../../../../Components/Stepper/Stepper";
 import { colors, commonStyles } from "../../../../Styles/commonStyles";
 import { RootStackParamList } from "../../../../Types/navigation";
-import { OpcaoPagamento } from "../../Components/OpcaoPagamento/OpcaoPagamento";
+import { OpcaoPagamento } from "../../Components/PaymentOption/OpcaoPagamento";
 import { styles } from "./styles";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Pagamento">;

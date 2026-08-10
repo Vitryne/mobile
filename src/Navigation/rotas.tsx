@@ -3,11 +3,11 @@ import { colors } from "../Styles/commonStyles";
 import { RootStackParamList } from "../Types/navigation";
 
 import { HeaderBack } from "../Components/HeaderBack";
-import { MenuCarrinho } from "../Screens/Carrinho";
-import { Endereco } from "../Screens/Endereco";
-import { Pagamento, PaguePix } from "../Screens/Pagamento";
-import { PedidoConfirmado } from "../Screens/Pedido";
-import { Produto } from "../Screens/Produto";
+import { Endereco } from "../Screens/Address";
+import { MenuCarrinho } from "../Screens/Cart";
+import { PedidoConfirmado } from "../Screens/Order";
+import { Pagamento, PaguePix } from "../Screens/Payment";
+import { Produto } from "../Screens/Product";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
