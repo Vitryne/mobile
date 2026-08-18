@@ -18,7 +18,7 @@ export function PedidoConfirmado({ navigation, route }: Props) {
   return (
     <View style={commonStyles.screen}>
       <ScrollView contentContainerStyle={styles.content}>
-        <View style={styles.checkCircle}>
+        <View style={styles.check_circle}>
           <Ionicons name="checkmark" size={40} color={colors.primary} />
         </View>
 
@@ -28,7 +28,7 @@ export function PedidoConfirmado({ navigation, route }: Props) {
           cada pedido for confirmado.
         </Text>
 
-        <View style={[commonStyles.card, styles.protocolCard]}>
+        <View style={[commonStyles.card, styles.protocol_card]}>
           <Text style={styles.protocolLabel}>PROTOCOLO</Text>
           <Text style={styles.protocol}>#{orderId}</Text>
 
@@ -36,7 +36,7 @@ export function PedidoConfirmado({ navigation, route }: Props) {
 
           {lojas.map((l) => (
             <View key={l.id} style={styles.loja}>
-              <View style={styles.lojaThumb}>
+              <View style={styles.loja_thumb}>
                 <Ionicons
                   name="storefront-outline"
                   size={16}
@@ -44,15 +44,15 @@ export function PedidoConfirmado({ navigation, route }: Props) {
                 />
               </View>
               <View>
-                <Text style={styles.lojaNome}>{l.nome}</Text>
-                <Text style={styles.lojaStatus}>{l.status}</Text>
+                <Text style={styles.loja_nome}>{l.nome}</Text>
+                <Text style={styles.loja_status}>{l.status}</Text>
               </View>
             </View>
           ))}
         </View>
 
         <Pressable style={styles.button} onPress={() => navigation.popToTop()}>
-          <Text style={commonStyles.buttonText}>Voltar ao início</Text>
+          <Text style={commonStyles.button_text}>Voltar ao início</Text>
         </Pressable>
       </ScrollView>
     </View>

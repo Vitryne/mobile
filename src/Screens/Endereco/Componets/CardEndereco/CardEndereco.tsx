@@ -22,11 +22,11 @@ export function CardEndereco({
 }: CardEnderecoProps) {
   return (
     <Pressable
-      style={[styles.card, selecionado && styles.cardSelecionado]}
+      style={[styles.card, selecionado && styles.card_selecionado]}
       onPress={onPress}
     >
-      <View style={[styles.radio, selecionado && styles.radioSelecionado]}>
-        {selecionado && <View style={styles.radioDot} />}
+      <View style={[styles.radio, selecionado && styles.radio_selecionado]}>
+        {selecionado && <View style={styles.radio_dot} />}
       </View>
       <View style={{ flex: 1 }}>
         <View style={styles.header}>
@@ -35,7 +35,7 @@ export function CardEndereco({
             <Text
               style={[
                 styles.tag,
-                tag.tipo === "padrao" ? styles.tagPadrao : styles.tagAlerta,
+                tag.tipo === "padrao" ? styles.tag_padrao : styles.tag_alerta,
               ]}
             >
               {tag.texto}

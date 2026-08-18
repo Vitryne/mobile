@@ -8,17 +8,17 @@ export const styles = StyleSheet.create({
   },
 
   // --- Image area ---
-  imageContainer: {
+  image_container: {
     width: "100%",
     height: 320,
     backgroundColor: "#c6c6c6", // verde sálvia do produto — intencional, não no design system
     position: "relative",
   },
-  productImage: {
+  product_image: {
     width: "100%",
     height: "100%",
   },
-  badgeDiscount: {
+  badge_discount: {
     position: "absolute",
     top: spacing.md,
     alignSelf: "center",
@@ -27,13 +27,13 @@ export const styles = StyleSheet.create({
     paddingHorizontal: spacing.sm + 2,
     paddingVertical: spacing.xs,
   },
-  badgeDiscountText: {
+  badge_discount_text: {
     color: colors.white,
     fontSize: 12,
     fontWeight: "700",
     letterSpacing: 0.5,
   },
-  iconTopLeft: {
+  icon_top_left: {
     position: "absolute",
     top: spacing.md,
     left: spacing.md,
@@ -44,14 +44,14 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  iconTopRight: {
+  icon_top_right: {
     position: "absolute",
     top: spacing.md,
     right: spacing.md,
     flexDirection: "row",
     gap: spacing.sm,
   },
-  iconCircle: {
+  icon_circle: {
     width: 36,
     height: 36,
     borderRadius: radius.full,
@@ -61,7 +61,7 @@ export const styles = StyleSheet.create({
   },
 
   // --- Info card ---
-  infoCard: {
+  info_card: {
     flex: 1,
     backgroundColor: colors.card,
     borderTopLeftRadius: radius.lg + spacing.sm, // 24
@@ -72,18 +72,18 @@ export const styles = StyleSheet.create({
   },
 
   // Store row
-  storeRow: {
+  store_row: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: spacing.md - spacing.xs, // 12
   },
-  storeLeft: {
+  store_left: {
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.sm,
   },
-  storeIconBox: {
+  store_icon_box: {
     width: 32,
     height: 32,
     borderRadius: radius.sm,
@@ -91,24 +91,24 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  storeName: {
+  store_name: {
     fontSize: 13,
     fontWeight: "700",
     color: colors.text,
   },
-  storeMeta: {
+  store_meta: {
     fontSize: 11,
     color: colors.textMuted,
     marginTop: 1,
   },
-  storeLink: {
+  store_link: {
     fontSize: 13,
     fontWeight: "600",
     color: colors.primary,
   },
 
   // Product name
-  productName: {
+  product_name: {
     fontSize: 22,
     fontWeight: "700",
     color: colors.text,
@@ -117,24 +117,24 @@ export const styles = StyleSheet.create({
   },
 
   // Price row
-  priceRow: {
+  price_row: {
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.sm + 2,
     marginBottom: spacing.md + 2,
     flexWrap: "wrap",
   },
-  priceOriginal: {
+  price_original: {
     fontSize: 14,
     color: colors.textMuted,
     textDecorationLine: "line-through",
   },
-  priceNew: {
+  price_new: {
     fontSize: 24,
     fontWeight: "800",
     color: colors.text,
   },
-  priceSaving: {
+  price_saving: {
     fontSize: 11,
     fontWeight: "700",
     color: colors.danger,
@@ -142,18 +142,18 @@ export const styles = StyleSheet.create({
   },
 
   // Size
-  sizeLabel: {
+  size_label: {
     fontSize: 14,
     fontWeight: "700",
     color: colors.text,
     marginBottom: spacing.md - spacing.xs, // 12
   },
-  sizeRow: {
+  size_row: {
     flexDirection: "row",
     gap: spacing.sm + 2,
     marginBottom: spacing.md - spacing.xs,
   },
-  sizeOption: {
+  size_option: {
     width: 44,
     height: 44,
     borderRadius: radius.full,
@@ -163,30 +163,30 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: colors.white,
   },
-  sizeOptionSelected: {
+  size_option_selected: {
     borderColor: colors.primary,
     backgroundColor: colors.primarySoft,
   },
-  sizeOptionDisabled: {
+  size_option_disabled: {
     borderColor: colors.border,
     backgroundColor: colors.background,
   },
-  sizeText: {
+  size_text: {
     fontSize: 13,
     fontWeight: "600",
     color: colors.textMuted,
   },
-  sizeTextSelected: {
+  size_text_selected: {
     color: colors.primary,
     fontWeight: "700",
   },
-  sizeTextDisabled: {
+  size_text_disabled: {
     color: colors.border,
     textDecorationLine: "line-through",
   },
 
   // Stock warning
-  stockWarning: {
+  stock_warning: {
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.xs + 2,
@@ -196,27 +196,27 @@ export const styles = StyleSheet.create({
     paddingVertical: spacing.sm,
     marginBottom: spacing.md + 2,
   },
-  stockWarningText: {
+  stock_warning_text: {
     fontSize: 12,
     color: "#B7791F", // texto de aviso — par intencional do fundo #FFFBEB
     fontWeight: "500",
   },
 
   // Description
-  descriptionLabel: {
+  description_label: {
     fontSize: 14,
     fontWeight: "700",
     color: colors.text,
     marginBottom: spacing.xs + 2,
   },
-  descriptionText: {
+  description_text: {
     fontSize: 13,
     color: colors.textMuted,
     lineHeight: 20,
   },
 
   // Bottom bar
-  bottomBar: {
+  bottom_bar: {
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: spacing.md + spacing.xs,
@@ -227,7 +227,7 @@ export const styles = StyleSheet.create({
     borderTopColor: colors.border,
     gap: spacing.md - spacing.xs,
   },
-  wishlistBtn: {
+  wishlist_btn: {
     width: 48,
     height: 48,
     borderRadius: radius.full,
@@ -236,7 +236,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  addToCartBtn: {
+  add_to_cart_btn: {
     flex: 1,
     height: 50,
     borderRadius: radius.md,
@@ -244,7 +244,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  addToCartText: {
+  add_to_cart_text: {
     color: colors.white,
     fontSize: 15,
     fontWeight: "700",

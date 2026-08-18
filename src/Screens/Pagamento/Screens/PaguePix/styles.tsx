@@ -30,16 +30,16 @@ export const styles = StyleSheet.create({
     color: colors.textMuted,
     fontSize: 12,
   },
-  totalLabel: {
+  total_label: {
     fontSize: 13,
     color: colors.textMuted,
   },
-  totalValue: {
+  total_value: {
     fontSize: 24,
     fontWeight: "700",
     color: colors.primary,
   },
-  codeRow: {
+  code_row: {
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.sm,
@@ -53,13 +53,13 @@ export const styles = StyleSheet.create({
     fontSize: 13,
     color: colors.text,
   },
-  copyBtn: {
+  copy_btn: {
     backgroundColor: colors.primary,
     paddingVertical: spacing.sm,
     paddingHorizontal: spacing.md,
     borderRadius: radius.sm,
   },
-  copyText: {
+  copy_text: {
     color: colors.white,
     fontWeight: "600",
     fontSize: 13,

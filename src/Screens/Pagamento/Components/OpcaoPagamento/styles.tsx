@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     gap: spacing.sm,
     backgroundColor: colors.card,
   },
-  optionSelecionado: {
+  option_selecionado: {
     borderColor: colors.primary,
     backgroundColor: colors.primarySoft,
   },
@@ -25,10 +25,10 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  radioSelecionado: {
+  radio_selecionado: {
     borderColor: colors.primary,
   },
-  radioDot: {
+  radio_dot: {
     width: 10,
     height: 10,
     borderRadius: radius.full,

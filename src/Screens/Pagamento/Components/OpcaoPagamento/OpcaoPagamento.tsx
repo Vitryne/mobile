@@ -22,10 +22,10 @@ export function OpcaoPagamento({
 }: OpcaoPagamentoProps) {
   return (
     <Pressable
-      style={[styles.option, selecionado && styles.optionSelecionado]}
+      style={[styles.option, selecionado && styles.option_selecionado]}
       onPress={onPress}
     >
-      <View style={[styles.radio, selecionado && styles.radioSelecionado]}>
+      <View style={[styles.radio, selecionado && styles.radio_selecionado]}>
         {selecionado && <View style={styles.radioDot} />}
       </View>
       <View style={styles.icone}>

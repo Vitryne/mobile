@@ -41,8 +41,8 @@ export function Endereco({ navigation }: Props) {
     <View style={commonStyles.screen}>
       <Stepper passos={steps} stepAtual={0} />
 
-      <ScrollView contentContainerStyle={commonStyles.scrollContent}>
-        <Text style={commonStyles.sectionLabel}>SELECIONE UM ENDEREÇO</Text>
+      <ScrollView contentContainerStyle={commonStyles.scroll_content}>
+        <Text style={commonStyles.section_label}>SELECIONE UM ENDEREÇO</Text>
 
         {enderecos.map((e) => (
           <CardEndereco
@@ -57,31 +57,31 @@ export function Endereco({ navigation }: Props) {
         ))}
 
         {/* Box de aviso (no real seria condicional ao carrinho/seleção) */}
-        <View style={styles.alertBox}>
+        <View style={styles.alert_box}>
           <Ionicons
             name="alert-circle-outline"
             size={18}
             color={colors.danger}
             style={{ marginTop: 1 }}
           />
-          <Text style={styles.alertText}>
-            <Text style={styles.alertHighlight}>Casa Verão</Text> não entrega no
-            endereço "Trabalho". Selecione outro endereço ou remova os itens
+          <Text style={styles.alert_text}>
+            <Text style={styles.alert_highlight}>Casa Verão</Text> não entrega
+            no endereço "Trabalho". Selecione outro endereço ou remova os itens
             dessa loja.
           </Text>
         </View>
 
-        <Pressable style={styles.addBtn}>
-          <Text style={styles.addBtnText}>+ Adicionar novo endereço</Text>
+        <Pressable style={styles.add_btn}>
+          <Text style={styles.add_btn_text}>+ Adicionar novo endereço</Text>
         </Pressable>
 
         {/* Tempo estimado de entrega */}
         <View style={commonStyles.card}>
-          <Text style={styles.tempoTitle}>Tempo estimado de entrega</Text>
+          <Text style={styles.tempo_title}>Tempo estimado de entrega</Text>
           {tempos.map((t) => (
-            <View key={t.loja} style={styles.tempoRow}>
-              <Text style={styles.tempoLoja}>{t.loja}</Text>
-              <Text style={styles.tempoValor}>{t.tempo}</Text>
+            <View key={t.loja} style={styles.tempo_row}>
+              <Text style={styles.tempo_loja}>{t.loja}</Text>
+              <Text style={styles.tempo_valor}>{t.tempo}</Text>
             </View>
           ))}
         </View>
@@ -92,7 +92,7 @@ export function Endereco({ navigation }: Props) {
           style={commonStyles.button}
           onPress={() => navigation.navigate("Pagamento")}
         >
-          <Text style={commonStyles.buttonText}>Continuar para pagamento</Text>
+          <Text style={commonStyles.button_text}>Continuar para pagamento</Text>
         </Pressable>
       </View>
     </View>

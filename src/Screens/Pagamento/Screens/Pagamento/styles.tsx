@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: colors.border,
   },
-  addBtn: {
+  add_btn: {
     borderWidth: 1.5,
     borderStyle: "dashed",
     borderColor: colors.primary,
@@ -16,50 +16,50 @@ export const styles = StyleSheet.create({
     padding: spacing.md,
     alignItems: "center",
   },
-  addBtnText: {
+  add_btn_text: {
     color: colors.primary,
     fontWeight: "600",
   },
-  summaryTitle: {
+  summary_title: {
     fontSize: 15,
     fontWeight: "700",
     color: colors.text,
     marginBottom: spacing.sm,
   },
-  summaryRow: {
+  summary_row: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: spacing.sm,
   },
-  summaryLabel: {
+  summary_label: {
     fontSize: 14,
     color: colors.textMuted,
   },
-  summaryValue: {
+  summary_value: {
     fontSize: 14,
     color: colors.text,
   },
-  summaryDiscount: {
+  summary_discount: {
     color: colors.success,
   },
-  totalRow: {
+  total_row: {
     flexDirection: "row",
     justifyContent: "space-between",
     borderTopWidth: 1,
     borderTopColor: colors.border,
     paddingTop: spacing.sm,
   },
-  totalLabel: {
+  total_label: {
     fontSize: 16,
     fontWeight: "700",
     color: colors.text,
   },
-  totalValue: {
+  total_value: {
     fontSize: 16,
     fontWeight: "700",
     color: colors.primary,
   },
-  buttonRow: {
+  button_row: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

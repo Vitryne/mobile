@@ -13,39 +13,39 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     gap: spacing.xs,
   },
-  stepBadge: {
+  step_badge: {
     width: 20,
     height: 20,
     borderRadius: radius.full,
     alignItems: "center",
     justifyContent: "center",
   },
-  stepBadgeActive: {
+  step_badge_active: {
     backgroundColor: colors.primary,
   },
-  stepBadgeIdle: {
+  step_badge_idle: {
     backgroundColor: colors.border,
   },
-  stepBadgeText: {
+  step_badge_text: {
     color: colors.white,
     fontSize: 11,
     fontWeight: "700",
   },
-  stepLabel: {
+  step_label: {
     fontSize: 12,
     color: colors.textMuted,
   },
-  stepLabelActive: {
+  step_label_active: {
     color: colors.text,
     fontWeight: "600",
   },
-  stepLine: {
+  step_line: {
     flex: 1,
     height: 1,
     backgroundColor: colors.border,
     marginHorizontal: spacing.xs,
   },
-  stepLineActive: {
+  step_line_active: {
     backgroundColor: colors.primary,
   },
 });

@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     gap: spacing.sm,
     backgroundColor: colors.card,
   },
-  cardSelecionado: {
+  card_selecionado: {
     borderColor: colors.primary,
     backgroundColor: colors.primarySoft,
   },
@@ -25,10 +25,10 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 2,
   },
-  radioSelecionado: {
+  radio_selecionado: {
     borderColor: colors.primary,
   },
-  radioDot: {
+  radio_dot: {
     width: 10,
     height: 10,
     borderRadius: radius.full,
@@ -58,10 +58,10 @@ export const styles = StyleSheet.create({
     borderRadius: radius.sm,
     overflow: "hidden",
   },
-  tagPadrao: {
+  tag_padrao: {
     backgroundColor: colors.primary,
   },
-  tagAlerta: {
+  tag_alerta: {
     backgroundColor: colors.danger,
   },
 });

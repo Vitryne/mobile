@@ -52,8 +52,8 @@ export function Pagamento({ navigation }: Props) {
     <View style={commonStyles.screen}>
       <Stepper passos={steps} stepAtual={1} />
 
-      <ScrollView contentContainerStyle={commonStyles.scrollContent}>
-        <Text style={commonStyles.sectionLabel}>FORMA DE PAGAMENTO</Text>
+      <ScrollView contentContainerStyle={commonStyles.scroll_content}>
+        <Text style={commonStyles.section_label}>FORMA DE PAGAMENTO</Text>
 
         {formas.map((f) => (
           <OpcaoPagamento
@@ -67,43 +67,43 @@ export function Pagamento({ navigation }: Props) {
           />
         ))}
 
-        <Pressable style={styles.addBtn}>
-          <Text style={styles.addBtnText}>+ Novo cartão</Text>
+        <Pressable style={styles.add_btn}>
+          <Text style={styles.add_btn_text}>+ Novo cartão</Text>
         </Pressable>
 
         {/* Resumo */}
         <View style={commonStyles.card}>
-          <Text style={styles.summaryTitle}>Resumo</Text>
-          <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Subtotal</Text>
-            <Text style={styles.summaryValue}>R$ 347,00</Text>
+          <Text style={styles.summary_title}>Resumo</Text>
+          <View style={styles.summary_row}>
+            <Text style={styles.summary_label}>Subtotal</Text>
+            <Text style={styles.summary_value}>R$ 347,00</Text>
           </View>
-          <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Frete</Text>
-            <Text style={styles.summaryValue}>R$ 12,90</Text>
+          <View style={styles.summary_row}>
+            <Text style={styles.summary_label}>Frete</Text>
+            <Text style={styles.summary_value}>R$ 12,90</Text>
           </View>
-          <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Desconto PIX (5%)</Text>
-            <Text style={[styles.summaryValue, styles.summaryDiscount]}>
+          <View style={styles.summary_row}>
+            <Text style={styles.summary_label}>Desconto PIX (5%)</Text>
+            <Text style={[styles.summary_value, styles.summary_discount]}>
               - R$ 17,99
             </Text>
           </View>
-          <View style={styles.totalRow}>
-            <Text style={styles.totalLabel}>Total</Text>
-            <Text style={styles.totalValue}>R$ 341,91</Text>
+          <View style={styles.total_row}>
+            <Text style={styles.total_label}>Total</Text>
+            <Text style={styles.total_value}>R$ 341,91</Text>
           </View>
         </View>
       </ScrollView>
 
       <View style={styles.footer}>
         <Pressable style={commonStyles.button} onPress={confirmar}>
-          <View style={styles.buttonRow}>
+          <View style={styles.button_row}>
             <Ionicons
               name="information-circle-outline"
               size={18}
               color={colors.white}
             />
-            <Text style={commonStyles.buttonText}>Confirmar pedido</Text>
+            <Text style={commonStyles.button_text}>Confirmar pedido</Text>
           </View>
         </Pressable>
       </View>

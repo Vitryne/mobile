@@ -17,18 +17,23 @@ export function Stepper({ passos, stepAtual }: StepperProps) {
           <View key={label} style={[styles.step, { flex: ehUltimo ? 0 : 1 }]}>
             <View
               style={[
-                styles.stepBadge,
-                ativo ? styles.stepBadgeActive : styles.stepBadgeIdle,
+                styles.step_badge,
+                ativo ? styles.step_badge_active : styles.step_badge_idle,
               ]}
             >
-              <Text style={styles.stepBadgeText}>{i + 1}</Text>
+              <Text style={styles.step_badge_text}>{i + 1}</Text>
             </View>
-            <Text style={[styles.stepLabel, ativo && styles.stepLabelActive]}>
+            <Text
+              style={[styles.step_label, ativo && styles.step_label_active]}
+            >
               {label}
             </Text>
             {!ehUltimo && (
               <View
-                style={[styles.stepLine, linhaAtiva && styles.stepLineActive]}
+                style={[
+                  styles.step_line,
+                  linhaAtiva && styles.step_line_active,
+                ]}
               />
             )}
           </View>

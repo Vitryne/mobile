@@ -2,12 +2,12 @@ import { StyleSheet } from "react-native";
 import { colors, radius, spacing } from "../../../Styles/commonStyles";
 
 export const styles = StyleSheet.create({
-  scrollContent: {
+  scroll_content: {
     padding: spacing.md,
     gap: spacing.md,
     paddingBottom: 100,
   },
-  warningBanner: {
+  warning_banner: {
     flexDirection: "row",
     alignItems: "flex-start",
     gap: spacing.sm,
@@ -15,31 +15,31 @@ export const styles = StyleSheet.create({
     borderRadius: radius.md,
     padding: spacing.md,
   },
-  warningText: {
+  warning_text: {
     fontSize: 13,
     color: colors.text,
     lineHeight: 18,
   },
-  warningLink: {
+  warning_link: {
     fontSize: 13,
     fontWeight: "600",
     color: colors.danger,
     marginTop: 4,
   },
-  storeCard: {
+  store_card: {
     backgroundColor: colors.card,
     borderRadius: radius.lg,
     borderWidth: 1,
     borderColor: colors.border,
     padding: spacing.md,
   },
-  storeHeader: {
+  store_header: {
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.sm,
     marginBottom: spacing.md,
   },
-  storeIconBox: {
+  store_icon_box: {
     width: 32,
     height: 32,
     borderRadius: radius.sm,
@@ -49,70 +49,70 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: colors.white,
   },
-  storeName: {
+  store_name: {
     fontSize: 14,
     fontWeight: "600",
     color: colors.text,
   },
-  storeDelivery: {
+  store_delivery: {
     fontSize: 11,
     color: colors.textMuted,
     marginTop: 1,
   },
-  itemRow: {
+  item_row: {
     flexDirection: "row",
     gap: 12,
     paddingTop: spacing.md,
   },
-  itemDivider: {
+  item_divider: {
     borderTopWidth: 1,
     borderTopColor: colors.border,
     marginTop: spacing.sm,
   },
-  itemImg: {
+  item_img: {
     width: 56,
     height: 56,
     borderRadius: radius.sm,
     backgroundColor: colors.border,
   },
-  itemImgUnavailable: {
+  item_img_unavailable: {
     opacity: 0.4,
   },
-  itemInfo: {
+  item_info: {
     flex: 1,
   },
-  itemNameRow: {
+  item_name_row: {
     flexDirection: "row",
     alignItems: "flex-start",
     gap: spacing.xs,
     flexWrap: "wrap",
   },
-  itemName: {
+  item_name: {
     flex: 1,
     fontSize: 14,
     fontWeight: "500",
     color: colors.text,
     lineHeight: 18,
   },
-  unavailableBadge: {
+  unavailable_badge: {
     backgroundColor: colors.dangerSoft,
     borderRadius: radius.sm,
     paddingHorizontal: 6,
     paddingVertical: 2,
     alignSelf: "flex-start",
   },
-  unavailableBadgeText: {
+  unavailable_badge_text: {
     fontSize: 10,
     fontWeight: "700",
     color: colors.danger,
     letterSpacing: 0.3,
   },
-  itemSize: {
+  item_size: {
     fontSize: 12,
     color: colors.textMuted,
     marginTop: 3,
   },
-  itemFooter: {
+  item_footer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -123,7 +123,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     gap: spacing.xs,
   },
-  qtyBtnOutline: {
+  qty_btn_outline: {
     width: 28,
     height: 28,
     borderRadius: radius.full,
@@ -133,12 +133,12 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: colors.white,
   },
-  qtyBtnOutlineText: {
+  qty_btn_outline_text: {
     fontSize: 18,
     color: colors.text,
     lineHeight: 22,
   },
-  qtyBtnFilled: {
+  qty_btn_filled: {
     width: 28,
     height: 28,
     borderRadius: radius.full,
@@ -146,24 +146,24 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  qtyBtnFilledText: {
+  qty_btn_filled_text: {
     fontSize: 18,
     color: colors.white,
     lineHeight: 22,
   },
-  qtyNum: {
+  qty_num: {
     fontSize: 14,
     fontWeight: "500",
     color: colors.text,
     minWidth: 16,
     textAlign: "center",
   },
-  itemPrice: {
+  item_price: {
     fontSize: 15,
     fontWeight: "700",
     color: colors.text,
   },
-  summarySection: {
+  summary_section: {
     gap: spacing.sm,
     backgroundColor: colors.card,
     borderRadius: radius.lg,
@@ -171,25 +171,25 @@ export const styles = StyleSheet.create({
     borderColor: colors.border,
     padding: spacing.md,
   },
-  sumRow: {
+  sum_row: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
-  sumLabel: {
+  sum_label: {
     fontSize: 14,
     color: colors.textMuted,
   },
-  sumVal: {
+  sum_val: {
     fontSize: 14,
     color: colors.text,
   },
-  sumDiscount: {
+  sum_discount: {
     fontSize: 14,
     color: colors.success,
     fontWeight: "500",
   },
-  sumTotalRow: {
+  sum_total_row: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -198,32 +198,32 @@ export const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: colors.border,
   },
-  sumTotalLabel: {
+  sum_total_label: {
     fontSize: 16,
     fontWeight: "700",
     color: colors.text,
   },
-  sumTotalVal: {
+  sum_total_val: {
     fontSize: 18,
     fontWeight: "700",
     color: colors.primary,
   },
 
   // CTA
-  ctaArea: {
+  cta_area: {
     padding: spacing.md,
     paddingBottom: 20,
     backgroundColor: colors.white,
     borderTopWidth: 1,
     borderTopColor: colors.border,
   },
-  ctaBtn: {
+  cta_btn: {
     backgroundColor: colors.primary,
     borderRadius: radius.md,
     paddingVertical: 16,
     alignItems: "center",
   },
-  ctaText: {
+  cta_text: {
     fontSize: 16,
     fontWeight: "600",
     color: colors.white,

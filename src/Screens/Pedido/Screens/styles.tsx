@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     gap: spacing.md,
   },
-  checkCircle: {
+  check_circle: {
     width: 88,
     height: 88,
     borderRadius: radius.full,
@@ -30,10 +30,10 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     lineHeight: 20,
   },
-  protocolCard: {
+  protocol_card: {
     width: "100%",
   },
-  protocolLabel: {
+  protocol_label: {
     fontSize: 12,
     fontWeight: "700",
     color: colors.textMuted,
@@ -55,7 +55,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: spacing.sm,
   },
-  lojaThumb: {
+  loja_thumb: {
     width: 32,
     height: 32,
     borderRadius: radius.sm,
@@ -63,12 +63,12 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  lojaNome: {
+  loja_nome: {
     fontSize: 14,
     fontWeight: "600",
     color: colors.text,
   },
-  lojaStatus: {
+  loja_status: {
     fontSize: 12,
     color: colors.textMuted,
   },
