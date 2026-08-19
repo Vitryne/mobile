@@ -80,8 +80,8 @@ export function Endereco({ navigation }: Props) {
           <Text style={styles.tempo_title}>Tempo estimado de entrega</Text>
           {tempos.map((t) => (
             <View key={t.loja} style={styles.tempo_row}>
-              <Text style={styles.tempo_loja}>{t.loja}</Text>
-              <Text style={styles.tempo_valor}>{t.tempo}</Text>
+              <Text style={styles.tempo_store}>{t.loja}</Text>
+              <Text style={styles.tempo_price}>{t.tempo}</Text>
             </View>
           ))}
         </View>

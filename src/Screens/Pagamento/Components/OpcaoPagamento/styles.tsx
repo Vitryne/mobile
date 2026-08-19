@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     gap: spacing.sm,
     backgroundColor: colors.card,
   },
-  option_selecionado: {
+  option_selected: {
     borderColor: colors.primary,
     backgroundColor: colors.primarySoft,
   },
@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  radio_selecionado: {
+  radio_selected: {
     borderColor: colors.primary,
   },
   radio_dot: {
@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
     borderRadius: radius.full,
     backgroundColor: colors.primary,
   },
-  icone: {
+  icon: {
     width: 36,
     height: 36,
     borderRadius: radius.sm,
@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  titulo: {
+  title: {
     fontSize: 15,
     fontWeight: "600",
     color: colors.text,

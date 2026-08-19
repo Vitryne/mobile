@@ -22,13 +22,13 @@ export function OpcaoPagamento({
 }: OpcaoPagamentoProps) {
   return (
     <Pressable
-      style={[styles.option, selecionado && styles.option_selecionado]}
+      style={[styles.option, selecionado && styles.option_selected]}
       onPress={onPress}
     >
-      <View style={[styles.radio, selecionado && styles.radio_selecionado]}>
+      <View style={[styles.radio, selecionado && styles.radio_selected]}>
         {selecionado && <View style={styles.radioDot} />}
       </View>
-      <View style={styles.icone}>
+      <View style={styles.icon}>
         {familia === "fa6" ? (
           <FontAwesome6
             name={icone}
@@ -41,7 +41,7 @@ export function OpcaoPagamento({
         )}
       </View>
       <View style={{ flex: 1 }}>
-        <Text style={styles.titulo}>{titulo}</Text>
+        <Text style={styles.title}>{titulo}</Text>
         <Text style={styles.desc}>{desc}</Text>
       </View>
     </Pressable>

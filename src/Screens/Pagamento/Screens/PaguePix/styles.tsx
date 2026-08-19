@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     gap: spacing.md,
   },
-  expiraLabel: {
+  expire_label: {
     fontSize: 12,
     fontWeight: "700",
     color: colors.textMuted,

@@ -49,13 +49,13 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.border,
     marginVertical: spacing.md,
   },
-  loja: {
+  store: {
     flexDirection: "row",
     gap: spacing.sm,
     alignItems: "center",
     paddingVertical: spacing.sm,
   },
-  loja_thumb: {
+  store_thumb: {
     width: 32,
     height: 32,
     borderRadius: radius.sm,
@@ -63,12 +63,12 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  loja_nome: {
+  store_name: {
     fontSize: 14,
     fontWeight: "600",
     color: colors.text,
   },
-  loja_status: {
+  store_status: {
     fontSize: 12,
     color: colors.textMuted,
   },

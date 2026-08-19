@@ -35,8 +35,8 @@ export function PedidoConfirmado({ navigation, route }: Props) {
           <View style={styles.divider} />
 
           {lojas.map((l) => (
-            <View key={l.id} style={styles.loja}>
-              <View style={styles.loja_thumb}>
+            <View key={l.id} style={styles.store}>
+              <View style={styles.store_thumb}>
                 <Ionicons
                   name="storefront-outline"
                   size={16}
@@ -44,8 +44,8 @@ export function PedidoConfirmado({ navigation, route }: Props) {
                 />
               </View>
               <View>
-                <Text style={styles.loja_nome}>{l.nome}</Text>
-                <Text style={styles.loja_status}>{l.status}</Text>
+                <Text style={styles.store_name}>{l.nome}</Text>
+                <Text style={styles.store_status}>{l.status}</Text>
               </View>
             </View>
           ))}

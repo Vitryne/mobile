@@ -102,10 +102,10 @@ export const styles = StyleSheet.create({
     borderRadius: radius.sm,
     overflow: "hidden",
   },
-  tag_padrao: {
+  tag_default: {
     backgroundColor: colors.primary,
   },
-  tag_alerta: {
+  tag_alert: {
     backgroundColor: colors.danger,
   },
   alert_box: {
@@ -148,11 +148,11 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingVertical: spacing.xs,
   },
-  tempo_loja: {
+  tempo_store: {
     fontSize: 14,
     color: colors.textMuted,
   },
-  tempo_valor: {
+  tempo_price: {
     fontSize: 14,
     fontWeight: "600",
     color: colors.text,

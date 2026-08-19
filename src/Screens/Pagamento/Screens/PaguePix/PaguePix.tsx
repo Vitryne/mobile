@@ -14,7 +14,7 @@ export function PaguePix({ navigation, route }: Props) {
   return (
     <View style={commonStyles.screen}>
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.expiraLabel}>EXPIRA EM</Text>
+        <Text style={styles.expire_label}>EXPIRA EM</Text>
         <Text style={styles.timer}>27:42</Text>
 
         {/* QR mock — aqui entraria <QRCode value={codigoPix} /> */}
