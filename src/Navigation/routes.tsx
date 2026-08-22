@@ -2,12 +2,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { colors } from "../Styles/estilosComuns";
 import { RootStackParamList } from "../Types/navegacao";
 
-import { HeaderBack } from "../Components/botaoVoltar";
-import { Endereco } from "../Screens/Endereco";
-import { MenuCarrinho } from "../Screens/Carrinho";
-import { PedidoConfirmado } from "../Screens/Pedido";
-import { Pagamento, PaguePix } from "../Screens/Pagamento";
-import { Produto } from "../Screens/Produto";
+import { HeaderBack } from "../Components/backButton";
+import { Endereco } from "../Screens/Address";
+import { MenuCarrinho } from "../Screens/Cart";
+import { PedidoConfirmado } from "../Screens/Order";
+import { Pagamento, PaguePix } from "../Screens/Payment";
+import { Produto } from "../Screens/Product";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
