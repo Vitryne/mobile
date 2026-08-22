@@ -1,7 +1,7 @@
 import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Pressable } from 'react-native';
-import { colors } from '../Styles/estilosComuns';
+import { colors } from '../Styles/commonStyles';
 
 export function HeaderBack() {
   const navigation = useNavigation();

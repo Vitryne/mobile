@@ -2,8 +2,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { fmt, useMenuCarrinho } from "../../../Hooks/cartMenu";
-import { colors, commonStyles } from "../../../Styles/estilosComuns";
-import { RootStackParamList } from "../../../Types/navegacao";
+import { colors, commonStyles } from "../../../Styles/commonStyles";
+import { RootStackParamList } from "../../../Types/navigation";
 import { styles } from "./styles";
 
 type Props = NativeStackScreenProps<RootStackParamList, "MenuCarrinho">;

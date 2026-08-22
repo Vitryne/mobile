@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { commonStyles } from "../../../../Styles/estilosComuns";
-import { RootStackParamList } from "../../../../Types/navegacao";
+import { commonStyles } from "../../../../Styles/commonStyles";
+import { RootStackParamList } from "../../../../Types/navigation";
 import { styles } from "./styles";
 
 type Props = NativeStackScreenProps<RootStackParamList, "PaguePix">;

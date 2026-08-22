@@ -1,6 +1,6 @@
 import { FontAwesome6, Ionicons } from "@expo/vector-icons";
 import { Pressable, Text, View } from "react-native";
-import { colors } from "../../../../Styles/estilosComuns";
+import { colors } from "../../../../Styles/commonStyles";
 import { styles } from "./styles";
 
 type OpcaoPagamentoProps = {

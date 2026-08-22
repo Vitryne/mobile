@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
-import { RootStackParamList } from "../../../Types/navegacao";
+import { RootStackParamList } from "../../../Types/navigation";
 import { styles } from "./styles";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Produto">;

@@ -3,8 +3,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { Stepper } from "../../../../Components/Stepper/stepper";
-import { colors, commonStyles } from "../../../../Styles/estilosComuns";
-import { RootStackParamList } from "../../../../Types/navegacao";
+import { colors, commonStyles } from "../../../../Styles/commonStyles";
+import { RootStackParamList } from "../../../../Types/navigation";
 import { OpcaoPagamento } from "../../Components/PaymentOption/paymentOption";
 import { styles } from "./styles";
 

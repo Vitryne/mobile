@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { colors } from "../Styles/estilosComuns";
-import { RootStackParamList } from "../Types/navegacao";
+import { colors } from "../Styles/commonStyles";
+import { RootStackParamList } from "../Types/navigation";
 
 import { HeaderBack } from "../Components/backButton";
 import { Endereco } from "../Screens/Address";
