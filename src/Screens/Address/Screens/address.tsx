@@ -2,10 +2,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { Stepper } from "../../../Components/Stepper/Stepper";
+import { Stepper } from "../../../Components/Stepper/stepper";
 import { colors, commonStyles } from "../../../Styles/commonStyles";
 import { RootStackParamList } from "../../../Types/navigation";
-import { CardEndereco } from "../Componets/CardEndereco/CardEndereco";
+import { CardEndereco } from "../Components/AddressCard/addressCard";
 import { styles } from "./styles";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Endereco">;
