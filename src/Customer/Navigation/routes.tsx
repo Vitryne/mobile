@@ -5,6 +5,7 @@ import { RootStackParamList } from "../Types/navigation";
 import { HeaderBack } from "../Components/backButton";
 import { Endereco } from "../Screens/Address";
 import { MenuCarrinho } from "../Screens/Cart";
+import { Carregamento } from "../Screens/Loading";
 import { PedidoConfirmado } from "../Screens/Order";
 import { Pagamento, PaguePix } from "../Screens/Payment";
 import { Produto } from "../Screens/Product";
@@ -26,6 +27,11 @@ export function Rotas() {
         contentStyle: { backgroundColor: colors.background },
       }}
     >
+      <Stack.Screen
+        name="Carregamento"
+        component={Carregamento}
+        options={{ title: "Carregamento" }}
+      />
       <Stack.Screen
         name="MenuCarrinho"
         component={MenuCarrinho}

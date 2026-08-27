@@ -1,4 +1,5 @@
 export type RootStackParamList = {
+  Carregamento: undefined;
   MenuCarrinho: undefined;
   Endereco: undefined;
   Pagamento: undefined;
