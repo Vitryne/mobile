@@ -1,0 +1,112 @@
+import { Ionicons } from "@expo/vector-icons";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useState } from "react";
+import { Pressable, ScrollView, Text, View } from "react-native";
+import { colors, commonStyles } from "../../../../../Shared/Styles/commonStyles";
+import { Stepper } from "../../../../Components/Stepper/stepper";
+import { RootStackParamList } from "../../../../Types/navigation";
+import { OpcaoPagamento } from "../../Components/PaymentOption/paymentOption";
+import { styles } from "./styles";
+
+type Props = NativeStackScreenProps<RootStackParamList, "Pagamento">;
+
+const formas = [
+  {
+    id: "pix",
+    titulo: "PIX",
+    desc: "Aprovação imediata · 5% OFF",
+    icone: "pix",
+    familia: "fa6" as const,
+  },
+  {
+    id: "credito",
+    titulo: "Cartão de crédito",
+    desc: "Até 12x · Visa •••• 4521",
+    icone: "card-outline",
+    familia: "ion" as const,
+  },
+  {
+    id: "debito",
+    titulo: "Cartão de débito",
+    desc: "Aprovação imediata",
+    icone: "card-outline",
+    familia: "ion" as const,
+  },
+];
+
+const steps = ["Endereço", "Pagamento", "Confirmação"];
+
+export function Pagamento({ navigation }: Props) {
+  const [forma, setForma] = useState("pix");
+
+  function confirmar() {
+    const orderId = "VTR-2024-08412"; // mock
+    if (forma === "pix") {
+      navigation.navigate("PaguePix", { orderId });
+    } else {
+      navigation.navigate("PedidoConfirmado", { orderId });
+    }
+  }
+
+  return (
+    <View style={commonStyles.screen}>
+      <Stepper passos={steps} stepAtual={1} />
+
+      <ScrollView contentContainerStyle={commonStyles.scroll_content}>
+        <Text style={commonStyles.section_label}>FORMA DE PAGAMENTO</Text>
+
+        {formas.map((f) => (
+          <OpcaoPagamento
+            key={f.id}
+            titulo={f.titulo}
+            desc={f.desc}
+            icone={f.icone}
+            familia={f.familia}
+            selecionado={forma === f.id}
+            onPress={() => setForma(f.id)}
+          />
+        ))}
+
+        <Pressable style={styles.add_btn}>
+          <Text style={styles.add_btn_text}>+ Novo cartão</Text>
+        </Pressable>
+
+        {/* Resumo */}
+        <View style={commonStyles.card}>
+          <Text style={styles.summary_title}>Resumo</Text>
+          <View style={styles.summary_row}>
+            <Text style={styles.summary_label}>Subtotal</Text>
+            <Text style={styles.summary_value}>R$ 347,00</Text>
+          </View>
+          <View style={styles.summary_row}>
+            <Text style={styles.summary_label}>Frete</Text>
+            <Text style={styles.summary_value}>R$ 12,90</Text>
+          </View>
+          <View style={styles.summary_row}>
+            <Text style={styles.summary_label}>Desconto PIX (5%)</Text>
+            <Text style={[styles.summary_value, styles.summary_discount]}>
+              - R$ 17,99
+            </Text>
+          </View>
+          <View style={styles.total_row}>
+            <Text style={styles.total_label}>Total</Text>
+            <Text style={styles.total_value}>R$ 341,91</Text>
+          </View>
+        </View>
+      </ScrollView>
+
+      <View style={styles.footer}>
+        <Pressable style={commonStyles.button} onPress={confirmar}>
+          <View style={styles.button_row}>
+            <Ionicons
+              name="information-circle-outline"
+              size={18}
+              color={colors.white}
+            />
+            <Text style={commonStyles.button_text}>Confirmar pedido</Text>
+          </View>
+        </Pressable>
+      </View>
+    </View>
+  );
+}
