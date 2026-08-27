@@ -19,39 +19,39 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     gap: spacing.xs,
   },
-  stepBadge: {
+  step_badge: {
     width: 20,
     height: 20,
     borderRadius: radius.full,
     alignItems: "center",
     justifyContent: "center",
   },
-  stepBadgeActive: {
+  step_badge_active: {
     backgroundColor: colors.primary,
   },
-  stepBadgeIdle: {
+  step_badge_idle: {
     backgroundColor: colors.border,
   },
-  stepBadgeText: {
+  step_badge_text: {
     color: colors.white,
     fontSize: 11,
     fontWeight: "700",
   },
-  stepLabel: {
+  step_label: {
     fontSize: 12,
     color: colors.textMuted,
   },
-  stepLabelActive: {
+  step_label_active: {
     color: colors.text,
     fontWeight: "600",
   },
-  stepLine: {
+  step_line: {
     flex: 1,
     height: 1,
     backgroundColor: colors.border,
     marginHorizontal: spacing.xs,
   },
-  addressCard: {
+  address_card: {
     borderWidth: 1.5,
     borderColor: colors.border,
     borderRadius: radius.md,
@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
     gap: spacing.sm,
     backgroundColor: colors.card,
   },
-  addressCardSelected: {
+  address_card_selected: {
     borderColor: colors.primary,
     backgroundColor: colors.primarySoft,
   },
@@ -74,21 +74,21 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 2,
   },
-  radioSelected: {
+  radio_selected: {
     borderColor: colors.primary,
   },
-  radioDot: {
+  radio_dot: {
     width: 10,
     height: 10,
     borderRadius: radius.full,
     backgroundColor: colors.primary,
   },
-  addressTitle: {
+  address_title: {
     fontSize: 15,
     fontWeight: "600",
     color: colors.text,
   },
-  addressText: {
+  address_text: {
     fontSize: 13,
     color: colors.textMuted,
     marginTop: 2,
@@ -102,30 +102,30 @@ export const styles = StyleSheet.create({
     borderRadius: radius.sm,
     overflow: "hidden",
   },
-  tagPadrao: {
+  tag_default: {
     backgroundColor: colors.primary,
   },
-  tagAlerta: {
+  tag_alert: {
     backgroundColor: colors.danger,
   },
-  alertBox: {
+  alert_box: {
     flexDirection: "row",
     gap: spacing.sm,
     backgroundColor: colors.dangerSoft,
     borderRadius: radius.md,
     padding: spacing.md,
   },
-  alertText: {
+  alert_text: {
     flex: 1,
     fontSize: 13,
     color: colors.textMuted,
     lineHeight: 18,
   },
-  alertHighlight: {
+  alert_highlight: {
     color: colors.danger,
     fontWeight: "700",
   },
-  addBtn: {
+  add_btn: {
     borderWidth: 1.5,
     borderStyle: "dashed",
     borderColor: colors.primary,
@@ -133,26 +133,26 @@ export const styles = StyleSheet.create({
     padding: spacing.md,
     alignItems: "center",
   },
-  addBtnText: {
+  add_btn_text: {
     color: colors.primary,
     fontWeight: "600",
   },
-  tempoTitle: {
+  tempo_title: {
     fontSize: 15,
     fontWeight: "700",
     color: colors.text,
     marginBottom: spacing.sm,
   },
-  tempoRow: {
+  tempo_row: {
     flexDirection: "row",
     justifyContent: "space-between",
     paddingVertical: spacing.xs,
   },
-  tempoLoja: {
+  tempo_store: {
     fontSize: 14,
     color: colors.textMuted,
   },
-  tempoValor: {
+  tempo_price: {
     fontSize: 14,
     fontWeight: "600",
     color: colors.text,

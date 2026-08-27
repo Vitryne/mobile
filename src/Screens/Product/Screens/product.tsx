@@ -24,92 +24,92 @@ export function Produto({ navigation }: Props) {
         showsVerticalScrollIndicator={false}
       >
         {/* Product image area */}
-        <View style={styles.imageContainer}>
+        <View style={styles.image_container}>
           <Image
             source={{
               uri: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=600&q=80",
             }}
-            style={styles.productImage}
+            style={styles.product_image}
             resizeMode="contain"
           />
 
           {/* Back button */}
-          <Pressable style={styles.iconTopLeft}>
+          <Pressable style={styles.icon_top_left}>
             <Text style={{ fontSize: 18, color: "#333" }}>‹</Text>
           </Pressable>
 
           {/* Discount badge */}
           <View
             style={[
-              styles.badgeDiscount,
+              styles.badge_discount,
               { top: 16, left: 0, right: 0, alignSelf: "center", width: 68 },
             ]}
           >
-            <Text style={styles.badgeDiscountText}>-20% OFF</Text>
+            <Text style={styles.badge_discount_text}>-20% OFF</Text>
           </View>
 
           {/* Top right icons */}
-          <View style={styles.iconTopRight}>
-            <Pressable style={styles.iconCircle}>
+          <View style={styles.icon_top_right}>
+            <Pressable style={styles.icon_circle}>
               <Text style={{ fontSize: 16 }}>♡</Text>
             </Pressable>
-            <Pressable style={styles.iconCircle}>
+            <Pressable style={styles.icon_circle}>
               <Text style={{ fontSize: 15 }}>⎙</Text>
             </Pressable>
           </View>
         </View>
 
         {/* Info card */}
-        <View style={styles.infoCard}>
+        <View style={styles.info_card}>
           {/* Store row */}
-          <View style={styles.storeRow}>
-            <View style={styles.storeLeft}>
-              <View style={styles.storeIconBox}>
+          <View style={styles.store_row}>
+            <View style={styles.store_left}>
+              <View style={styles.store_icon_box}>
                 <Text style={{ fontSize: 14 }}>✉️</Text>
               </View>
               <View>
-                <Text style={styles.storeName}>Atelier Lua</Text>
-                <Text style={styles.storeMeta}>
+                <Text style={styles.store_name}>Atelier Lua</Text>
+                <Text style={styles.store_meta}>
                   ★ 4,8 (212) · 1,2 km · ABERTA
                 </Text>
               </View>
             </View>
-            <Text style={styles.storeLink}>Ver loja →</Text>
+            <Text style={styles.store_link}>Ver loja →</Text>
           </View>
 
           {/* Product name */}
-          <Text style={styles.productName}>
+          <Text style={styles.product_name}>
             Vestido Midi Linho — Verde Sálvia
           </Text>
 
           {/* Price */}
-          <View style={styles.priceRow}>
-            <Text style={styles.priceOriginal}>R$ 240,00</Text>
-            <Text style={styles.priceNew}>R$ 189,00</Text>
-            <Text style={styles.priceSaving}>Você economiza R$ 51</Text>
+          <View style={styles.price_row}>
+            <Text style={styles.price_original}>R$ 240,00</Text>
+            <Text style={styles.price_new}>R$ 189,00</Text>
+            <Text style={styles.price_saving}>Você economiza R$ 51</Text>
           </View>
 
           {/* Size selector */}
-          <Text style={styles.sizeLabel}>Tamanho</Text>
-          <View style={styles.sizeRow}>
+          <Text style={styles.size_label}>Tamanho</Text>
+          <View style={styles.size_row}>
             {SIZES.map((size) => {
               const isSelected = selectedSize === size.label;
               return (
                 <Pressable
                   key={size.label}
                   style={[
-                    styles.sizeOption,
-                    isSelected && styles.sizeOptionSelected,
-                    size.disabled && styles.sizeOptionDisabled,
+                    styles.size_option,
+                    isSelected && styles.size_option_selected,
+                    size.disabled && styles.size_option_disabled,
                   ]}
                   onPress={() => !size.disabled && setSelectedSize(size.label)}
                   disabled={size.disabled}
                 >
                   <Text
                     style={[
-                      styles.sizeText,
-                      isSelected && styles.sizeTextSelected,
-                      size.disabled && styles.sizeTextDisabled,
+                      styles.size_text,
+                      isSelected && styles.size_text_selected,
+                      size.disabled && styles.size_text_disabled,
                     ]}
                   >
                     {size.label}
@@ -121,17 +121,17 @@ export function Produto({ navigation }: Props) {
 
           {/* Stock warning */}
           {selectedSize === "M" && (
-            <View style={styles.stockWarning}>
+            <View style={styles.stock_warning}>
               <Text>⚠️</Text>
-              <Text style={styles.stockWarningText}>
+              <Text style={styles.stock_warning_text}>
                 Apenas 3 restantes neste tamanho
               </Text>
             </View>
           )}
 
           {/* Description */}
-          <Text style={styles.descriptionLabel}>Descrição</Text>
-          <Text style={styles.descriptionText}>
+          <Text style={styles.description_label}>Descrição</Text>
+          <Text style={styles.description_text}>
             Vestido midi confeccionado em linho puro, na cor Verde Sálvia.
             Modelagem solta e confortável, ideal para o dia a dia ou ocasiões
             especiais. Possui alças finas ajustáveis e abertura discreta nas
@@ -141,15 +141,15 @@ export function Produto({ navigation }: Props) {
       </ScrollView>
 
       {/* Bottom action bar */}
-      <View style={styles.bottomBar}>
-        <Pressable style={styles.wishlistBtn}>
+      <View style={styles.bottom_bar}>
+        <Pressable style={styles.wishlist_btn}>
           <Text style={{ fontSize: 20 }}>♡</Text>
         </Pressable>
         <Pressable
-          style={styles.addToCartBtn}
+          style={styles.add_to_cart_btn}
           onPress={() => navigation.navigate("MenuCarrinho")}
         >
-          <Text style={styles.addToCartText}>Adicionar ao carrinho</Text>
+          <Text style={styles.add_to_cart_text}>Adicionar ao carrinho</Text>
         </Pressable>
       </View>
     </View>

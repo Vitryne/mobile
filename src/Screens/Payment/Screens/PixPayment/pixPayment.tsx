@@ -14,7 +14,7 @@ export function PaguePix({ navigation, route }: Props) {
   return (
     <View style={commonStyles.screen}>
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.expiraLabel}>EXPIRA EM</Text>
+        <Text style={styles.expire_label}>EXPIRA EM</Text>
         <Text style={styles.timer}>27:42</Text>
 
         {/* QR mock — aqui entraria <QRCode value={codigoPix} /> */}
@@ -22,15 +22,15 @@ export function PaguePix({ navigation, route }: Props) {
           <Text style={styles.qrText}>QR Code</Text>
         </View>
 
-        <Text style={styles.totalLabel}>Total a pagar</Text>
-        <Text style={styles.totalValue}>R$ 341,91</Text>
+        <Text style={styles.total_label}>Total a pagar</Text>
+        <Text style={styles.total_value}>R$ 341,91</Text>
 
-        <View style={styles.codeRow}>
+        <View style={styles.code_row}>
           <Text style={styles.code} numberOfLines={1}>
             {codigoPix}
           </Text>
-          <Pressable style={styles.copyBtn}>
-            <Text style={styles.copyText}>Copiar</Text>
+          <Pressable style={styles.copy_btn}>
+            <Text style={styles.copy_text}>Copiar</Text>
           </Pressable>
         </View>
 
@@ -44,7 +44,7 @@ export function PaguePix({ navigation, route }: Props) {
           style={styles.button}
           onPress={() => navigation.navigate("PedidoConfirmado", { orderId })}
         >
-          <Text style={commonStyles.buttonText}>Simular pagamento</Text>
+          <Text style={commonStyles.button_text}>Simular pagamento</Text>
         </Pressable>
       </ScrollView>
     </View>
