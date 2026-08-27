@@ -1,0 +1,231 @@
+import { StyleSheet } from "react-native";
+import { colors, radius, spacing } from "../../../../Shared/Styles/commonStyles";
+
+export const styles = StyleSheet.create({
+  scroll_content: {
+    padding: spacing.md,
+    gap: spacing.md,
+    paddingBottom: 100,
+  },
+  warning_banner: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: spacing.sm,
+    backgroundColor: colors.dangerSoft,
+    borderRadius: radius.md,
+    padding: spacing.md,
+  },
+  warning_text: {
+    fontSize: 13,
+    color: colors.text,
+    lineHeight: 18,
+  },
+  warning_link: {
+    fontSize: 13,
+    fontWeight: "600",
+    color: colors.danger,
+    marginTop: 4,
+  },
+  store_card: {
+    backgroundColor: colors.card,
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: spacing.md,
+  },
+  store_header: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm,
+    marginBottom: spacing.md,
+  },
+  store_icon_box: {
+    width: 32,
+    height: 32,
+    borderRadius: radius.sm,
+    borderWidth: 1,
+    borderColor: colors.border,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.white,
+  },
+  store_name: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: colors.text,
+  },
+  store_delivery: {
+    fontSize: 11,
+    color: colors.textMuted,
+    marginTop: 1,
+  },
+  item_row: {
+    flexDirection: "row",
+    gap: 12,
+    paddingTop: spacing.md,
+  },
+  item_divider: {
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+    marginTop: spacing.sm,
+  },
+  item_img: {
+    width: 56,
+    height: 56,
+    borderRadius: radius.sm,
+    backgroundColor: colors.border,
+  },
+  item_img_unavailable: {
+    opacity: 0.4,
+  },
+  item_info: {
+    flex: 1,
+  },
+  item_name_row: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: spacing.xs,
+    flexWrap: "wrap",
+  },
+  item_name: {
+    flex: 1,
+    fontSize: 14,
+    fontWeight: "500",
+    color: colors.text,
+    lineHeight: 18,
+  },
+  unavailable_badge: {
+    backgroundColor: colors.dangerSoft,
+    borderRadius: radius.sm,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    alignSelf: "flex-start",
+  },
+  unavailable_badge_text: {
+    fontSize: 10,
+    fontWeight: "700",
+    color: colors.danger,
+    letterSpacing: 0.3,
+  },
+  item_size: {
+    fontSize: 12,
+    color: colors.textMuted,
+    marginTop: 3,
+  },
+  item_footer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: spacing.sm,
+  },
+  qty: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.xs,
+  },
+  qty_btn_outline: {
+    width: 28,
+    height: 28,
+    borderRadius: radius.full,
+    borderWidth: 1,
+    borderColor: colors.border,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.white,
+  },
+  qty_btn_outline_text: {
+    fontSize: 18,
+    color: colors.text,
+    lineHeight: 22,
+  },
+  qty_btn_filled: {
+    width: 28,
+    height: 28,
+    borderRadius: radius.full,
+    backgroundColor: colors.primary,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  qty_btn_filled_text: {
+    fontSize: 18,
+    color: colors.white,
+    lineHeight: 22,
+  },
+  qty_num: {
+    fontSize: 14,
+    fontWeight: "500",
+    color: colors.text,
+    minWidth: 16,
+    textAlign: "center",
+  },
+  item_price: {
+    fontSize: 15,
+    fontWeight: "700",
+    color: colors.text,
+  },
+  summary_section: {
+    gap: spacing.sm,
+    backgroundColor: colors.card,
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: spacing.md,
+  },
+  sum_row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  sum_label: {
+    fontSize: 14,
+    color: colors.textMuted,
+  },
+  sum_val: {
+    fontSize: 14,
+    color: colors.text,
+  },
+  sum_discount: {
+    fontSize: 14,
+    color: colors.success,
+    fontWeight: "500",
+  },
+  sum_total_row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: spacing.xs,
+    paddingTop: spacing.sm,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+  },
+  sum_total_label: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: colors.text,
+  },
+  sum_total_val: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: colors.primary,
+  },
+
+  // CTA
+  cta_area: {
+    padding: spacing.md,
+    paddingBottom: 20,
+    backgroundColor: colors.white,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+  },
+  cta_btn: {
+    backgroundColor: colors.primary,
+    borderRadius: radius.md,
+    paddingVertical: 16,
+    alignItems: "center",
+  },
+  cta_text: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: colors.white,
+  },
+});

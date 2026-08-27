@@ -14,5 +14,5 @@
   "include": [
     "**/*.ts",
     "**/*.tsx"
-, "src/Screens/Payment/Components/PaymentOption/paymentOption.tsx"  ]
+, "src/Customer/Screens/Payment/Components/PaymentOption/paymentOption.tsx"  ]
 }
