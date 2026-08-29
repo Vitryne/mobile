@@ -15,7 +15,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export function Rotas() {
   return (
     <Stack.Navigator
-      initialRouteName="Produto"
+      initialRouteName="Carregamento"
       screenOptions={{
         headerStyle: { backgroundColor: colors.background },
         headerTintColor: colors.text,
@@ -30,7 +30,7 @@ export function Rotas() {
       <Stack.Screen
         name="Carregamento"
         component={Carregamento}
-        options={{ title: "Carregamento" }}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="MenuCarrinho"
