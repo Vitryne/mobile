@@ -1,3 +1,3 @@
 export type RootStackParamList = {
-  Registro1: undefined;
+  Register1: undefined;
 };
