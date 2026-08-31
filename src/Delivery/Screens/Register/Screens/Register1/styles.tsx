@@ -16,6 +16,21 @@ export const styles = StyleSheet.create({
     color: colors.text,
     lineHeight: 30,
   },
+  box_title: {
+    backgroundColor: colors.primarySoft,
+    padding: 2,
+    borderRadius: 15,
+    flexDirection: "row",
+    width: 190,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  box_title_text: {
+    marginTop: 4,
+    fontSize: 13,
+    color: colors.primary,
+    fontWeight: "bold"
+  },
   subtitle: {
     marginTop: 4,
     fontSize: 13,
@@ -28,8 +43,6 @@ export const styles = StyleSheet.create({
   },
   footer: {
     paddingHorizontal: 20,
-    paddingTop: 12,
-    paddingBottom: 28,
     backgroundColor: colors.background,
   },
 });

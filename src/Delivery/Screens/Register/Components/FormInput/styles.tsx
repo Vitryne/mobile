@@ -3,7 +3,7 @@ import { colors } from "../../../../../Shared/Styles/commonStyles";
 
 export const styles = StyleSheet.create({
   container: {
-    marginTop: 18,
+    marginTop: 10,
   },
   label: {
     fontSize: 13,

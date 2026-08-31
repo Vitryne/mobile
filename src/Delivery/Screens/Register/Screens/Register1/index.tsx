@@ -1,9 +1,8 @@
 import {
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
   Text,
-  View,
+  View
 } from "react-native";
 import { useRegisterForm } from "../../../../Hooks/registroForm";
 import { FormInput } from "../../Components/FormInput";
@@ -23,13 +22,15 @@ export function Register1() {
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
-      <ScrollView
-        contentContainerStyle={styles.scrollContent}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
-      >
-        <Text style={styles.title}>Crie sua conta de entregador</Text>
-        <Text style={styles.subtitle}>Passo 1 de 4 · Dados pessoais</Text>
+      <View style={styles.scrollContent}>
+        <View style={styles.box_title}>
+          <Text style={styles.box_title_text}>
+             ENTREGADOR ·  Passo 1 de 4 
+          </Text>
+        </View>
+        <Text style={styles.title}>Crie sua conta de</Text>
+        <Text style={styles.title}>entregador</Text>
+        <Text style={styles.subtitle}>Comece a faturar entregando moda na sua região.</Text>
 
         <FormInput
           label="Nome Completo"
@@ -97,7 +98,7 @@ export function Register1() {
           onChangeText={form.setConfirmPassword}
           isValid={form.isConfirmPasswordValid}
         />
-      </ScrollView>
+      </View>
 
       <View style={styles.footer}>
         <PrimaryButton
