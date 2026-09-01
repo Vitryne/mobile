@@ -19,18 +19,14 @@ export function RegisterHeader({
 
   return (
     <View style={[styles.container, { paddingTop: insets.top + 8 }]}>
-      {navigation.canGoBack() ? (
-        <TouchableOpacity
-          style={styles.back_button}
-          onPress={() => navigation.canGoBack() && navigation.goBack()}
-          activeOpacity={0.7}
-          hitSlop={8}
-        >
-        <Feather name="chevron-left" size={20} color={"#000"} />
-        </TouchableOpacity>
-      ) : (
-        <View style={styles.back_button} />
-      )}
+      <TouchableOpacity
+        style={styles.back_button}
+        onPress={() => navigation.canGoBack() && navigation.goBack()}
+        activeOpacity={0.7}
+        hitSlop={8}
+      >
+        <Feather name="chevron-left" size={20} color="black" />
+      </TouchableOpacity>
 
       <StepIndicator currentStep={currentStep} totalSteps={totalSteps} />
     </View>
