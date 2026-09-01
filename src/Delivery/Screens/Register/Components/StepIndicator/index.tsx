@@ -15,7 +15,7 @@ export function StepIndicator({
       {Array.from({ length: totalSteps }).map((_, index) => (
         <View
           key={index}
-          style={[styles.step, index < currentStep && styles.stepActive]}
+          style={[styles.step, index < currentStep && styles.step_active]}
         />
       ))}
     </View>

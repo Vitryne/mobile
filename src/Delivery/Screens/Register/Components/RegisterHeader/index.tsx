@@ -2,7 +2,6 @@ import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { colors } from "../../../../../Shared/Styles/commonStyles";
 import { StepIndicator } from "../StepIndicator";
 import { styles } from "./styles";
 
@@ -22,15 +21,15 @@ export function RegisterHeader({
     <View style={[styles.container, { paddingTop: insets.top + 8 }]}>
       {navigation.canGoBack() ? (
         <TouchableOpacity
-          style={styles.backButton}
+          style={styles.back_button}
           onPress={() => navigation.canGoBack() && navigation.goBack()}
           activeOpacity={0.7}
           hitSlop={8}
         >
-          <Feather name="chevron-left" size={20} color={colors.text} />
+        <Feather name="chevron-left" size={20} color={"#000"} />
         </TouchableOpacity>
       ) : (
-        <View style={styles.backButton} />
+        <View style={styles.back_button} />
       )}
 
       <StepIndicator currentStep={currentStep} totalSteps={totalSteps} />

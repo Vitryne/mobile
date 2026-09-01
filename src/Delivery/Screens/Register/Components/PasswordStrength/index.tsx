@@ -1,4 +1,5 @@
 import { Text, View } from "react-native";
+import { colors } from "../../../../../Shared/Styles/commonStyles";
 import { styles } from "./styles";
 
 type PasswordStrengthProps = {
@@ -6,9 +7,9 @@ type PasswordStrengthProps = {
 };
 
 const LEVELS = [
-  { label: "Fraca", color: "#EF4444" },
+  { label: "Fraca", color: colors.danger },
   { label: "Média", color: "#F59E0B" },
-  { label: "Forte", color: "#16A34A" },
+  { label: "Forte", color: colors.success },
 ];
 
 export function PasswordStrength({ score }: PasswordStrengthProps) {

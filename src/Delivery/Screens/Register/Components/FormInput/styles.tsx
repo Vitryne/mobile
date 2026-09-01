@@ -12,9 +12,9 @@ export const styles = StyleSheet.create({
     marginBottom: 6,
   },
   required: {
-    color: "#EF4444",
+    color: colors.primary,
   },
-  inputWrapper: {
+  input_wrapper: {
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
@@ -25,10 +25,10 @@ export const styles = StyleSheet.create({
     borderColor: "#E5E5E5",
     backgroundColor: "#FFFFFF",
   },
-  inputWrapperFocused: {
+  input_wrapper_focused: {
     borderColor: colors.primary,
   },
-  inputWrapperValid: {
+  input_wrapper_valid: {
     borderColor: "#22C55E",
   },
   input: {
@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     color: colors.text,
     padding: 0,
   },
-  helperText: {
+  helper_text: {
     marginTop: 6,
     fontSize: 12,
     color: "#9A9A9A",

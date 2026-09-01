@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     borderRadius: 2,
     backgroundColor: "#D9D9D9",
   },
-  stepActive: {
+  step_active: {
     backgroundColor: colors.primary,
   },
 });

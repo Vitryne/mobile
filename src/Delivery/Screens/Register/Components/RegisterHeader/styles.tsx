@@ -1,16 +1,20 @@
 import { StyleSheet } from "react-native";
-import { colors } from "../../../../../Shared/Styles/commonStyles";
 
 export const styles = StyleSheet.create({
   container: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 10,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 20,
     paddingBottom: 16,
-    backgroundColor: colors.background,
+    backgroundColor: "transparent",
   },
-  backButton: {
+  back_button: {
     width: 36,
     height: 36,
     borderRadius: 18,

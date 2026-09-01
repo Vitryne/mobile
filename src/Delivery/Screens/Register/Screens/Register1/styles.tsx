@@ -6,9 +6,11 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-  scrollContent: {
+  scroll_content: {
+    flexGrow: 1,
     paddingHorizontal: 20,
-    paddingBottom: 24,
+    paddingTop: 70,
+    paddingBottom: 140,
   },
   title: {
     fontSize: 24,
@@ -36,13 +38,19 @@ export const styles = StyleSheet.create({
     fontSize: 13,
     color: "#9A9A9A",
   },
-  passwordHint: {
+  password_hint: {
     marginTop: 6,
     fontSize: 11,
     color: "#9A9A9A",
   },
   footer: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
     paddingHorizontal: 20,
+    paddingTop: 12,
+    paddingBottom: 20,
     backgroundColor: colors.background,
   },
 });

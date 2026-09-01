@@ -15,7 +15,7 @@ export function PrimaryButton({
 }: PrimaryButtonProps) {
   return (
     <TouchableOpacity
-      style={[styles.container, disabled && styles.containerDisabled]}
+      style={[styles.container, disabled && styles.container_disabled]}
       onPress={onPress}
       disabled={disabled}
       activeOpacity={0.8}

@@ -1,11 +1,11 @@
 import { Feather } from "@expo/vector-icons";
 import { useState } from "react";
 import {
-    Text,
-    TextInput,
-    TextInputProps,
-    TouchableOpacity,
-    View,
+  Text,
+  TextInput,
+  TextInputProps,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { styles } from "./styles";
 
@@ -37,9 +37,9 @@ export function FormInput({
 
       <View
         style={[
-          styles.inputWrapper,
-          isFocused && styles.inputWrapperFocused,
-          isValid && styles.inputWrapperValid,
+          styles.input_wrapper,
+          isFocused && styles.input_wrapper_focused,
+          isValid && styles.input_wrapper_valid,
         ]}
       >
         <TextInput
@@ -64,7 +64,7 @@ export function FormInput({
         )}
       </View>
 
-      {helperText && <Text style={styles.helperText}>{helperText}</Text>}
+      {helperText && <Text style={styles.helper_text}>{helperText}</Text>}
     </View>
   );
 }

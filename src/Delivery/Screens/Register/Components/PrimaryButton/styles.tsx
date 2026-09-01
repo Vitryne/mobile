@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: colors.primary,
   },
-  containerDisabled: {
+  container_disabled: {
     opacity: 0.4,
   },
   label: {
