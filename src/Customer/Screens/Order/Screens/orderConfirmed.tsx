@@ -29,7 +29,7 @@ export function PedidoConfirmado({ navigation, route }: Props) {
         </Text>
 
         <View style={[commonStyles.card, styles.protocol_card]}>
-          <Text style={styles.protocolLabel}>PROTOCOLO</Text>
+          <Text style={styles.protocol_label}>PROTOCOLO</Text>
           <Text style={styles.protocol}>#{orderId}</Text>
 
           <View style={styles.divider} />
