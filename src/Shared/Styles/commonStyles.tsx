@@ -24,6 +24,9 @@ export const commonStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
+  flex_1: {
+    flex: 1
+  },
   scroll_content: {
     padding: spacing.md,
     gap: spacing.md,

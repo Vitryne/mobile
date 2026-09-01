@@ -1,3 +1,4 @@
+import { commonStyles } from "@/Shared/Styles/commonStyles";
 import { useEffect, useRef, useState } from "react";
 import {
   Keyboard,
@@ -63,12 +64,12 @@ export function Register1() {
       <RegisterHeader currentStep={1} />
 
       <KeyboardAvoidingView
-        style={{ flex: 1 }}
+        style={commonStyles.flex_1}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <ScrollView
           ref={scrollViewRef}
-          style={{ flex: 1 }}
+          style={commonStyles.flex_1}
           contentContainerStyle={styles.scroll_content}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
