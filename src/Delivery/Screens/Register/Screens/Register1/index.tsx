@@ -9,8 +9,8 @@ import {
   TextInput,
   View
 } from "react-native";
+import { FormInput } from "../../../../Components/FormInput";
 import { useRegisterForm } from "../../../../Hooks/registroForm";
-import { FormInput } from "../../Components/FormInput";
 import { PasswordStrength } from "../../Components/PasswordStrength";
 import { PrimaryButton } from "../../Components/PrimaryButton";
 import { RegisterHeader } from "../../Components/RegisterHeader";
