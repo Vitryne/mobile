@@ -1,4 +1,6 @@
 import { colors, commonStyles } from "@/Shared/Styles/commonStyles";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useRef } from "react";
 import {
     Keyboard,
@@ -13,10 +15,15 @@ import {
 import Logo from "../../../../../assets/Images/logo.svg";
 import { FormInput } from "../../../Components/FormInput";
 import { useLogin } from "../../../Hooks/loginForm";
+// TODO: confirme se esse caminho bate com a pasta Types no seu projeto
+import type { RootStackParamList } from "../../Types/navigation";
 import { styles } from "./styles";
+
+type LoginNavigationProp = NativeStackNavigationProp<RootStackParamList, "Login">;
 
 export function Login() {
     const form = useLogin();
+    const navigation = useNavigation<LoginNavigationProp>();
 
     const scrollViewRef = useRef<ScrollView>(null);
     const emailRef = useRef<TextInput>(null);
@@ -40,14 +47,18 @@ export function Login() {
         // TODO: implementar login com Google
     }
 
+    function handleGoToRegister() {
+        navigation.navigate("Register1");
+    }
+
     return (
         <View style={commonStyles.screen}>
             <View style={styles.header}>
-                <View style={styles.logoRow}>
+                <View style={styles.logo_row}>
                     <Logo width={150} height={27} color={colors.text} />
 
                     <View style={styles.badge}>
-                        <Text style={styles.badgeText}>ENTREGADOR</Text>
+                        <Text style={styles.badge_text}>ENTREGADOR</Text>
                     </View>
                 </View>
 
@@ -97,62 +108,64 @@ export function Login() {
                         onSubmitEditing={handleLogin}
                     />
 
-                    <TouchableOpacity style={styles.forgotPasswordLink}>
-                        <Text style={styles.forgotPasswordText}>
+                    <TouchableOpacity style={styles.forgot_password_link}>
+                        <Text style={styles.forgot_password_text}>
                             Esqueci minha senha
                         </Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         style={[
-                            styles.submitButton,
+                            styles.submit_button,
                             (!form.isFormValid || form.isSubmitting) &&
-                                styles.submitButtonDisabled,
+                                styles.submit_button_disabled,
                         ]}
                         activeOpacity={0.8}
                         disabled={!form.isFormValid || form.isSubmitting}
                         onPress={handleLogin}
                     >
-                        <Text style={styles.submitButtonText}>
+                        <Text style={styles.submit_button_text}>
                             {form.isSubmitting ? "Entrando..." : "Entrar"}
                         </Text>
                     </TouchableOpacity>
 
-                    <View style={styles.dividerRow}>
-                        <View style={styles.dividerLine} />
-                        <Text style={styles.dividerText}>ou</Text>
-                        <View style={styles.dividerLine} />
+                    <View style={styles.divider_row}>
+                        <View style={styles.divider_line} />
+                        <Text style={styles.divider_text}>ou</Text>
+                        <View style={styles.divider_line} />
                     </View>
 
                     <TouchableOpacity
-                        style={styles.googleButton}
+                        style={styles.google_button}
                         activeOpacity={0.8}
                         onPress={handleGoogleLogin}
                     >
                         {/* TODO: trocar por um ícone oficial do Google (svg/asset), esse "G" é só placeholder */}
-                        <Text style={styles.googleIconPlaceholder}>G</Text>
-                        <Text style={styles.googleButtonText}>
+                        <Text style={styles.google_icon_placeholder}>G</Text>
+                        <Text style={styles.google_button_text}>
                             Entrar com o Google
                         </Text>
                     </TouchableOpacity>
 
-                    <View style={styles.signupRow}>
-                        <Text style={styles.signupText}>Novo por aqui? </Text>
-                        <TouchableOpacity>
-                            <Text style={styles.signupLink}>
+                    <View style={styles.signup_row}>
+                        <Text style={styles.signup_text}>Novo por aqui? </Text>
+                        <TouchableOpacity onPress={handleGoToRegister}>
+                            <Text style={styles.signup_link}>
                                 Quero ser entregador
                             </Text>
                         </TouchableOpacity>
                     </View>
-
-                    <TouchableOpacity style={styles.clientLoginRow}>
-                        {/* TODO: adicionar ícone de pessoa aqui, se tiver uma lib de ícones */}
-                        <Text style={styles.clientLoginText}>
-                            Entrar como cliente
-                        </Text>
-                    </TouchableOpacity>
                 </ScrollView>
             </KeyboardAvoidingView>
+
+            <View style={styles.footer}>
+                <TouchableOpacity style={styles.client_login_row}>
+                    {/* TODO: adicionar ícone de pessoa aqui, se tiver uma lib de ícones */}
+                    <Text style={styles.client_login_text}>
+                        Entrar como cliente
+                    </Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }

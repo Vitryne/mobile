@@ -4,9 +4,9 @@ import { colors, radius } from "../../../../Shared/Styles/commonStyles";
 export const styles = StyleSheet.create({
     header: {
         paddingHorizontal: 24,
-        paddingTop: 150
+        paddingTop: 150,
     },
-    logoRow: {
+    logo_row: {
         flexDirection: "row",
         alignItems: "center",
     },
@@ -15,9 +15,9 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 8,
         paddingVertical: 8,
         borderRadius: radius.full,
-        marginLeft: 10
+        marginLeft: 10,
     },
-    badgeText: {
+    badge_text: {
         color: colors.primary,
         fontSize: 11,
         fontWeight: "700",
@@ -37,49 +37,49 @@ export const styles = StyleSheet.create({
         flexGrow: 1,
         paddingHorizontal: 24,
         paddingTop: 24,
-        paddingBottom: 32 + 8,
+        paddingBottom: 96, // dá espaço pro footer fixo não cobrir o último item
     },
-    forgotPasswordLink: {
+    forgot_password_link: {
         alignSelf: "center",
         marginTop: 8,
         marginBottom: 24,
     },
-    forgotPasswordText: {
+    forgot_password_text: {
         color: colors.primary,
         fontSize: 14,
         fontWeight: "600",
     },
-    submitButton: {
+    submit_button: {
         height: 54,
         borderRadius: radius.full,
         backgroundColor: colors.primary,
         alignItems: "center",
         justifyContent: "center",
     },
-    submitButtonDisabled: {
+    submit_button_disabled: {
         opacity: 0.5,
     },
-    submitButtonText: {
+    submit_button_text: {
         color: colors.white,
         fontSize: 16,
         fontWeight: "700",
     },
-    dividerRow: {
+    divider_row: {
         flexDirection: "row",
         alignItems: "center",
         marginVertical: 24,
     },
-    dividerLine: {
+    divider_line: {
         flex: 1,
         height: 1,
         backgroundColor: colors.border,
     },
-    dividerText: {
+    divider_text: {
         marginHorizontal: 16,
         color: colors.textMuted,
         fontSize: 13,
     },
-    googleButton: {
+    google_button: {
         height: 54,
         borderRadius: radius.full,
         borderWidth: 1,
@@ -90,47 +90,46 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         gap: 8,
     },
-    googleIconPlaceholder: {
+    google_icon_placeholder: {
         fontSize: 16,
         fontWeight: "700",
         color: "#4285F4", // cor oficial da marca Google, fora da paleta do app mesmo
     },
-    googleButtonText: {
+    google_button_text: {
         fontSize: 15,
         fontWeight: "600",
         color: colors.text,
     },
-    signupRow: {
+    signup_row: {
         flexDirection: "row",
         justifyContent: "center",
         marginTop: 24,
         flexWrap: "wrap",
     },
-    signupText: {
+    signup_text: {
         color: colors.textMuted,
         fontSize: 14,
     },
-    signupLink: {
+    signup_link: {
         color: colors.primary,
         fontSize: 14,
         fontWeight: "700",
     },
-    clientLoginRow: {
-        alignItems: "center",
-        marginTop: 32,
+    footer: {
+        position: "absolute",
+        left: 0,
+        right: 0,
+        bottom: 0,
+        paddingHorizontal: 20,
+        paddingTop: 12,
+        paddingBottom: 20,
+        backgroundColor: colors.background,
     },
-    clientLoginText: {
+    client_login_row: {
+        alignItems: "center",
+    },
+    client_login_text: {
         color: colors.textMuted,
         fontSize: 13,
     },
-    footer: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    paddingHorizontal: 20,
-    paddingTop: 12,
-    paddingBottom: 20,
-    backgroundColor: colors.background,
-  },
 });
