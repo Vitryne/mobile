@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
 export const colors = {
-  primary: "#7C3AED",
+  primary: "#9530D9",
   primarySoft: "#F3E8FF",
   white: "#FFFFFF",
   text: "#1A1A1A",
@@ -25,7 +25,7 @@ export const commonStyles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   flex_1: {
-    flex: 1
+    flex: 1,
   },
   scroll_content: {
     padding: spacing.md,

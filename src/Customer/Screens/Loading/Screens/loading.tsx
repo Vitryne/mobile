@@ -11,7 +11,7 @@ type Props = NativeStackScreenProps<RootStackParamList, "Carregamento">;
 export function Carregamento({ navigation }: Props) {
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace("MenuCarrinho");
+      navigation.replace("Starter");
     }, 3000);
 
     return () => clearTimeout(timer);

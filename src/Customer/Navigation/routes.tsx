@@ -9,6 +9,7 @@ import { Carregamento } from "../Screens/Loading";
 import { PedidoConfirmado } from "../Screens/Order";
 import { Pagamento, PaguePix } from "../Screens/Payment";
 import { Produto } from "../Screens/Product";
+import { Starter } from "../Screens/Starter";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -30,6 +31,11 @@ export function Rotas() {
       <Stack.Screen
         name="Carregamento"
         component={Carregamento}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Starter"
+        component={Starter}
         options={{ headerShown: false }}
       />
       <Stack.Screen

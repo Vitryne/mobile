@@ -1,17 +1,17 @@
 import { Text, TouchableOpacity } from "react-native";
 import { styles } from "./styles";
 
-type PrimaryButtonProps = {
+type SecundaryButtonProps = {
   label: string;
   onPress: () => void;
   disabled?: boolean;
 };
 
-export function PrimaryButton({
+export function SecundaryButton({
   label,
   onPress,
   disabled = false,
-}: PrimaryButtonProps) {
+}: SecundaryButtonProps) {
   return (
     <TouchableOpacity
       style={[styles.container, disabled && styles.container_disabled]}
