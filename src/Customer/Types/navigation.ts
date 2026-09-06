@@ -1,4 +1,4 @@
-export type RootStackParamList = {
+export type CustomerStackParamList = {
   Carregamento: undefined;
   MenuCarrinho: undefined;
   Endereco: undefined;
