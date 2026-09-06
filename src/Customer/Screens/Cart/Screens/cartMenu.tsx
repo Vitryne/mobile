@@ -3,10 +3,10 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { colors, commonStyles } from "../../../../Shared/Styles/commonStyles";
 import { fmt, useMenuCarrinho } from "../../../Hooks/cartMenu";
-import { RootStackParamList } from "../../../Types/navigation";
+import { CustomerStackParamList } from "../../../Types/navigation";
 import { styles } from "./styles";
 
-type Props = NativeStackScreenProps<RootStackParamList, "MenuCarrinho">;
+type Props = NativeStackScreenProps<CustomerStackParamList, "MenuCarrinho">;
 
 export function MenuCarrinho({ navigation }: Props) {
   const {

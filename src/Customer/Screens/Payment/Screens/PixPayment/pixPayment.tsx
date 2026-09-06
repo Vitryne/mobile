@@ -1,10 +1,10 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { commonStyles } from "../../../../../Shared/Styles/commonStyles";
-import { RootStackParamList } from "../../../../Types/navigation";
+import { CustomerStackParamList } from "../../../../Types/navigation";
 import { styles } from "./styles";
 
-type Props = NativeStackScreenProps<RootStackParamList, "PaguePix">;
+type Props = NativeStackScreenProps<CustomerStackParamList, "PaguePix">;
 
 const codigoPix = "00020126360014BR.GOV.BCB.PIX0114+5511996412...";
 
