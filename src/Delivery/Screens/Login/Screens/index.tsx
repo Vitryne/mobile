@@ -1,8 +1,10 @@
 import { colors, commonStyles } from "@/Shared/Styles/commonStyles";
+import { Octicons } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useRef } from "react";
 import {
+    Image,
     Keyboard,
     KeyboardAvoidingView,
     Platform,
@@ -15,8 +17,7 @@ import {
 import Logo from "../../../../../assets/Images/logo.svg";
 import { FormInput } from "../../../Components/FormInput";
 import { useLogin } from "../../../Hooks/loginForm";
-// TODO: confirme se esse caminho bate com a pasta Types no seu projeto
-import type { RootStackParamList } from "../../Types/navigation";
+import type { RootStackParamList } from "../../../Types/navigation";
 import { styles } from "./styles";
 
 type LoginNavigationProp = NativeStackNavigationProp<RootStackParamList, "Login">;
@@ -35,16 +36,14 @@ export function Login() {
 
         const success = await form.handleSubmit();
         if (success) {
-            // TODO: navegar para a home/lista de ofertas quando a navegação estiver configurada
             console.log("login mockado ok");
         } else {
-            // TODO: exibir erro pro usuário quando definirmos como isso deve aparecer
             console.log("login mockado falhou");
         }
     }
 
     function handleGoogleLogin() {
-        // TODO: implementar login com Google
+        
     }
 
     function handleGoToRegister() {
@@ -55,7 +54,7 @@ export function Login() {
         <View style={commonStyles.screen}>
             <View style={styles.header}>
                 <View style={styles.logo_row}>
-                    <Logo width={150} height={27} color={colors.text} />
+                    <Logo width={159} height={28} color={colors.text} />
 
                     <View style={styles.badge}>
                         <Text style={styles.badge_text}>ENTREGADOR</Text>
@@ -83,7 +82,7 @@ export function Login() {
                         ref={emailRef}
                         label="E-mail"
                         required
-                        placeholder="rafael@vitryne.com"
+                        placeholder="email@vitryne.com"
                         value={form.email}
                         onChangeText={form.setEmail}
                         isValid={form.isEmailValid}
@@ -140,8 +139,11 @@ export function Login() {
                         activeOpacity={0.8}
                         onPress={handleGoogleLogin}
                     >
-                        {/* TODO: trocar por um ícone oficial do Google (svg/asset), esse "G" é só placeholder */}
-                        <Text style={styles.google_icon_placeholder}>G</Text>
+                        <Image 
+                            source={require('../../../../../assets/Images/google.png')} 
+                            style={styles.google_icon} 
+                        />
+
                         <Text style={styles.google_button_text}>
                             Entrar com o Google
                         </Text>
@@ -160,7 +162,7 @@ export function Login() {
 
             <View style={styles.footer}>
                 <TouchableOpacity style={styles.client_login_row}>
-                    {/* TODO: adicionar ícone de pessoa aqui, se tiver uma lib de ícones */}
+                    <Octicons name={"person"} size={20} color={colors.textMuted}/>
                     <Text style={styles.client_login_text}>
                         Entrar como cliente
                     </Text>

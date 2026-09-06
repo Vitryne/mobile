@@ -4,7 +4,7 @@ import { colors, radius } from "../../../../Shared/Styles/commonStyles";
 export const styles = StyleSheet.create({
     header: {
         paddingHorizontal: 24,
-        paddingTop: 150,
+        paddingTop: 125,
     },
     logo_row: {
         flexDirection: "row",
@@ -46,12 +46,12 @@ export const styles = StyleSheet.create({
     },
     forgot_password_text: {
         color: colors.primary,
-        fontSize: 14,
+        fontSize: 12,
         fontWeight: "600",
     },
     submit_button: {
         height: 54,
-        borderRadius: radius.full,
+        borderRadius: radius.lg,
         backgroundColor: colors.primary,
         alignItems: "center",
         justifyContent: "center",
@@ -81,7 +81,7 @@ export const styles = StyleSheet.create({
     },
     google_button: {
         height: 54,
-        borderRadius: radius.full,
+        borderRadius: radius.lg,
         borderWidth: 1,
         borderColor: colors.border,
         backgroundColor: colors.white,
@@ -97,7 +97,7 @@ export const styles = StyleSheet.create({
     },
     google_button_text: {
         fontSize: 15,
-        fontWeight: "600",
+        fontWeight: "470",
         color: colors.text,
     },
     signup_row: {
@@ -127,9 +127,17 @@ export const styles = StyleSheet.create({
     },
     client_login_row: {
         alignItems: "center",
+        flexDirection: "row",
+        justifyContent: "center",
+        gap: 8,
     },
     client_login_text: {
         color: colors.textMuted,
         fontSize: 13,
     },
+    google_icon: {
+        width: 20,
+        height: 20,
+        resizeMode: "contain",
+    }
 });
