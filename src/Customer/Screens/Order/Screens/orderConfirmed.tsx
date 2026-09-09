@@ -2,10 +2,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { colors, commonStyles } from "../../../../Shared/Styles/commonStyles";
-import { RootStackParamList } from "../../../Types/navigation";
+import { CustomerStackParamList } from "../../../Types/navigation";
 import { styles } from "./styles";
 
-type Props = NativeStackScreenProps<RootStackParamList, "PedidoConfirmado">;
+type Props = NativeStackScreenProps<CustomerStackParamList, "PedidoConfirmado">;
 
 const lojas = [
   { id: "1", nome: "Atelier Lua · 2 itens", status: "Aguardando confirmação" },

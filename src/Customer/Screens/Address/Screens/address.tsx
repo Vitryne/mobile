@@ -4,11 +4,11 @@ import { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { colors, commonStyles } from "../../../../Shared/Styles/commonStyles";
 import { Stepper } from "../../../Components/Stepper/stepper";
-import { RootStackParamList } from "../../../Types/navigation";
+import { CustomerStackParamList } from "../../../Types/navigation";
 import { CardEndereco } from "../Components/AddressCard/addressCard";
 import { styles } from "./styles";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Endereco">;
+type Props = NativeStackScreenProps<CustomerStackParamList, "Endereco">;
 
 const enderecos = [
   {
