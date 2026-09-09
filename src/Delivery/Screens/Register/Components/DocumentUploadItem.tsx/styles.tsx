@@ -12,7 +12,6 @@ export const styles = StyleSheet.create({
     padding: spacing.md,
     gap: spacing.sm,
   },
-  /* borda avermelhada só quando o documento foi recusado */
   card_invalid: {
     borderColor: colors.danger,
   },

@@ -3,13 +3,6 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
 import { styles } from "./styles";
 
-/* ============================================================
-   TIPOS
-   status controla TODA a aparência do card:
-   - sent    -> ícone verde de confirmado, sem botão
-   - pending -> botão "Enviar"
-   - invalid -> texto de erro em vermelho + botão "Reenviar"
-   ============================================================ */
 export type DocumentStatus = "sent" | "pending" | "invalid";
 
 type DocumentUploadItemProps = {
@@ -19,11 +12,6 @@ type DocumentUploadItemProps = {
   onPress: () => void;
 };
 
-/* ============================================================
-   CONFIGURAÇÃO VISUAL POR STATUS
-   Centraliza cor, texto e label do botão em um lugar só.
-   Todas as cores vêm do commonStyles, sem hex solto aqui.
-   ============================================================ */
 const statusConfig = {
   sent: {
     text: "Enviado",
