@@ -1,74 +1,109 @@
 import { StyleSheet } from "react-native";
-import { colors } from "../../../../Shared/Styles/commonStyles";
+// Ajuste o caminho abaixo conforme a pasta real do commonStyles no seu projeto
+import {
+    colors,
+    radius,
+    spacing,
+} from "../../../../Shared/Styles/commonStyles";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // position: "relative",
-    // justifyContent: "flex-end",
-    // overflow: "visible",
-  },
-  image_wrapper: {
-    height: 380, // ajuste esse valor conforme o quanto de imagem você quer visível
-    position: "relative",
-    backgroundColor: colors.background,
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-  },
-  gradient: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: "70%", // fade dentro da própria imagem
-    width: "100%",
+    backgroundColor: colors.white,
   },
 
-  // Texto no fluxo normal — sem absolute, sem "colar" na imagem
-  text_block: {
-    paddingHorizontal: 34,
-    paddingTop: 16,
-    backgroundColor: colors.background,
+  // Wrapper que mede (via onLayout) o espaço disponível para os slides
+  slidesArea: {
+    flex: 1,
   },
+
+  // Ocupa uma fração da altura de cada slide, sem valor fixo em pixels
+  imageContainer: {
+    flex: 0.58,
+  },
+  image: {
+    flex: 1,
+    justifyContent: "flex-end", // empurra o gradiente para o rodapé da imagem
+  },
+  // Sem position: absolute - o efeito de esmaecimento é feito com
+  // flex + justifyContent no elemento pai (image)
+  gradient: {
+    height: "55%",
+  },
+
+  content: {
+    flex: 0.42,
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.md,
+    justifyContent: "flex-start",
+  },
+
   title: {
-    fontSize: 26,
-    fontWeight: "900",
-    color: "#1a1a1a",
-    lineHeight: 30,
+    fontSize: 30,
+    fontWeight: "800",
+    color: colors.text,
+    lineHeight: 36,
   },
-  title_purple: {
+  titleHighlight: {
+    fontSize: 30,
+    fontWeight: "800",
     color: colors.primary,
+    lineHeight: 36,
+    marginBottom: spacing.sm,
   },
   subtitle: {
-    fontSize: 14,
-    color: "#666",
-    marginTop: 10,
-    lineHeight: 20,
+    fontSize: 15,
+    color: colors.textMuted,
+    lineHeight: 21,
+    marginBottom: spacing.lg,
   },
-  dots_container: {
-    flexDirection: "row",
+
+  dotsContainer: {
+    alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
-    gap: 6,
+    marginBottom: spacing.lg,
   },
   dot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: "#ddd",
+    width: 8,
+    height: 8,
+    borderRadius: radius.full,
+    backgroundColor: colors.primarySoft,
+    marginHorizontal: spacing.xs,
   },
-  dot_active: {
-    width: 18,
+  dotActive: {
+    width: 20,
     backgroundColor: colors.primary,
   },
 
-  footer: {
-    paddingHorizontal: 24,
-    paddingTop: 10,
-    paddingBottom: 24,
-    backgroundColor: colors.background,
-    gap: 12,
+  // Botões ficam fixos fora do FlatList de slides (aparecem em todas as páginas)
+  buttonsContainer: {
+    paddingHorizontal: spacing.lg,
+    paddingBottom: spacing.sm,
+  },
+  primaryButton: {
+    backgroundColor: colors.primary,
+    borderRadius: radius.full,
+    paddingVertical: spacing.md,
+    alignItems: "center",
+    marginBottom: spacing.sm + spacing.xs, // 12
+  },
+  primaryButtonText: {
+    color: colors.white,
+    fontSize: 16,
+    fontWeight: "700",
+  },
+
+  secondaryButton: {
+    borderWidth: 1.5,
+    borderColor: colors.primary,
+    borderRadius: radius.full,
+    paddingVertical: spacing.md,
+    alignItems: "center",
+    marginBottom: spacing.lg,
+  },
+  secondaryButtonText: {
+    color: colors.primary,
+    fontSize: 16,
+    fontWeight: "700",
   },
 });

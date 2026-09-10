@@ -13,7 +13,7 @@ import { Starter } from "../Screens/Starter";
 
 const Stack = createNativeStackNavigator<CustomerStackParamList>();
 
-export function Rotas() {
+export function CustomerRoutes() {
   return (
     <Stack.Navigator
       initialRouteName="Carregamento"
