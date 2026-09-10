@@ -1,4 +1,5 @@
 import { commonStyles } from "@/Shared/Styles/commonStyles";
+import { useNavigation } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
 import {
   Keyboard,
@@ -9,8 +10,8 @@ import {
   TextInput,
   View
 } from "react-native";
+import { FormInput } from "../../../../Components/FormInput";
 import { useRegisterForm } from "../../../../Hooks/registroForm";
-import { FormInput } from "../../Components/FormInput";
 import { PasswordStrength } from "../../Components/PasswordStrength";
 import { PrimaryButton } from "../../Components/PrimaryButton";
 import { RegisterHeader } from "../../Components/RegisterHeader";
@@ -21,6 +22,7 @@ export function Register1() {
 
   const scrollViewRef = useRef<ScrollView>(null);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+  const navigation = useNavigation();
 
   const cpfRef = useRef<TextInput>(null);
   const emailRef = useRef<TextInput>(null);
@@ -56,7 +58,7 @@ export function Register1() {
   }, []);
 
   function handleContinue() {
-    // navegação para a etapa 2
+     navigation.navigate("Register2");
   }
 
   return (

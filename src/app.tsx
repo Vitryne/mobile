@@ -1,13 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { registerRootComponent } from "expo";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Rotas } from "./Customer/Navigation/routes";
+import { AppRoutes } from "./Shared/Navigation/routes";
 
 function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Rotas />
+        <AppRoutes />
       </NavigationContainer>
     </SafeAreaProvider>
   );

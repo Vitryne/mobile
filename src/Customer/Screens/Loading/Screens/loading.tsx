@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import { ActivityIndicator, ImageBackground, Text, View } from "react-native";
 import Logo from "../../../../../assets/Images/logo.svg";
 import { colors } from "../../../../Shared/Styles/commonStyles";
-import { RootStackParamList } from "../../../Types/navigation";
+import { CustomerStackParamList } from "../../../Types/navigation";
 import { styles } from "./style";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Carregamento">;
+type Props = NativeStackScreenProps<CustomerStackParamList, "Carregamento">;
 
 export function Carregamento({ navigation }: Props) {
   useEffect(() => {
