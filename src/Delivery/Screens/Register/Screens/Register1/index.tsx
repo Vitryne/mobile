@@ -8,7 +8,7 @@ import {
   ScrollView,
   Text,
   TextInput,
-  View
+  View,
 } from "react-native";
 import { FormInput } from "../../../../Components/FormInput";
 import { useRegisterForm } from "../../../../Hooks/registroForm";
@@ -31,8 +31,10 @@ export function Register1() {
   const confirmPasswordRef = useRef<TextInput>(null);
 
   useEffect(() => {
-    const showEvent = Platform.OS === "ios" ? "keyboardWillShow" : "keyboardDidShow";
-    const hideEvent = Platform.OS === "ios" ? "keyboardWillHide" : "keyboardDidHide";
+    const showEvent =
+      Platform.OS === "ios" ? "keyboardWillShow" : "keyboardDidShow";
+    const hideEvent =
+      Platform.OS === "ios" ? "keyboardWillHide" : "keyboardDidHide";
     let hideTimeout: ReturnType<typeof setTimeout> | null = null;
 
     const showSub = Keyboard.addListener(showEvent, () => {
@@ -58,7 +60,7 @@ export function Register1() {
   }, []);
 
   function handleContinue() {
-     navigation.navigate("Register2");
+    navigation.navigate("Register2");
   }
 
   return (
