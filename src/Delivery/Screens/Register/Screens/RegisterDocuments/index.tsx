@@ -19,7 +19,7 @@ type Document = {
   status: DocumentStatus;
 };
 
-export function Register2() {
+export function RegisterDocuments() {
   const navigation = useNavigation<NavigationProps>();
 
   // dados mockados
@@ -62,7 +62,7 @@ export function Register2() {
   }
 
   function handleContinue() {
-    navigation.navigate("Register3");
+    navigation.navigate("RegisterVehicle");
   }
 
   return (

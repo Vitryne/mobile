@@ -1,7 +1,11 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { colors } from "../../Shared/Styles/commonStyles";
 import { Login } from "../Screens/Login";
-import { Register1, Register2, Register3 } from "../Screens/Register";
+import {
+  RegisterDocuments,
+  RegisterPersonalData,
+  RegisterVehicle,
+} from "../Screens/Register";
 import { DeliveryStackParamList } from "../Types/navigation";
 
 const Stack = createNativeStackNavigator<DeliveryStackParamList>();
@@ -16,9 +20,12 @@ export function DeliveryRoutes() {
       }}
     >
       <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Register1" component={Register1} />
-      <Stack.Screen name="Register2" component={Register2} />
-      <Stack.Screen name="Register3" component={Register3} />
+      <Stack.Screen
+        name="RegisterPersonalData"
+        component={RegisterPersonalData}
+      />
+      <Stack.Screen name="RegisterDocuments" component={RegisterDocuments} />
+      <Stack.Screen name="RegisterVehicle" component={RegisterVehicle} />
     </Stack.Navigator>
   );
 }

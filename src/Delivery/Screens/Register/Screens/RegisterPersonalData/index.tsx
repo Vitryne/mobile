@@ -17,7 +17,7 @@ import { PrimaryButton } from "../../Components/PrimaryButton";
 import { RegisterHeader } from "../../Components/RegisterHeader";
 import { styles } from "./styles";
 
-export function Register1() {
+export function RegisterPersonalData() {
   const form = useRegisterForm();
 
   const scrollViewRef = useRef<ScrollView>(null);
@@ -60,7 +60,7 @@ export function Register1() {
   }, []);
 
   function handleContinue() {
-    navigation.navigate("Register2");
+    navigation.navigate("RegisterDocuments");
   }
 
   return (

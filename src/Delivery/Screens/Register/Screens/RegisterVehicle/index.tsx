@@ -21,7 +21,7 @@ const FIELD_WIDTH_STYLES: Record<VehicleFieldWidth, object> = {
   narrow: styles.field_narrow,
 };
 
-export function Register3() {
+export function RegisterVehicle() {
   const {
     vehicleTypes,
     selectedType,

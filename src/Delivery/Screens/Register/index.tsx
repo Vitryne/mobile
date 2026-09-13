@@ -1,4 +1,4 @@
-export { Register1 } from "./Screens/Register1";
-export { Register2 } from "./Screens/Register2";
-export { Register3 } from "./Screens/Register3";
+export { RegisterDocuments } from "./Screens/RegisterDocuments";
+export { RegisterPersonalData } from "./Screens/RegisterPersonalData";
+export { RegisterVehicle } from "./Screens/RegisterVehicle";
 
