@@ -1,5 +1,6 @@
 export type DeliveryStackParamList = {
-  Register1: undefined;
-  Register2: undefined;
+  RegisterPersonalData: undefined;
+  RegisterDocuments: undefined;
+  RegisterVehicle: undefined;
   Login: undefined;
 };
