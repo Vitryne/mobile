@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { colors } from "../../Shared/Styles/commonStyles";
 import { Login } from "../Screens/Login";
 import {
+  RegisterBankAccount,
   RegisterDocuments,
   RegisterPersonalData,
   RegisterVehicle,
@@ -26,6 +27,10 @@ export function DeliveryRoutes() {
       />
       <Stack.Screen name="RegisterDocuments" component={RegisterDocuments} />
       <Stack.Screen name="RegisterVehicle" component={RegisterVehicle} />
+      <Stack.Screen
+        name="RegisterBankAccount"
+        component={RegisterBankAccount}
+      />
     </Stack.Navigator>
   );
 }
