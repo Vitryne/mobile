@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Rotas } from "../../Customer/Navigation/routes";
+import { CustomerRoutes } from "../../Customer/Navigation/routes";
 import { DeliveryRoutes } from "../../Delivery/Navigation/routes";
 import type { AppStackParamList } from "../Types/navigation";
 
@@ -12,7 +12,7 @@ export function AppRoutes() {
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="DeliveryStack" component={DeliveryRoutes} />
-      <Stack.Screen name="CustomerStack" component={Rotas} />
+      <Stack.Screen name="CustomerStack" component={CustomerRoutes} />
     </Stack.Navigator>
   );
 }
