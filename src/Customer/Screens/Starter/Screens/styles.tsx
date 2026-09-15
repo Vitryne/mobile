@@ -76,7 +76,7 @@ export const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: radius.full,
-    backgroundColor: colors.primarySoft,
+    backgroundColor: colors.textMuted,
     marginRight: spacing.xs,
   },
   dotActive: {

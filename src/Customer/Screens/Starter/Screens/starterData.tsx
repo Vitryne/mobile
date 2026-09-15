@@ -21,19 +21,19 @@ const SLIDES: starterData[] = [
   },
   {
     id: "2",
-    image: require("../../../../../assets/Images/store_norte.jpg"),
-    title: "Compre com",
-    subtitle: "confiança.",
+    image: require("../../../../../assets/Images/hero_2.jpg"),
+    title: "Tamanho, cor,",
+    subtitle: "preço - você filtra.",
     description:
-      "Avalie lojas, compare preços e receba tudo com total segurança.",
+      "Busque por categoria, tamanho ou faixa de preço. Vitryne mostra só o que serve em você.",
   },
   {
     id: "3",
-    image: require("../../../../../assets/Images/store_sul.jpg"),
-    title: "Entrega rápida",
-    subtitle: "no seu ritmo.",
+    image: require("../../../../../assets/Images/hero_3.jpg"),
+    title: "Pague no app.",
+    subtitle: "Acompanhe ao vivo.",
     description:
-      "Acompanhe seu pedido em tempo real, do carrinho até a sua porta.",
+      "PIX, cartão ou crédito parcelado. Acompanhe o entregador em tempo real até a porta.",
   },
 ];
 
