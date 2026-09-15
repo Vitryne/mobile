@@ -4,8 +4,8 @@ import { colors } from "../../../Shared/Styles/commonStyles";
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.primary,
-    paddingVertical: 16,
-    borderRadius: 30,
+    paddingVertical: 10,
+    borderRadius: 14,
     alignItems: "center",
   },
   container_disabled: {

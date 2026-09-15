@@ -4,8 +4,8 @@ import { colors } from "../../../Shared/Styles/commonStyles";
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.white,
-    paddingVertical: 16,
-    borderRadius: 30,
+    paddingVertical: 10,
+    borderRadius: 14,
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#e5d9f7",

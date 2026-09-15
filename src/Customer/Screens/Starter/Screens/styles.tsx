@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-// Ajuste o caminho abaixo conforme a pasta real do commonStyles no seu projeto
+// Ajuste o caminho conforme a pasta real do commonStyles no seu projeto
 import {
     colors,
     radius,
@@ -12,30 +12,39 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
 
-  // Wrapper que mede (via onLayout) o espaço disponível para os slides
-  slidesArea: {
+  // A FlatList horizontal ocupa todo o espaço acima do footer
+  list: {
     flex: 1,
   },
 
-  // Ocupa uma fração da altura de cada slide, sem valor fixo em pixels
+  // Cada "página" da FlatList: width e height são aplicados inline no
+  // starter.tsx (width via useWindowDimensions, height via onLayout medido
+  // no próprio FlatList) - porcentagem ("100%") não resolve de forma
+  // confiável dentro do conteúdo de uma lista horizontal.
+  slide: {},
+
+  // A foto absorve todo o espaço que sobrar depois do texto/dots
   imageContainer: {
-    flex: 0.58,
+    flex: 1,
+    overflow: "hidden",
   },
   image: {
-    flex: 1,
-    justifyContent: "flex-end", // empurra o gradiente para o rodapé da imagem
+    width: "100%",
+    height: "100%",
   },
-  // Sem position: absolute - o efeito de esmaecimento é feito com
-  // flex + justifyContent no elemento pai (image)
+
+  // Camada de esmaecimento por cima da foto (único uso de absolute do arquivo)
   gradient: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
     height: "55%",
   },
 
   content: {
-    flex: 0.42,
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.md,
-    justifyContent: "flex-start",
   },
 
   title: {
@@ -55,55 +64,31 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     color: colors.textMuted,
     lineHeight: 21,
-    marginBottom: spacing.lg,
   },
 
-  dotsContainer: {
+  dotsRow: {
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: spacing.lg,
+    paddingVertical: spacing.md,
   },
   dot: {
     width: 8,
     height: 8,
     borderRadius: radius.full,
     backgroundColor: colors.primarySoft,
-    marginHorizontal: spacing.xs,
+    marginRight: spacing.xs,
   },
   dotActive: {
     width: 20,
     backgroundColor: colors.primary,
   },
 
-  // Botões ficam fixos fora do FlatList de slides (aparecem em todas as páginas)
-  buttonsContainer: {
+  // Footer: fixo embaixo, fora da FlatList
+  footer: {
     paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.sm,
-  },
-  primaryButton: {
-    backgroundColor: colors.primary,
-    borderRadius: radius.full,
-    paddingVertical: spacing.md,
-    alignItems: "center",
-    marginBottom: spacing.sm + spacing.xs, // 12
-  },
-  primaryButtonText: {
-    color: colors.white,
-    fontSize: 16,
-    fontWeight: "700",
-  },
-
-  secondaryButton: {
-    borderWidth: 1.5,
-    borderColor: colors.primary,
-    borderRadius: radius.full,
-    paddingVertical: spacing.md,
-    alignItems: "center",
-    marginBottom: spacing.lg,
-  },
-  secondaryButtonText: {
-    color: colors.primary,
-    fontSize: 16,
-    fontWeight: "700",
+    paddingTop: spacing.sm,
+    paddingBottom: spacing.lg,
+    gap: spacing.sm + spacing.xs, // 12 - espaço entre os dois botões
   },
 });
