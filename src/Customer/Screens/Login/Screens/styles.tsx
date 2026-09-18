@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
     paddingHorizontal: 24,
     paddingTop: 24,
-    paddingBottom: 96, // dá espaço pro footer fixo não cobrir o último item
+    paddingBottom: 96,
   },
   forgot_password_link: {
     alignSelf: "center",
@@ -96,7 +96,7 @@ export const styles = StyleSheet.create({
   google_icon_placeholder: {
     fontSize: 16,
     fontWeight: "700",
-    color: "#4285F4", // cor oficial da marca Google, fora da paleta do app mesmo
+    color: "#4285F4",
   },
   google_button_text: {
     fontSize: 15,

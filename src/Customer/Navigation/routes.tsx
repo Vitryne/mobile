@@ -10,6 +10,7 @@ import { Login } from "../Screens/Login";
 import { PedidoConfirmado } from "../Screens/Order";
 import { Pagamento, PaguePix } from "../Screens/Payment";
 import { Produto } from "../Screens/Product";
+import { RegisterPersonalData } from "../Screens/Register/Screens/RegisterPersonalData";
 import { Starter } from "../Screens/Starter";
 
 const Stack = createNativeStackNavigator<CustomerStackParamList>();
@@ -35,13 +36,18 @@ export function CustomerRoutes() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
+        name="Starter"
+        component={Starter}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name="Login"
         component={Login}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Starter"
-        component={Starter}
+        name="RegisterPersonalData"
+        component={RegisterPersonalData}
         options={{ headerShown: false }}
       />
       <Stack.Screen

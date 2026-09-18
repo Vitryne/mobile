@@ -52,7 +52,7 @@ export function Login() {
   }
 
   function handleGoToRegister() {
-    navigation.navigate("MenuCarrinho");
+    navigation.navigate("RegisterPersonalData");
   }
 
   function handleGoToDelivery() {
@@ -89,7 +89,7 @@ export function Login() {
           showsVerticalScrollIndicator={false}
         >
           <FormInput
-            // ref={"emailRef"}
+            ref={"emailRef"}
             label="E-mail"
             required
             placeholder="email@vitryne.com"
@@ -104,7 +104,7 @@ export function Login() {
           />
 
           <FormInput
-            // ref={passwordRef}
+            ref={passwordRef}
             label="Senha"
             required
             isPassword
