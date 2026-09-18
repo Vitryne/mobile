@@ -34,7 +34,11 @@ export function CustomerRoutes() {
         component={Carregamento}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="Starter"
         component={Starter}

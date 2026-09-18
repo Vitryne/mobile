@@ -73,7 +73,7 @@ export function Login() {
 
         <Text style={styles.title}>Olá, de novo.</Text>
         <Text style={styles.subtitle}>
-          Entre para receber ofertas na sua região.
+          Sentimos sua falta. Precisando de um look novo?
         </Text>
       </View>
 
@@ -170,7 +170,7 @@ export function Login() {
           style={styles.client_login_row}
         >
           <Octicons name={"person"} size={20} color={colors.textMuted} />
-          <Text style={styles.client_login_text}>Entrar como consumidor</Text>
+          <Text style={styles.client_login_text}>Entrar como entregador</Text>
         </TouchableOpacity>
       </View>
     </View>
