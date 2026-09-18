@@ -6,6 +6,7 @@ import { HeaderBack } from "../Components/backButton";
 import { Endereco } from "../Screens/Address";
 import { MenuCarrinho } from "../Screens/Cart";
 import { Carregamento } from "../Screens/Loading";
+import { Login } from "../Screens/Login";
 import { PedidoConfirmado } from "../Screens/Order";
 import { Pagamento, PaguePix } from "../Screens/Payment";
 import { Produto } from "../Screens/Product";
@@ -31,6 +32,11 @@ export function CustomerRoutes() {
       <Stack.Screen
         name="Carregamento"
         component={Carregamento}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
         options={{ headerShown: false }}
       />
       <Stack.Screen

@@ -79,7 +79,7 @@ export function Starter({ navigation }: Props) {
   const renderSlide = useCallback(
     ({ item }: ListRenderItemInfo<starterData>) => (
       <View style={[styles.slide, { width, height: listHeight }]}>
-        <View style={styles.imageContainer}>
+        <View style={styles.image_container}>
           <Image source={item.image} style={styles.image} resizeMode="cover" />
           {/* Único uso de position: absolute deste arquivo - é uma camada
               de sobreposição visual (o esmaecimento por cima da foto),
@@ -93,7 +93,7 @@ export function Starter({ navigation }: Props) {
 
         <View style={styles.content}>
           <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.titleHighlight}>{item.subtitle}</Text>
+          <Text style={styles.title_highlight}>{item.subtitle}</Text>
           <Text style={styles.subtitle}>{item.description}</Text>
         </View>
       </View>
@@ -118,11 +118,11 @@ export function Starter({ navigation }: Props) {
         style={styles.list}
         onLayout={handleListLayout}
       />
-      <View style={styles.dotsRow}>
+      <View style={styles.dots_row}>
         {SLIDES.map((slide, index) => (
           <View
             key={slide.id}
-            style={[styles.dot, index === activeIndex && styles.dotActive]}
+            style={[styles.dot, index === activeIndex && styles.dot_active]}
           />
         ))}
       </View>
@@ -130,11 +130,11 @@ export function Starter({ navigation }: Props) {
       <View style={styles.footer}>
         <PrimaryButton
           label="Criar Conta"
-          onPress={() => navigation.navigate("MenuCarrinho")}
+          onPress={() => navigation.navigate("Login")}
         />
         <SecundaryButton
           label="Já tenho uma conta"
-          onPress={() => navigation.navigate("MenuCarrinho")}
+          onPress={() => navigation.navigate("Login")}
         />
       </View>
     </View>
