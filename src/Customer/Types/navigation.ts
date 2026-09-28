@@ -1,6 +1,9 @@
 export type CustomerStackParamList = {
   Carregamento: undefined;
   Starter: undefined;
+  Login: undefined;
+  RegisterPersonalData: undefined;
+  RegisterAddresData: undefined;
   MenuCarrinho: undefined;
   Endereco: undefined;
   Pagamento: undefined;

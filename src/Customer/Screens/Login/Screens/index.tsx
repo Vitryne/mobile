@@ -1,4 +1,5 @@
 import { colors, commonStyles } from "@/Shared/Styles/commonStyles";
+import { AppStackParamList } from "@/Shared/Types/navigation";
 import { Feather, Octicons } from "@expo/vector-icons";
 import type { CompositeNavigationProp } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
@@ -18,14 +19,11 @@ import {
 import Logo from "../../../../../assets/Images/logo.svg";
 import { FormInput } from "../../../Components/FormInput";
 import { useLogin } from "../../../Hooks/loginForm";
-import type {
-    AppStackParamList,
-    DeliveryStackParamList,
-} from "../../../Types/navigation";
+import type { CustomerStackParamList } from "../../../Types/navigation";
 import { styles } from "./styles";
 
 type LoginNavigationProp = CompositeNavigationProp<
-  NativeStackNavigationProp<DeliveryStackParamList, "Login">,
+  NativeStackNavigationProp<CustomerStackParamList, "Login">,
   NativeStackNavigationProp<AppStackParamList>
 >;
 
@@ -57,8 +55,8 @@ export function Login() {
     navigation.navigate("RegisterPersonalData");
   }
 
-  function handleGoToCustomer() {
-    navigation.navigate("CustomerStack", { screen: "Login" });
+  function handleGoToDelivery() {
+    navigation.navigate("DeliveryStack", { screen: "Login" });
   }
 
   return (
@@ -69,13 +67,13 @@ export function Login() {
 
           <View style={styles.badge}>
             <Feather name={"truck"} size={15} color={colors.primary} />
-            <Text style={styles.badge_text}>ENTREGADOR</Text>
+            <Text style={styles.badge_text}>CONSUMIDOR</Text>
           </View>
         </View>
 
         <Text style={styles.title}>Olá, de novo.</Text>
         <Text style={styles.subtitle}>
-          Entre para receber ofertas na sua região.
+          Sentimos sua falta. Precisando de um look novo?
         </Text>
       </View>
 
@@ -91,7 +89,7 @@ export function Login() {
           showsVerticalScrollIndicator={false}
         >
           <FormInput
-            ref={emailRef}
+            ref={"emailRef"}
             label="E-mail"
             required
             placeholder="email@vitryne.com"
@@ -160,7 +158,7 @@ export function Login() {
           <View style={styles.signup_row}>
             <Text style={styles.signup_text}>Novo por aqui? </Text>
             <TouchableOpacity onPress={handleGoToRegister}>
-              <Text style={styles.signup_link}>Quero ser entregador</Text>
+              <Text style={styles.signup_link}>Quero ser consumidor</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -168,11 +166,11 @@ export function Login() {
 
       <View style={styles.footer}>
         <TouchableOpacity
-          onPress={handleGoToCustomer}
+          onPress={handleGoToDelivery}
           style={styles.client_login_row}
         >
           <Octicons name={"person"} size={20} color={colors.textMuted} />
-          <Text style={styles.client_login_text}>Entrar como cliente</Text>
+          <Text style={styles.client_login_text}>Entrar como entregador</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -6,9 +6,12 @@ import { HeaderBack } from "../Components/backButton";
 import { Endereco } from "../Screens/Address";
 import { MenuCarrinho } from "../Screens/Cart";
 import { Carregamento } from "../Screens/Loading";
+import { Login } from "../Screens/Login";
 import { PedidoConfirmado } from "../Screens/Order";
 import { Pagamento, PaguePix } from "../Screens/Payment";
 import { Produto } from "../Screens/Product";
+import { RegisterAddresData } from "../Screens/Register/Screens/RegisterAdressData";
+import { RegisterPersonalData } from "../Screens/Register/Screens/RegisterPersonalData";
 import { Starter } from "../Screens/Starter";
 
 const Stack = createNativeStackNavigator<CustomerStackParamList>();
@@ -36,6 +39,21 @@ export function CustomerRoutes() {
       <Stack.Screen
         name="Starter"
         component={Starter}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="RegisterPersonalData"
+        component={RegisterPersonalData}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="RegisterAddresData"
+        component={RegisterAddresData}
         options={{ headerShown: false }}
       />
       <Stack.Screen
