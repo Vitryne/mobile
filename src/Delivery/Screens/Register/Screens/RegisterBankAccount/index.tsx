@@ -2,15 +2,15 @@ import { colors, commonStyles } from "@/Shared/Styles/commonStyles";
 import { Feather } from "@expo/vector-icons";
 import { useState } from "react";
 import {
-    FlatList,
-    Keyboard,
-    KeyboardAvoidingView,
-    Modal,
-    Platform,
-    Pressable,
-    ScrollView,
-    Text,
-    View,
+  FlatList,
+  Keyboard,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
 } from "react-native";
 import { FormInput } from "../../../../Components/FormInput";
 import { useBankAccountForm } from "../../../../Hooks/useBankAccountForm";
@@ -107,6 +107,7 @@ export function RegisterBankAccount() {
                 onChangeText={setAccount}
                 isValid={isAccountValid}
                 keyboardType="numeric"
+                maxLength={13}
                 returnKeyType="next"
                 blurOnSubmit={false}
                 onSubmitEditing={focusPixKey}
