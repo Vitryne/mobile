@@ -1,5 +1,7 @@
 import { colors, commonStyles } from "@/Shared/Styles/commonStyles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import {
   ScrollView,
   Text,
@@ -9,6 +11,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useVehicleForm } from "../../../../Hooks/useVehicleForm";
+import type { DeliveryStackParamList } from "../../../../Types/navigation";
 import type { VehicleFieldWidth } from "../../../../Types/vehicle";
 import { PrimaryButton } from "../../Components/PrimaryButton";
 import { RegisterHeader } from "../../Components/RegisterHeader";
@@ -32,8 +35,11 @@ export function RegisterVehicle() {
     handleChangeField,
   } = useVehicleForm();
 
+  const navigation =
+    useNavigation<NativeStackNavigationProp<DeliveryStackParamList>>();
+
   function handleContinue() {
-    // navegação para a etapa 4
+    navigation.navigate("RegisterBankAccount");
   }
 
   return (
