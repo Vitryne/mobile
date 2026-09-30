@@ -1,1 +1,2 @@
-export { Starter } from "./Screens/starter";
+export { Starter } from "./Screens/index";
+
