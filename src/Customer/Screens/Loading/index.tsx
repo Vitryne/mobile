@@ -1,2 +1,2 @@
-export { Carregamento } from "./Screens/loading";
+export { Loading } from "./Screens/index";
 

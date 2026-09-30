@@ -6,9 +6,9 @@ import { colors } from "../../../../Shared/Styles/commonStyles";
 import { CustomerStackParamList } from "../../../Types/navigation";
 import { styles } from "./style";
 
-type Props = NativeStackScreenProps<CustomerStackParamList, "Carregamento">;
+type Props = NativeStackScreenProps<CustomerStackParamList, "Loading">;
 
-export function Carregamento({ navigation }: Props) {
+export function Loading({ navigation }: Props) {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.replace("Starter");
