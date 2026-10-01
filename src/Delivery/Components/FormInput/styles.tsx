@@ -36,10 +36,11 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     color: colors.text,
     padding: 0,
+    minWidth: 0,
   },
   helper_text: {
     marginTop: 6,
     fontSize: 12,
-    color: "#9A9A9A",
+    color: colors.description,
   },
 });
