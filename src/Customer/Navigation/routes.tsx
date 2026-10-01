@@ -11,6 +11,7 @@ import { PedidoConfirmado } from "../Screens/Order";
 import { Pagamento, PaguePix } from "../Screens/Payment";
 import { Produto } from "../Screens/Product";
 import { RegisterAddresData } from "../Screens/Register/Screens/RegisterAdressData";
+import { RegisterAuthenticator } from "../Screens/Register/Screens/RegisterAuthenticator";
 import { RegisterPersonalData } from "../Screens/Register/Screens/RegisterPersonalData";
 import { Starter } from "../Screens/Starter";
 
@@ -49,6 +50,11 @@ export function CustomerRoutes() {
       <Stack.Screen
         name="RegisterPersonalData"
         component={RegisterPersonalData}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="RegisterAuthenticator"
+        component={RegisterAuthenticator}
         options={{ headerShown: false }}
       />
       <Stack.Screen
