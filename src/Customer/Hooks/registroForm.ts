@@ -21,10 +21,16 @@ function getPasswordScore(password: string) {
   return 2;
 }
 
-export function useRegisterForm() {
-  const [fullName, setFullName] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [email, setEmail] = useState("");
+type RegisterFormInitialValues = {
+  fullName?: string;
+  cpf?: string;
+  email?: string;
+};
+
+export function useRegisterForm(initialValues?: RegisterFormInitialValues) {
+  const [fullName, setFullName] = useState(initialValues?.fullName ?? "");
+  const [cpf, setCpf] = useState(initialValues?.cpf ?? "");
+  const [email, setEmail] = useState(initialValues?.email ?? "");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -34,33 +40,40 @@ export function useRegisterForm() {
   const isCpfValid = cpf.replace(/\D/g, "").length === 11;
   const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const isPasswordValid = passwordScore >= 2;
+
   const isConfirmPasswordValid =
     confirmPassword.length > 0 && confirmPassword === password;
 
+  const isPersonalDataValid = isFullNameValid && isCpfValid && isEmailValid;
+
   const isFormValid =
-    isFullNameValid &&
-    isCpfValid &&
-    isEmailValid &&
-    isPasswordValid &&
-    isConfirmPasswordValid;
+    isPersonalDataValid && isPasswordValid && isConfirmPasswordValid;
 
   return {
     fullName,
     setFullName,
+
     cpf,
     setCpf: (value: string) => setCpf(maskCpf(value)),
+
     email,
     setEmail,
+
     password,
     setPassword,
+
     confirmPassword,
     setConfirmPassword,
+
     passwordScore,
+
     isFullNameValid,
     isCpfValid,
     isEmailValid,
     isPasswordValid,
     isConfirmPasswordValid,
+
+    isPersonalDataValid,
     isFormValid,
   };
 }
