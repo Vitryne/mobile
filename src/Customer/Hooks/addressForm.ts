@@ -1,10 +1,5 @@
 import { useState } from "react";
 
-// --------------------------------------------------
-//   Tipos do formulário de endereço.
-//   Aqui não existe "tipo de endereço" (diferente do
-//   VehicleType), então tudo fica neste único arquivo.
-// --------------------------------------------------
 export type AddressFieldName =
   | "cep"
   | "city"
@@ -30,10 +25,6 @@ export interface AddressFieldConfig {
 
 export type AddressFormValues = Record<AddressFieldName, string>;
 
-// --------------------------------------------------
-//   Mapa central de configuração.
-//   a tela só lê os campos daqui e desenha.
-// --------------------------------------------------
 export const ADDRESS_FIELDS: AddressFieldConfig[] = [
   {
     name: "cep",
@@ -43,8 +34,9 @@ export const ADDRESS_FIELDS: AddressFieldConfig[] = [
     width: "full",
     kind: "text",
     keyboardType: "numeric",
-    maxLength: 9, // 8 dígitos + hífen
+    maxLength: 9,
   },
+
   {
     name: "city",
     label: "Cidade",
@@ -53,6 +45,7 @@ export const ADDRESS_FIELDS: AddressFieldConfig[] = [
     width: "half",
     kind: "text",
   },
+
   {
     name: "state",
     label: "UF",
@@ -63,6 +56,7 @@ export const ADDRESS_FIELDS: AddressFieldConfig[] = [
     autoCapitalize: "characters",
     maxLength: 2,
   },
+
   {
     name: "street",
     label: "Endereço",
@@ -71,6 +65,7 @@ export const ADDRESS_FIELDS: AddressFieldConfig[] = [
     width: "full",
     kind: "text",
   },
+
   {
     name: "number",
     label: "Número",
@@ -80,6 +75,7 @@ export const ADDRESS_FIELDS: AddressFieldConfig[] = [
     kind: "text",
     keyboardType: "numeric",
   },
+
   {
     name: "neighborhood",
     label: "Bairro",
@@ -88,6 +84,7 @@ export const ADDRESS_FIELDS: AddressFieldConfig[] = [
     width: "half",
     kind: "text",
   },
+
   {
     name: "complement",
     label: "Complemento",
@@ -98,9 +95,6 @@ export const ADDRESS_FIELDS: AddressFieldConfig[] = [
   },
 ];
 
-// --------------------------------------------------
-//   Valores iniciais.
-// --------------------------------------------------
 const INITIAL_VALUES: AddressFormValues = {
   cep: "",
   city: "",
@@ -111,11 +105,6 @@ const INITIAL_VALUES: AddressFormValues = {
   complement: "",
 };
 
-// --------------------------------------------------
-//   CEP no padrão 00000-000: joga fora qualquer
-//   caractere que não seja número, corta em 8 dígitos
-//   e insere o hífen na posição certa.
-// --------------------------------------------------
 function formatCep(value: string) {
   const digitsOnly = value.replace(/[^0-9]/g, "").slice(0, 8);
 
@@ -126,9 +115,6 @@ function formatCep(value: string) {
   return `${digitsOnly.slice(0, 5)}-${digitsOnly.slice(5)}`;
 }
 
-// --------------------------------------------------
-//   UF só aceita letras, maiúsculas, até 2 caracteres.
-// --------------------------------------------------
 function formatState(value: string) {
   return value
     .toUpperCase()
@@ -136,12 +122,6 @@ function formatState(value: string) {
     .slice(0, 2);
 }
 
-// --------------------------------------------------
-//   Busca o endereço a partir do CEP (ViaCEP).
-//   Só é chamada quando o CEP tem os 8 dígitos.
-//   Se quiser tirar essa integração, é só remover
-//   essa função e a chamada dela em handleChangeField.
-// --------------------------------------------------
 async function fetchAddressByCep(cep: string) {
   const digitsOnly = cep.replace(/[^0-9]/g, "");
 
@@ -153,6 +133,7 @@ async function fetchAddressByCep(cep: string) {
     const response = await fetch(
       `https://viacep.com.br/ws/${digitsOnly}/json/`,
     );
+
     const data = await response.json();
 
     if (data.erro) {
@@ -170,8 +151,12 @@ async function fetchAddressByCep(cep: string) {
   }
 }
 
-export function useAddressForm() {
-  const [values, setValues] = useState<AddressFormValues>(INITIAL_VALUES);
+export function useAddressForm(initialValues?: Partial<AddressFormValues>) {
+  const [values, setValues] = useState<AddressFormValues>({
+    ...INITIAL_VALUES,
+    ...initialValues,
+  });
+
   const [isFetchingCep, setIsFetchingCep] = useState(false);
   const [isCepInvalid, setIsCepInvalid] = useState(false);
 
@@ -182,7 +167,6 @@ export function useAddressForm() {
 
     if (field === "cep") {
       formattedValue = formatCep(value);
-      // CEP mudou, então qualquer erro de busca anterior não vale mais.
       setIsCepInvalid(false);
     }
 
@@ -190,7 +174,10 @@ export function useAddressForm() {
       formattedValue = formatState(value);
     }
 
-    setValues((previous) => ({ ...previous, [field]: formattedValue }));
+    setValues((previous) => ({
+      ...previous,
+      [field]: formattedValue,
+    }));
 
     if (field === "cep") {
       handleCepLookup(formattedValue);
@@ -205,7 +192,9 @@ export function useAddressForm() {
     }
 
     setIsFetchingCep(true);
+
     const address = await fetchAddressByCep(cep);
+
     setIsFetchingCep(false);
 
     if (!address) {
@@ -215,7 +204,6 @@ export function useAddressForm() {
 
     setIsCepInvalid(false);
 
-    // CEP validado: preenche (e sobrescreve) cidade, UF, endereço e bairro.
     setValues((previous) => ({
       ...previous,
       city: address.city,
@@ -227,10 +215,15 @@ export function useAddressForm() {
 
   const isCepValid =
     values.cep.replace(/[^0-9]/g, "").length === 8 && !isCepInvalid;
+
   const isCityValid = values.city.trim() !== "";
+
   const isStateValid = values.state.length === 2;
+
   const isStreetValid = values.street.trim() !== "";
+
   const isNumberValid = values.number.trim() !== "";
+
   const isNeighborhoodValid = values.neighborhood.trim() !== "";
 
   const isFormValid = visibleFields
@@ -240,15 +233,18 @@ export function useAddressForm() {
   return {
     values,
     visibleFields,
+
     isFormValid,
     isFetchingCep,
     isCepInvalid,
+
     isCepValid,
     isCityValid,
     isStateValid,
     isStreetValid,
     isNumberValid,
     isNeighborhoodValid,
+
     handleChangeField,
   };
 }

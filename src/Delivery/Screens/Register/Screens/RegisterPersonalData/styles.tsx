@@ -25,23 +25,23 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     width: 190,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   box_title_text: {
     marginTop: 4,
     fontSize: 13,
     color: colors.primary,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   subtitle: {
     marginTop: 4,
     fontSize: 13,
-    color: "#9A9A9A",
+    color: colors.description,
   },
   password_hint: {
     marginTop: 6,
     fontSize: 11,
-    color: "#9A9A9A",
+    color: colors.description,
   },
   footer: {
     position: "absolute",

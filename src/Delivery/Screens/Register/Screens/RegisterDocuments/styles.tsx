@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   subtitle: {
     marginTop: 4,
     fontSize: 13,
-    color: "#9A9A9A",
+    color: colors.description,
   },
   documents_list: {
     marginTop: 24,

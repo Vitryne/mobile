@@ -31,7 +31,7 @@ function formatSeconds(totalSeconds: number) {
 }
 
 export function RegisterAuthenticator({ navigation, route }: Props) {
-  const { email } = route.params;
+  const { fullName, cpf, email } = route.params;
   const inputRef = useRef<TextInput>(null);
   const insets = useSafeAreaInsets();
 
@@ -96,7 +96,11 @@ export function RegisterAuthenticator({ navigation, route }: Props) {
     );
 
     if (code === MOCK_CORRECT_CODE) {
-      navigation.navigate("MenuCarrinho");
+      navigation.navigate("RegisterAddresData", {
+        fullName,
+        cpf,
+        email,
+      });
       return;
     }
 
@@ -109,7 +113,7 @@ export function RegisterAuthenticator({ navigation, route }: Props) {
       setAttemptsLeft(remaining);
       setStatus("error");
     }
-  }, [code, status, attemptsLeft, navigation]);
+  }, [code, status, attemptsLeft, navigation, fullName, cpf, email]);
 
   const isLocked = status === "locked";
   const canVerify = code.length === CODE_LENGTH && !isLocked;

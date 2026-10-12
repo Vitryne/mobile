@@ -1,5 +1,6 @@
 import { commonStyles } from "@/Shared/Styles/commonStyles";
-import { useNavigation } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useEffect, useRef, useState } from "react";
 import {
   Keyboard,
@@ -13,15 +14,21 @@ import {
 import { FormInput } from "../../../../Components/FormInput";
 import { PrimaryButton } from "../../../../Components/PrimaryButton";
 import { useAddressForm } from "../../../../Hooks/addressForm";
+import { CustomerStackParamList } from "../../../../Types/navigation";
 import { RegisterHeader } from "../../Components/RegisterHeader";
 import { styles } from "./styles";
 
 export function RegisterAddresData() {
-  const form = useAddressForm();
+  const route =
+    useRoute<RouteProp<CustomerStackParamList, "RegisterAddresData">>();
+
+  const { fullName, cpf, email, initialAddress, editMode } = route.params;
+  const form = useAddressForm(initialAddress);
 
   const scrollViewRef = useRef<ScrollView>(null);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<CustomerStackParamList>>();
 
   const cepRef = useRef<TextInput>(null);
   const cityRef = useRef<TextInput>(null);
@@ -61,7 +68,18 @@ export function RegisterAddresData() {
   }, []);
 
   function handleContinue() {
-    navigation.navigate("MenuCarrinho");
+    navigation.navigate("RegisterConfirmData", {
+      fullName,
+      cpf,
+      email,
+      cep: form.values.cep,
+      city: form.values.city,
+      state: form.values.state,
+      street: form.values.street,
+      number: form.values.number,
+      neighborhood: form.values.neighborhood,
+      complement: form.values.complement,
+    });
   }
 
   return (
@@ -207,7 +225,7 @@ export function RegisterAddresData() {
 
           <View style={{ marginTop: 24 }}>
             <PrimaryButton
-              label="Continuar"
+              label={editMode ? "Salvar alterações" : "Continuar"}
               onPress={handleContinue}
               disabled={!form.isFormValid}
             />

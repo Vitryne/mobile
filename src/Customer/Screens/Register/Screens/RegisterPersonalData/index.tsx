@@ -1,5 +1,5 @@
 import { commonStyles } from "@/Shared/Styles/commonStyles";
-import { useNavigation } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -22,7 +22,17 @@ import { RegisterHeader } from "../../Components/RegisterHeader";
 import { styles } from "./styles";
 
 export function RegisterPersonalData() {
-  const form = useRegisterForm();
+  const route =
+    useRoute<RouteProp<CustomerStackParamList, "RegisterPersonalData">>();
+
+  const editParams = route.params;
+  const isEditMode = editParams?.editMode === true;
+
+  const form = useRegisterForm({
+    fullName: editParams?.fullName,
+    cpf: editParams?.cpf,
+    email: editParams?.email,
+  });
 
   const scrollViewRef = useRef<ScrollView>(null);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
@@ -68,7 +78,19 @@ export function RegisterPersonalData() {
   }
 
   function handleContinue() {
+    if (isEditMode && editParams?.address) {
+      navigation.navigate("RegisterConfirmData", {
+        fullName: form.fullName,
+        cpf: form.cpf,
+        email: form.email,
+        ...editParams.address,
+      });
+      return;
+    }
+
     navigation.navigate("RegisterAuthenticator", {
+      fullName: form.fullName,
+      cpf: form.cpf,
       email: form.email,
     });
   }
@@ -133,69 +155,79 @@ export function RegisterPersonalData() {
             onSubmitEditing={() => passwordRef.current?.focus()}
           />
 
-          <FormInput
-            ref={passwordRef}
-            label="Senha"
-            required
-            isPassword
-            placeholder="Senha"
-            value={form.password}
-            onChangeText={form.setPassword}
-            isValid={form.isPasswordValid}
-            returnKeyType="next"
-            blurOnSubmit={false}
-            onSubmitEditing={() => confirmPasswordRef.current?.focus()}
-          />
+          {!isEditMode && (
+            <>
+              <FormInput
+                ref={passwordRef}
+                label="Senha"
+                required
+                isPassword
+                placeholder="Senha"
+                value={form.password}
+                onChangeText={form.setPassword}
+                isValid={form.isPasswordValid}
+                returnKeyType="next"
+                blurOnSubmit={false}
+                onSubmitEditing={() => confirmPasswordRef.current?.focus()}
+              />
 
-          <PasswordStrength score={form.passwordScore} />
+              <PasswordStrength score={form.passwordScore} />
 
-          <Text style={styles.password_hint}>
-            Mínimo 6 caracteres, com 1 número e 1 letra maiúscula.
-          </Text>
+              <Text style={styles.password_hint}>
+                Mínimo 6 caracteres, com 1 número e 1 letra maiúscula.
+              </Text>
 
-          <FormInput
-            ref={confirmPasswordRef}
-            label="Confirmar senha"
-            required
-            isPassword
-            placeholder="Senha"
-            value={form.confirmPassword}
-            onChangeText={form.setConfirmPassword}
-            isValid={form.isConfirmPasswordValid}
-            returnKeyType="done"
-            onSubmitEditing={() => Keyboard.dismiss()}
-          />
+              <FormInput
+                ref={confirmPasswordRef}
+                label="Confirmar senha"
+                required
+                isPassword
+                placeholder="Senha"
+                value={form.confirmPassword}
+                onChangeText={form.setConfirmPassword}
+                isValid={form.isConfirmPasswordValid}
+                returnKeyType="done"
+                onSubmitEditing={() => Keyboard.dismiss()}
+              />
+            </>
+          )}
         </ScrollView>
       </KeyboardAvoidingView>
 
       {!isKeyboardVisible && (
         <View style={styles.footer}>
           <PrimaryButton
-            label="Continuar"
+            label={isEditMode ? "Salvar alterações" : "Continuar"}
             onPress={handleContinue}
-            disabled={!form.isFormValid}
+            disabled={
+              isEditMode ? !form.isPersonalDataValid : !form.isFormValid
+            }
           />
 
-          <View style={styles.divider_row}>
-            <View style={styles.divider_line} />
-            <Text style={styles.divider_text}>ou</Text>
-            <View style={styles.divider_line} />
-          </View>
+          {!isEditMode && (
+            <>
+              <View style={styles.divider_row}>
+                <View style={styles.divider_line} />
+                <Text style={styles.divider_text}>ou</Text>
+                <View style={styles.divider_line} />
+              </View>
 
-          <TouchableOpacity
-            style={styles.google_button}
-            activeOpacity={0.8}
-            onPress={handleGoogleLogin}
-          >
-            <Image
-              source={require("../../../../../../assets/Images/google.png")}
-              style={styles.google_icon}
-            />
+              <TouchableOpacity
+                style={styles.google_button}
+                activeOpacity={0.8}
+                onPress={handleGoogleLogin}
+              >
+                <Image
+                  source={require("../../../../../../assets/Images/google.png")}
+                  style={styles.google_icon}
+                />
 
-            <Text style={styles.google_button_text}>
-              Criar conta com o Google
-            </Text>
-          </TouchableOpacity>
+                <Text style={styles.google_button_text}>
+                  Criar conta com o Google
+                </Text>
+              </TouchableOpacity>
+            </>
+          )}
         </View>
       )}
     </View>
