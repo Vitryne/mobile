@@ -1,24 +1,18 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { colors } from "../../Shared/Styles/commonStyles";
-import { CustomerStackParamList } from "../Types/navigation";
-
 import { HeaderBack } from "../Components/backButton";
-import { Endereco } from "../Screens/Address";
-import { MenuCarrinho } from "../Screens/Cart";
-import { Carregamento } from "../Screens/Loading";
+import { Loading } from "../Screens/Loading";
 import { Login } from "../Screens/Login";
-import { PedidoConfirmado } from "../Screens/Order";
-import { Pagamento, PaguePix } from "../Screens/Payment";
-import { Produto } from "../Screens/Product";
 import { RegisterPersonalData } from "../Screens/Register/Screens/RegisterPersonalData";
 import { Starter } from "../Screens/Starter";
+import { CustomerStackParamList } from "../Types/navigation";
 
 const Stack = createNativeStackNavigator<CustomerStackParamList>();
 
 export function CustomerRoutes() {
   return (
     <Stack.Navigator
-      initialRouteName="Carregamento"
+      initialRouteName="Loading"
       screenOptions={{
         headerStyle: { backgroundColor: colors.background },
         headerTintColor: colors.text,
@@ -31,8 +25,8 @@ export function CustomerRoutes() {
       }}
     >
       <Stack.Screen
-        name="Carregamento"
-        component={Carregamento}
+        name="Loading"
+        component={Loading}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -49,36 +43,6 @@ export function CustomerRoutes() {
         name="RegisterPersonalData"
         component={RegisterPersonalData}
         options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="MenuCarrinho"
-        component={MenuCarrinho}
-        options={{ title: "Meu carrinho" }}
-      />
-      <Stack.Screen
-        name="Endereco"
-        component={Endereco}
-        options={{ title: "Endereço de entrega" }}
-      />
-      <Stack.Screen
-        name="Pagamento"
-        component={Pagamento}
-        options={{ title: "Pagamento" }}
-      />
-      <Stack.Screen
-        name="PaguePix"
-        component={PaguePix}
-        options={{ title: "Pague com PIX" }}
-      />
-      <Stack.Screen
-        name="PedidoConfirmado"
-        component={PedidoConfirmado}
-        options={{ title: "Pedido confirmado" }}
-      />
-      <Stack.Screen
-        name="Produto"
-        component={Produto}
-        options={{ title: "Produto" }}
       />
     </Stack.Navigator>
   );
