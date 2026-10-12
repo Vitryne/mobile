@@ -1,5 +1,5 @@
 export type CustomerStackParamList = {
-  Carregamento: undefined;
+  Loading: undefined;
   Starter: undefined;
   Login: undefined;
   RegisterPersonalData: undefined;
@@ -11,3 +11,4 @@ export type CustomerStackParamList = {
   PedidoConfirmado: { orderId: string };
   Produto: undefined;
 };
+
