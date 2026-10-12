@@ -130,7 +130,7 @@ export function Starter({ navigation }: Props) {
       <View style={styles.footer}>
         <PrimaryButton
           label="Criar Conta"
-          onPress={() => navigation.navigate("Login")}
+          onPress={() => navigation.navigate("RegisterPersonalData")}
         />
         <SecundaryButton
           label="Já tenho uma conta"

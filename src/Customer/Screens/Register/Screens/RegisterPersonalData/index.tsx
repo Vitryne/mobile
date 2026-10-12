@@ -20,7 +20,6 @@ import { RegisterHeader } from "../../Components/RegisterHeader";
 import { styles } from "./styles";
 
 export function RegisterPersonalData() {
-  console.log("RegisterPersonalData do consumidor renderizou");
   const form = useRegisterForm();
 
   const scrollViewRef = useRef<ScrollView>(null);
@@ -66,7 +65,7 @@ export function RegisterPersonalData() {
   }
 
   function handleContinue() {
-    navigation.navigate("MenuCarrinho");
+    navigation.navigate("RegisterAddresData");
   }
 
   return (
@@ -161,6 +160,16 @@ export function RegisterPersonalData() {
             returnKeyType="done"
             onSubmitEditing={() => Keyboard.dismiss()}
           />
+        </ScrollView>
+      </KeyboardAvoidingView>
+
+      {!isKeyboardVisible && (
+        <View style={styles.footer}>
+          <PrimaryButton
+            label="Continuar"
+            onPress={handleContinue}
+            disabled={!form.isFormValid}
+          />
 
           <View style={styles.divider_row}>
             <View style={styles.divider_line} />
@@ -182,16 +191,6 @@ export function RegisterPersonalData() {
               Criar conta com o Google
             </Text>
           </TouchableOpacity>
-        </ScrollView>
-      </KeyboardAvoidingView>
-
-      {!isKeyboardVisible && (
-        <View style={styles.footer}>
-          <PrimaryButton
-            label="Continuar"
-            onPress={handleContinue}
-            disabled={!form.isFormValid}
-          />
         </View>
       )}
     </View>
