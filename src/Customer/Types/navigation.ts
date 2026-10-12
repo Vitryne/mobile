@@ -1,7 +1,8 @@
 export type CustomerStackParamList = {
-  Carregamento: undefined;
+  Loading: undefined;
   Starter: undefined;
   Login: undefined;
+  RegisterConfirmData: undefined;
   RegisterPersonalData:
     | {
         editMode?: boolean;
@@ -41,13 +42,8 @@ export type CustomerStackParamList = {
     neighborhood: string;
     complement: string;
   };
-  MenuCarrinho: undefined;
-  Endereco: undefined;
-  Pagamento: undefined;
-  PaguePix: { orderId: string };
-  PedidoConfirmado: { orderId: string };
-  Produto: undefined;
 };
+
 export type AddressData = {
   cep: string;
   city: string;
@@ -57,3 +53,4 @@ export type AddressData = {
   neighborhood: string;
   complement: string;
 };
+
