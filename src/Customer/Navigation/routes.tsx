@@ -1,11 +1,14 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { colors } from "../../Shared/Styles/commonStyles";
+import { CustomerStackParamList } from "../Types/navigation";
+
 import { HeaderBack } from "../Components/backButton";
-import { Loading } from "../Screens/Loading";
+import { Loading } from "../Screens/Loading/index";
 import { Login } from "../Screens/Login";
+import { RegisterAddresData } from "../Screens/Register/Screens/RegisterAdressData";
+import { RegisterAuthenticator } from "../Screens/Register/Screens/RegisterAuthenticator";
 import { RegisterPersonalData } from "../Screens/Register/Screens/RegisterPersonalData";
 import { Starter } from "../Screens/Starter";
-import { CustomerStackParamList } from "../Types/navigation";
 
 const Stack = createNativeStackNavigator<CustomerStackParamList>();
 
@@ -42,6 +45,16 @@ export function CustomerRoutes() {
       <Stack.Screen
         name="RegisterPersonalData"
         component={RegisterPersonalData}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="RegisterAuthenticator"
+        component={RegisterAuthenticator}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="RegisterAddresData"
+        component={RegisterAddresData}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

@@ -36,11 +36,11 @@ export const styles = StyleSheet.create({
   subtitle: {
     marginTop: 4,
     fontSize: 13,
-    color: "#9A9A9A",
+    color: colors.description,
   },
   password_hint: {
     marginTop: 6,
     fontSize: 11,
-    color: "#9A9A9A",
+    color: colors.description,
   },
 });

@@ -1,5 +1,6 @@
 import { commonStyles } from "@/Shared/Styles/commonStyles";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useEffect, useRef, useState } from "react";
 import {
     Image,
@@ -15,6 +16,7 @@ import {
 import { FormInput } from "../../../../Components/FormInput";
 import { PrimaryButton } from "../../../../Components/PrimaryButton";
 import { useRegisterForm } from "../../../../Hooks/registroForm";
+import { CustomerStackParamList } from "../../../../Types/navigation";
 import { PasswordStrength } from "../../Components/PasswordStrength";
 import { RegisterHeader } from "../../Components/RegisterHeader";
 import { styles } from "./styles";
@@ -24,7 +26,8 @@ export function RegisterPersonalData() {
 
   const scrollViewRef = useRef<ScrollView>(null);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<CustomerStackParamList>>();
 
   const cpfRef = useRef<TextInput>(null);
   const emailRef = useRef<TextInput>(null);
@@ -65,7 +68,9 @@ export function RegisterPersonalData() {
   }
 
   function handleContinue() {
-    navigation.navigate("RegisterAddresData");
+    navigation.navigate("RegisterAuthenticator", {
+      email: form.email,
+    });
   }
 
   return (

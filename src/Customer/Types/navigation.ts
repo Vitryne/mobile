@@ -3,6 +3,7 @@ export type CustomerStackParamList = {
   Starter: undefined;
   Login: undefined;
   RegisterPersonalData: undefined;
+  RegisterAuthenticator: { email: string };
   RegisterAddresData: undefined;
   MenuCarrinho: undefined;
   Endereco: undefined;

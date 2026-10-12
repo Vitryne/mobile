@@ -41,6 +41,6 @@ export const styles = StyleSheet.create({
   helper_text: {
     marginTop: 6,
     fontSize: 12,
-    color: "#9A9A9A",
+    color: colors.description,
   },
 });

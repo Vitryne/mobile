@@ -6,13 +6,14 @@ export const colors = {
   white: "#FFFFFF",
   text: "#1A1A1A",
   textMuted: "#6B7280",
+  description: "#9A9A9A",
   background: "#F5F5F7",
   card: "#FFFFFF",
   border: "#E5E7EB",
   danger: "#DC2626",
   dangerSoft: "#FEF2F2",
   success: "#16A34A",
-  successSoft: "#F0FDF4", 
+  successSoft: "#F0FDF4",
 };
 
 export const spacing = { xs: 4, sm: 8, md: 16, lg: 24, xl: 32 };

@@ -2,13 +2,13 @@ import { commonStyles } from "@/Shared/Styles/commonStyles";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
 import {
-    Keyboard,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    Text,
-    TextInput,
-    View,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 import { FormInput } from "../../../../Components/FormInput";
 import { PrimaryButton } from "../../../../Components/PrimaryButton";
