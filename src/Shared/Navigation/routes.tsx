@@ -8,11 +8,11 @@ const Stack = createNativeStackNavigator<AppStackParamList>();
 export function AppRoutes() {
   return (
     <Stack.Navigator
-      initialRouteName="DeliveryStack"
+      initialRouteName="CustomerStack"
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="DeliveryStack" component={DeliveryRoutes} />
       <Stack.Screen name="CustomerStack" component={CustomerRoutes} />
+      <Stack.Screen name="DeliveryStack" component={DeliveryRoutes} />
     </Stack.Navigator>
   );
 }

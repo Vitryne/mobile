@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
   slide: {},
 
   // A foto absorve todo o espaço que sobrar depois do texto/dots
-  imageContainer: {
+  image_container: {
     flex: 1,
     overflow: "hidden",
   },
@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
     color: colors.text,
     lineHeight: 36,
   },
-  titleHighlight: {
+  title_highlight: {
     fontSize: 30,
     fontWeight: "800",
     color: colors.primary,
@@ -66,7 +66,7 @@ export const styles = StyleSheet.create({
     lineHeight: 21,
   },
 
-  dotsRow: {
+  dots_row: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -79,7 +79,7 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.textMuted,
     marginRight: spacing.xs,
   },
-  dotActive: {
+  dot_active: {
     width: 20,
     backgroundColor: colors.primary,
   },

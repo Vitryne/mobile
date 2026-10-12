@@ -1,4 +1,12 @@
 export type CustomerStackParamList = {
   Loading: undefined;
   Starter: undefined;
+  Login: undefined;
+  MenuCarrinho: undefined;
+  Endereco: undefined;
+  Pagamento: undefined;
+  PaguePix: { orderId: string };
+  PedidoConfirmado: { orderId: string };
+  Produto: undefined;
 };
+

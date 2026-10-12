@@ -5,22 +5,22 @@ import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useRef } from "react";
 import {
-  Image,
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
+    Image,
+    Keyboard,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from "react-native";
 import Logo from "../../../../../assets/Images/logo.svg";
 import { FormInput } from "../../../Components/FormInput";
 import { useLogin } from "../../../Hooks/loginForm";
 import type {
-  AppStackParamList,
-  DeliveryStackParamList,
+    AppStackParamList,
+    DeliveryStackParamList,
 } from "../../../Types/navigation";
 import { styles } from "./styles";
 
@@ -58,7 +58,7 @@ export function Login() {
   }
 
   function handleGoToCustomer() {
-    navigation.navigate("CustomerStack", { screen: "Carregamento" });
+    navigation.navigate("CustomerStack", { screen: "Login" });
   }
 
   return (
