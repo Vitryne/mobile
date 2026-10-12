@@ -3,6 +3,7 @@ import { colors } from "../../Shared/Styles/commonStyles";
 import { HeaderBack } from "../Components/backButton";
 import { Loading } from "../Screens/Loading";
 import { Login } from "../Screens/Login";
+import { RegisterPersonalData } from "../Screens/Register/Screens/RegisterPersonalData";
 import { Starter } from "../Screens/Starter";
 import { CustomerStackParamList } from "../Types/navigation";
 
@@ -29,13 +30,18 @@ export function CustomerRoutes() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
+        name="Starter"
+        component={Starter}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name="Login"
         component={Login}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="Starter"
-        component={Starter}
+        name="RegisterPersonalData"
+        component={RegisterPersonalData}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
