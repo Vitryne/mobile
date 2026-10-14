@@ -43,9 +43,11 @@ export function Login() {
     if (success) {
       console.log("login mockado ok");
       navigation.navigate("CustomerStack", { screen: "Home" });
+
+      // email: "teste@gmail.com"
+      // password: "123456"
     } else {
       console.log("login mockado falhou");
-      navigation.navigate("CustomerStack", { screen: "Home" });
     }
   }
 

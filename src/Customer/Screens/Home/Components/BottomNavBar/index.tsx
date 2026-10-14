@@ -16,8 +16,6 @@ const TABS: { key: TabKey; label: string; icon: FeatherIconName }[] = [
   { key: "profile", label: "Perfil", icon: "user" },
 ];
 
-// Em aparelhos sem home indicator (e no navegador) o inset de baixo é 0,
-// então garante um respiro mínimo pra barra não ficar "colada" na borda.
 const MIN_BOTTOM_PADDING = 12;
 
 type BottomNavBarProps = {
@@ -25,8 +23,6 @@ type BottomNavBarProps = {
   onTabPress?: (tab: TabKey) => void;
 };
 
-// Cada tela principal renderiza essa barra passando a própria aba em
-// `activeTab` - assim ela serve pra Início, Categorias, Pedidos e Perfil.
 export function BottomNavBar({ activeTab, onTabPress }: BottomNavBarProps) {
   const insets = useSafeAreaInsets();
 

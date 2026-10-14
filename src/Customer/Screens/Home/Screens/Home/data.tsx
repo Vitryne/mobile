@@ -1,11 +1,5 @@
 import { ImageSourcePropType } from "react-native";
 
-// Todo `image` é opcional: enquanto estiver vazio a tela mostra um bloco
-// colorido no lugar da foto, então nada quebra por falta de arquivo.
-// Quando tiver as imagens, é só preencher assim:
-//   image: require("../../../../../assets/Images/home/vestidos.png"),
-// (conte os "../" até a raiz, igual fizemos no starterData)
-
 export interface HomeCategory {
   id: string;
   label: string;
@@ -15,7 +9,7 @@ export interface HomeCategory {
 export interface HomeBanner {
   id: string;
   tag: string;
-  title: string; // "\n" quebra a linha, igual ao protótipo
+  title: string;
   cta: string;
   image?: ImageSourcePropType;
 }
@@ -35,12 +29,11 @@ export interface HomeProduct {
   store: string;
   price: number;
   oldPrice?: number;
-  discount?: number; // em %, aparece como "-18%"
+  discount?: number;
   favorite: boolean;
   image?: ImageSourcePropType;
 }
 
-// Troque pelos dados reais (endereço salvo do usuário, pedidos em aberto...)
 export const DELIVERY_Address = "Zona 7, Maringá";
 export const OPEN_ORDERS_COUNT = 2;
 

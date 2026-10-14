@@ -52,18 +52,11 @@ type FeatherIconName = ComponentProps<typeof Feather>["name"];
 
 const USE_NATIVE_DRIVER = Platform.OS !== "web";
 
-// No navegador não existe status bar/notch (insets.top = 0), então
-// garante um respiro mínimo só nessa plataforma.
 const WEB_MIN_TOP_INSET = 24;
 
 const BANNER_FALLBACK_COLOR = "#2B2B2E";
 const STAR_COLOR = "#F5A623";
 
-// ------------------------------------------------------------------
-//   Lógica de "mostrar/esconder" a busca conforme a direção do scroll
-// ------------------------------------------------------------------
-// Quanto o dedo precisa andar na mesma direção antes de contar como
-// uma mudança de direção (evita tremer com movimentos pequenos).
 const DIRECTION_THRESHOLD = 12;
 
 type ScrollTracker = {
@@ -103,14 +96,11 @@ function trackScroll(
   tracker.travelled += Math.abs(delta);
   if (tracker.travelled < DIRECTION_THRESHOLD) return null;
 
-  // Subindo, já passou da área da busca e ela está escondida -> aparece.
-  // (Dentro dessa área ela acompanha o conteúdo sozinha.)
   if (direction < 0 && !tracker.shown && y > hideZone) {
     tracker.shown = true;
     return "show";
   }
 
-  // Descendo com ela aparecendo -> esconde de novo.
   if (direction > 0 && tracker.shown) {
     tracker.shown = false;
     return "hide";
@@ -124,13 +114,6 @@ function formatPrice(value: number) {
   const withThousands = integer.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   return `R$ ${withThousands},${decimals}`;
 }
-
-// ------------------------------------------------------------------
-//   Peças pequenas da tela
-// ------------------------------------------------------------------
-
-// Foto de fundo com conteúdo por cima (sem precisar de absolute). Se a
-// imagem ainda não existe, mostra um bloco colorido no lugar.
 type CoverImageProps = {
   source?: ImageSourcePropType;
   style: StyleProp<ViewStyle>;
@@ -259,7 +242,6 @@ function PromoBanner({ item, width, total, activeIndex }: PromoBannerProps) {
       style={[styles.bannerCard, { width }]}
       fallbackColor={BANNER_FALLBACK_COLOR}
     >
-      {/* Escurece a esquerda pro texto branco ficar legível sobre a foto */}
       <LinearGradient
         colors={["rgba(0,0,0,0.62)", "rgba(0,0,0,0.25)", "rgba(0,0,0,0)"]}
         locations={[0, 0.55, 1]}
@@ -390,9 +372,6 @@ function ProductCard({
   );
 }
 
-// ------------------------------------------------------------------
-//   Tela
-// ------------------------------------------------------------------
 export function Home() {
   const { width: windowWidth } = useWindowDimensions();
   const insets = useSafeAreaInsets();
@@ -415,9 +394,6 @@ export function Home() {
   const contentWidth = windowWidth - SCREEN_PADDING * 2;
   const productWidth = (contentWidth - PRODUCT_GAP) / 2;
 
-  // --- Animação da busca ---------------------------------------------
-  // scrollY: posição real do scroll (alimentada direto pelo evento).
-  // reveal:  0 = busca acompanha o conteúdo | 1 = busca totalmente visível.
   const scrollY = useRef(new Animated.Value(0)).current;
   const reveal = useRef(new Animated.Value(0)).current;
   const tracker = useRef<ScrollTracker>({
@@ -427,8 +403,6 @@ export function Home() {
     shown: false,
   }).current;
 
-  // Em repouso a busca acompanha o conteúdo (sobe junto com ele, até sair
-  // de cena). Quando `reveal` vai pra 1, o deslocamento zera e ela volta.
   const searchTranslateY = useMemo(() => {
     const followContent = scrollY.interpolate({
       inputRange: [0, SEARCH_AREA_HEIGHT],
@@ -474,10 +448,8 @@ export function Home() {
     [scrollY, reveal, tracker, animateReveal],
   );
 
-  // --- Ações (ligar quando as telas de destino existirem) --------------
   function handleTabPress(tab: TabKey) {
     if (tab === "home") return;
-    // TODO: navegar para Categorias / Pedidos / Perfil
   }
 
   function handleToggleFavorite(id: string) {
@@ -543,7 +515,6 @@ export function Home() {
         </View>
       </View>
 
-      {/* Meio: o único trecho que rola */}
       <View style={styles.body}>
         <Animated.ScrollView
           style={styles.scroll}
@@ -604,8 +575,6 @@ export function Home() {
           </View>
         </Animated.ScrollView>
 
-        {/* Busca: fica por cima do scroll e se desloca sozinha (ver
-            searchTranslateY). Aparece de novo ao rolar pra cima. */}
         <Animated.View
           style={[
             styles.searchArea,
@@ -639,7 +608,6 @@ export function Home() {
         </Animated.View>
       </View>
 
-      {/* Footer: fixo, indica a tela atual */}
       <BottomNavBar activeTab="home" onTabPress={handleTabPress} />
     </View>
   );

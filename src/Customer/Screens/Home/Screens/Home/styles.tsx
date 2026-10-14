@@ -5,11 +5,8 @@ import {
     spacing,
 } from "../../../../../Shared/Styles/commonStyles";
 
-// Exportados porque a tela precisa dessas medidas pra calcular larguras
-// (grade de produtos, banner) e pra animar a barra de busca.
 export const SCREEN_PADDING = 22;
 export const PRODUCT_GAP = 12;
-// 4 (topo) + 44 (barra) + 14 (respiro até as categorias)
 export const SEARCH_AREA_HEIGHT = 62;
 
 const softShadow = {
@@ -26,7 +23,6 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
 
-  // ---------- Header (fixo) ----------
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -70,8 +66,6 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     ...softShadow,
   },
-  // Selo de contagem sobreposto ao ícone (único uso de absolute da tela
-  // junto com a barra de busca animada).
   badge: {
     position: "absolute",
     top: -2,
@@ -90,20 +84,18 @@ export const styles = StyleSheet.create({
     color: colors.white,
   },
 
-  // ---------- Área central (rola) ----------
   body: {
     flex: 1,
-    overflow: "hidden", // a busca some por cima sem invadir o header
+    overflow: "hidden",
   },
   scroll: {
     flex: 1,
   },
   scrollContent: {
-    paddingTop: SEARCH_AREA_HEIGHT, // espaço da busca em repouso
+    paddingTop: SEARCH_AREA_HEIGHT,
     paddingBottom: spacing.lg,
   },
 
-  // ---------- Busca (sobreposta e animada) ----------
   searchArea: {
     position: "absolute",
     top: 0,
@@ -134,7 +126,6 @@ export const styles = StyleSheet.create({
     padding: 0,
   },
 
-  // ---------- Categorias ----------
   horizontalList: {
     flexGrow: 0,
   },
@@ -173,7 +164,6 @@ export const styles = StyleSheet.create({
     color: colors.text,
   },
 
-  // ---------- Banner ----------
   bannerSection: {
     marginTop: SCREEN_PADDING,
     paddingHorizontal: SCREEN_PADDING,
@@ -213,8 +203,6 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  // Botão à esquerda e a mesma largura vazia à direita: assim os pontos
-  // ficam centralizados no banner sem precisar de posicionamento absoluto.
   bannerFooterSide: {
     flex: 1,
     alignItems: "flex-start",
@@ -249,7 +237,6 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
 
-  // ---------- Seções ----------
   sectionHeader: {
     flexDirection: "row",
     alignItems: "center",
@@ -274,7 +261,6 @@ export const styles = StyleSheet.create({
     color: colors.primary,
   },
 
-  // ---------- Lojas ----------
   storeListContent: {
     paddingHorizontal: SCREEN_PADDING,
     gap: spacing.md,
@@ -329,7 +315,6 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.textMuted,
   },
 
-  // ---------- Produtos ----------
   productGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
