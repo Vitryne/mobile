@@ -1,0 +1,79 @@
+import { useState } from "react";
+
+function maskCpf(value: string) {
+  return value
+    .replace(/\D/g, "")
+    .slice(0, 11)
+    .replace(/(\d{3})(\d)/, "$1.$2")
+    .replace(/(\d{3})(\d)/, "$1.$2")
+    .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+}
+
+function getPasswordScore(password: string) {
+  if (password.length < 6) return 0;
+
+  const hasNumber = /\d/.test(password);
+  const hasUpperCase = /[A-Z]/.test(password);
+
+  if (!hasNumber || !hasUpperCase) return 1;
+  if (password.length >= 10) return 3;
+
+  return 2;
+}
+
+type RegisterFormInitialValues = {
+  fullName?: string;
+  cpf?: string;
+  email?: string;
+};
+
+export function useRegisterForm(initialValues?: RegisterFormInitialValues) {
+  const [fullName, setFullName] = useState(initialValues?.fullName ?? "");
+  const [cpf, setCpf] = useState(initialValues?.cpf ?? "");
+  const [email, setEmail] = useState(initialValues?.email ?? "");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const passwordScore = getPasswordScore(password);
+
+  const isFullNameValid = fullName.trim().length >= 3;
+  const isCpfValid = cpf.replace(/\D/g, "").length === 11;
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isPasswordValid = passwordScore >= 2;
+
+  const isConfirmPasswordValid =
+    confirmPassword.length > 0 && confirmPassword === password;
+
+  const isPersonalDataValid = isFullNameValid && isCpfValid && isEmailValid;
+
+  const isFormValid =
+    isPersonalDataValid && isPasswordValid && isConfirmPasswordValid;
+
+  return {
+    fullName,
+    setFullName,
+
+    cpf,
+    setCpf: (value: string) => setCpf(maskCpf(value)),
+
+    email,
+    setEmail,
+
+    password,
+    setPassword,
+
+    confirmPassword,
+    setConfirmPassword,
+
+    passwordScore,
+
+    isFullNameValid,
+    isCpfValid,
+    isEmailValid,
+    isPasswordValid,
+    isConfirmPasswordValid,
+
+    isPersonalDataValid,
+    isFormValid,
+  };
+}

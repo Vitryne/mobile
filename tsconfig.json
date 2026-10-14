@@ -1,18 +1,17 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "jsx": "react-native",
     "strict": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/assets/*": [
-        "./assets/*"
-      ]
+      "@/*": ["./src/*"],
+      "@/assets/*": ["./assets/*"]
     }
   },
   "include": [
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "src/Customer/Screens/Payment/Components/PaymentOption/paymentOption.tsx",
+    "src/Delivery/Screens/Register/Components/DocumentUploadItem"
   ]
 }
