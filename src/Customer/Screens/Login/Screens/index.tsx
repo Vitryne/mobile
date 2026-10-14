@@ -42,8 +42,10 @@ export function Login() {
     const success = await form.handleSubmit();
     if (success) {
       console.log("login mockado ok");
+      navigation.navigate("CustomerStack", { screen: "Home" });
     } else {
       console.log("login mockado falhou");
+      navigation.navigate("CustomerStack", { screen: "Home" });
     }
   }
 
