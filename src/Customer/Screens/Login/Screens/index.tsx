@@ -6,15 +6,15 @@ import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useRef } from "react";
 import {
-    Image,
-    Keyboard,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Image,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import Logo from "../../../../../assets/Images/logo.svg";
 import { FormInput } from "../../../Components/FormInput";
@@ -41,7 +41,7 @@ export function Login() {
 
     const success = await form.handleSubmit();
     if (success) {
-      console.log("login mockado ok");
+      navigation.replace("Product");
     } else {
       console.log("login mockado falhou");
     }
