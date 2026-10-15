@@ -33,7 +33,7 @@ export function RegisterConfirmData() {
   }`;
 
   function handleFinish() {
-    navigation.navigate("MenuCarrinho");
+    navigation.navigate("Home");
   }
 
   return (
@@ -59,7 +59,7 @@ export function RegisterConfirmData() {
                   fullName,
                   cpf,
                   email,
-                  address: {
+                  Address: {
                     cep,
                     city,
                     state,
@@ -98,7 +98,7 @@ export function RegisterConfirmData() {
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={() =>
-                navigation.navigate("RegisterAddresData", {
+                navigation.navigate("RegisterAddressData", {
                   fullName,
                   cpf,
                   email,
