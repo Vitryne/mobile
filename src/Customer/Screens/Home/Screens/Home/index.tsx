@@ -1,34 +1,31 @@
-import { Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Feather, Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import {
     Animated,
     Easing,
     FlatList,
-    ImageBackground,
-    ImageSourcePropType,
     ListRenderItemInfo,
     NativeScrollEvent,
     NativeSyntheticEvent,
     Platform,
     Pressable,
-    StyleProp,
     Text,
-    TextInput,
     useWindowDimensions,
     View,
-    ViewStyle,
 } from "react-native";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
 import { BottomNavBar, TabKey } from "../../Components/BottomNavBar";
+import { CoverImage } from "../../Components/CoverImage";
 import { HomeHeader } from "../../Components/Header";
+import { ProductCard } from "../../Components/ProductCard";
+import { SearchBar } from "../../Components/SearchBar";
 import {
     BANNERS,
     CATEGORIES,
     DELIVERY_ADDRESS,
     HomeBanner,
     HomeCategory,
-    HomeProduct,
     HomeStore,
     OPEN_ORDERS_COUNT,
     PRODUCTS,
@@ -95,37 +92,6 @@ function trackScroll(
   }
 
   return null;
-}
-
-function formatPrice(value: number) {
-  const [integer, decimals] = value.toFixed(2).split(".");
-  const withThousands = integer.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  return `R$ ${withThousands},${decimals}`;
-}
-type CoverImageProps = {
-  source?: ImageSourcePropType;
-  style: StyleProp<ViewStyle>;
-  fallbackColor?: string;
-  children?: ReactNode;
-};
-
-function CoverImage({
-  source,
-  style,
-  fallbackColor = colors.primarySoft,
-  children,
-}: CoverImageProps) {
-  if (source) {
-    return (
-      <ImageBackground source={source} style={style}>
-        {children}
-      </ImageBackground>
-    );
-  }
-
-  return (
-    <View style={[style, { backgroundColor: fallbackColor }]}>{children}</View>
-  );
 }
 
 type SectionHeaderProps = {
@@ -269,66 +235,6 @@ function StoreCard({ item }: { item: HomeStore }) {
   );
 }
 
-type ProductCardProps = {
-  item: HomeProduct;
-  width: number;
-  favorite: boolean;
-  onToggleFavorite: (id: string) => void;
-};
-
-function ProductCard({
-  item,
-  width,
-  favorite,
-  onToggleFavorite,
-}: ProductCardProps) {
-  return (
-    <View style={[styles.productCard, { width }]}>
-      <CoverImage source={item.image} style={styles.productImage}>
-        {item.discount ? (
-          <View style={styles.discountBadge}>
-            <Text style={styles.discountText}>-{item.discount}%</Text>
-          </View>
-        ) : (
-          <View />
-        )}
-
-        <Pressable
-          style={styles.heartButton}
-          onPress={() => onToggleFavorite(item.id)}
-          hitSlop={6}
-          accessibilityRole="button"
-          accessibilityLabel={favorite ? "Remover dos favoritos" : "Favoritar"}
-        >
-          <Ionicons
-            name={favorite ? "heart" : "heart-outline"}
-            size={16}
-            color={favorite ? colors.primary : colors.text}
-          />
-        </Pressable>
-      </CoverImage>
-
-      <View style={styles.productInfo}>
-        <Text style={styles.productName} numberOfLines={1}>
-          {item.name}
-        </Text>
-        <Text style={styles.productStore} numberOfLines={1}>
-          {item.store}
-        </Text>
-
-        <View style={styles.productPriceRow}>
-          <Text style={styles.productPrice}>{formatPrice(item.price)}</Text>
-          {item.oldPrice ? (
-            <Text style={styles.productOldPrice}>
-              {formatPrice(item.oldPrice)}
-            </Text>
-          ) : null}
-        </View>
-      </View>
-    </View>
-  );
-}
-
 export function Home() {
   const { width: windowWidth } = useWindowDimensions();
 
@@ -403,6 +309,8 @@ export function Home() {
   function handleTabPress(tab: TabKey) {
     if (tab === "home") return;
   }
+
+  function handleOpenFilters() {}
 
   function handleToggleFavorite(id: string) {
     setFavorites((previous) => ({ ...previous, [id]: !previous[id] }));
@@ -494,10 +402,15 @@ export function Home() {
             {PRODUCTS.map((product) => (
               <ProductCard
                 key={product.id}
-                item={product}
-                width={productWidth}
+                name={product.name}
+                store={product.store}
+                price={product.price}
+                oldPrice={product.oldPrice}
+                discount={product.discount}
+                image={product.image}
                 favorite={!!favorites[product.id]}
-                onToggleFavorite={handleToggleFavorite}
+                onToggleFavorite={() => handleToggleFavorite(product.id)}
+                style={{ width: productWidth }}
               />
             ))}
           </View>
@@ -509,30 +422,11 @@ export function Home() {
             { transform: [{ translateY: searchTranslateY }] },
           ]}
         >
-          <View style={styles.searchBar}>
-            <Feather name="search" size={18} color={colors.textMuted} />
-
-            <TextInput
-              value={query}
-              onChangeText={setQuery}
-              placeholder="Buscar peças, lojas ou marcas"
-              placeholderTextColor="#9A9A9A"
-              returnKeyType="search"
-              style={styles.searchInput}
-            />
-
-            <Pressable
-              hitSlop={8}
-              accessibilityRole="button"
-              accessibilityLabel="Filtros"
-            >
-              <MaterialIcons
-                name="filter-list"
-                size={22}
-                color={colors.primary}
-              />
-            </Pressable>
-          </View>
+          <SearchBar
+            value={query}
+            onChangeText={setQuery}
+            onPressFilter={handleOpenFilters}
+          />
         </Animated.View>
       </View>
 
