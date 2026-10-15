@@ -23,67 +23,6 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
 
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: SCREEN_PADDING,
-    paddingBottom: spacing.sm,
-    backgroundColor: colors.background,
-  },
-  locationBlock: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-    flexShrink: 1,
-  },
-  locationLabel: {
-    fontSize: 10,
-    fontWeight: "600",
-    letterSpacing: 0.8,
-    color: colors.textMuted,
-  },
-  locationRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: spacing.xs,
-  },
-  locationText: {
-    fontSize: 15,
-    fontWeight: "700",
-    color: colors.text,
-  },
-  headerActions: {
-    flexDirection: "row",
-    gap: 10,
-  },
-  iconButton: {
-    width: 40,
-    height: 40,
-    borderRadius: radius.full,
-    backgroundColor: colors.white,
-    alignItems: "center",
-    justifyContent: "center",
-    ...softShadow,
-  },
-  badge: {
-    position: "absolute",
-    top: -2,
-    right: -2,
-    minWidth: 16,
-    height: 16,
-    paddingHorizontal: 4,
-    borderRadius: radius.full,
-    backgroundColor: colors.primary,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  badgeText: {
-    fontSize: 10,
-    fontWeight: "700",
-    color: colors.white,
-  },
-
   body: {
     flex: 1,
     overflow: "hidden",

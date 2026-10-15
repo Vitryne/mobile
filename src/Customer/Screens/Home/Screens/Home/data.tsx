@@ -34,7 +34,7 @@ export interface HomeProduct {
   image?: ImageSourcePropType;
 }
 
-export const DELIVERY_Address = "Zona 7, Maringá";
+export const DELIVERY_ADDRESS = "Zona 00, Maringá";
 export const OPEN_ORDERS_COUNT = 2;
 
 export const CATEGORIES: HomeCategory[] = [
