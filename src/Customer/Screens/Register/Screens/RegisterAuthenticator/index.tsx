@@ -96,7 +96,7 @@ export function RegisterAuthenticator({ navigation, route }: Props) {
     );
 
     if (code === MOCK_CORRECT_CODE) {
-      navigation.navigate("RegisterAddresData", {
+      navigation.navigate("RegisterAddressData", {
         fullName,
         cpf,
         email,
