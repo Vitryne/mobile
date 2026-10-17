@@ -5,6 +5,7 @@ import { CustomerStackParamList } from "../Types/navigation";
 import { HeaderBack } from "../Components/backButton";
 import { Loading } from "../Screens/Loading/index";
 import { Login } from "../Screens/Login";
+import { Product } from "../Screens/Product/index";
 import { RegisterAddresData } from "../Screens/Register/Screens/RegisterAddressData";
 import { RegisterAuthenticator } from "../Screens/Register/Screens/RegisterAuthenticator";
 import { RegisterConfirmData } from "../Screens/Register/Screens/RegisterConfirmData";
@@ -61,6 +62,11 @@ export function CustomerRoutes() {
       <Stack.Screen
         name="RegisterConfirmData"
         component={RegisterConfirmData}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Product"
+        component={Product}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
