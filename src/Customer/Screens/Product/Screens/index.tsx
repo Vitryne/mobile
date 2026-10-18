@@ -1,29 +1,34 @@
+import { colors, commonStyles } from "@/Shared/Styles/commonStyles";
 import { Ionicons } from "@expo/vector-icons";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { colors, commonStyles } from "../../../../Shared/Styles/commonStyles";
+import { ScrollView, Text, View } from "react-native";
+import { useProduct } from "../../../Hooks/useProduct";
+import { ProductHeader } from "../Components/ProductHeader";
 import { styles } from "./styles";
 
 export function Product() {
+  const {
+    isFavorite,
+    cartCount,
+    handleBack,
+    handleToggleFavorite,
+    handleGoToStore,
+    handleGoToCart,
+  } = useProduct();
+
   return (
     <View style={commonStyles.screen}>
+      <ProductHeader
+        isFavorite={isFavorite}
+        cartCount={cartCount}
+        onBack={handleBack}
+        onToggleFavorite={handleToggleFavorite}
+        onGoToStore={handleGoToStore}
+        onGoToCart={handleGoToCart}
+      />
+
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={[styles.box, styles.gallery]}>
           <Text style={styles.box_name}>IMAGEM / GALERIA</Text>
-
-          <View style={styles.top_buttons}>
-            <TouchableOpacity style={styles.top_button}>
-              <Ionicons name="arrow-back" size={20} color={colors.text} />
-            </TouchableOpacity>
-
-            <View style={styles.top_buttons_right}>
-              <TouchableOpacity style={styles.top_button}>
-                <Ionicons name="heart-outline" size={20} color={colors.text} />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.top_button}>
-                <Ionicons name="share-outline" size={20} color={colors.text} />
-              </TouchableOpacity>
-            </View>
-          </View>
         </View>
 
         <View style={styles.sheet}>
