@@ -1,10 +1,18 @@
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 
+// Mockado até a API de produto existir
+const PRODUCT_IMAGES = [
+  require("../../../assets/Images/detail_1.jpg"),
+  require("../../../assets/Images/detail_2.jpg"),
+  require("../../../assets/Images/detail_3.jpg"),
+];
+
 export function useProduct() {
   const navigation = useNavigation();
 
   const [isFavorite, setIsFavorite] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(0);
 
   // Mockado até existir a rota do carrinho
   const [cartCount] = useState(2);
@@ -17,17 +25,18 @@ export function useProduct() {
     setIsFavorite((prev) => !prev);
   }
 
-  // Rota da loja ainda não existe
   function handleGoToStore() {
     console.log("ir para a loja");
   }
 
-  // Rota do carrinho ainda não existe
   function handleGoToCart() {
     console.log("ir para o carrinho");
   }
 
   return {
+    images: PRODUCT_IMAGES,
+    selectedImage,
+    setSelectedImage,
     isFavorite,
     cartCount,
     handleBack,

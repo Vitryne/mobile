@@ -2,14 +2,11 @@ import { colors, spacing } from "@/Shared/Styles/commonStyles";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  gallery: {
-    height: 360,
-    borderWidth: 1,
-    borderColor: colors.text,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   sheet: {
+    marginTop: -24,
+    backgroundColor: colors.white,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
     borderWidth: 1,
     borderColor: colors.danger,
     padding: spacing.md,
