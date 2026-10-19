@@ -2,7 +2,7 @@ import { Feather } from "@expo/vector-icons";
 import { ComponentProps } from "react";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { colors } from "../../../../../Shared/Styles/commonStyles";
+import { colors } from "../../../Shared/Styles/commonStyles";
 import { styles } from "./styles";
 
 export type TabKey = "home" | "categories" | "orders" | "profile";

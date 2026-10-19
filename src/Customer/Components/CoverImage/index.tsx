@@ -6,7 +6,7 @@ import {
     View,
     ViewStyle,
 } from "react-native";
-import { colors } from "../../../../../Shared/Styles/commonStyles";
+import { colors } from "../../../Shared/Styles/commonStyles";
 
 type CoverImageProps = {
   source?: ImageSourcePropType;

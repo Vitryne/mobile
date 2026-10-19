@@ -1,6 +1,6 @@
 import { Feather, MaterialIcons } from "@expo/vector-icons";
 import { Pressable, TextInput, View } from "react-native";
-import { colors } from "../../../../../Shared/Styles/commonStyles";
+import { colors } from "../../../Shared/Styles/commonStyles";
 import { styles } from "./styles";
 
 type SearchBarProps = {

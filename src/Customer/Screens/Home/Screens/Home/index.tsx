@@ -15,11 +15,11 @@ import {
     View,
 } from "react-native";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
-import { BottomNavBar, TabKey } from "../../Components/BottomNavBar";
-import { CoverImage } from "../../Components/CoverImage";
+import { BottomNavBar, TabKey } from "../../../../Components/BottomNavBar";
+import { CoverImage } from "../../../../Components/CoverImage";
+import { SearchBar } from "../../../../Components/SearchBar";
 import { HomeHeader } from "../../Components/Header";
 import { ProductCard } from "../../Components/ProductCard";
-import { SearchBar } from "../../Components/SearchBar";
 import {
     BANNERS,
     CATEGORIES,
@@ -30,7 +30,7 @@ import {
     OPEN_ORDERS_COUNT,
     PRODUCTS,
     STORES,
-} from "./data";
+} from "../../Data/data";
 import {
     PRODUCT_GAP,
     SCREEN_PADDING,

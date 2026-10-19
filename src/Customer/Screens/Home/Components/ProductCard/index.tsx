@@ -8,7 +8,7 @@ import {
     ViewStyle,
 } from "react-native";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
-import { CoverImage } from "../CoverImage";
+import { CoverImage } from "../../../../Components/CoverImage";
 import { styles } from "./styles";
 
 function formatPrice(value: number) {
