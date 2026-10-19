@@ -26,7 +26,7 @@ function HeaderIconButton({
 }: HeaderIconButtonProps) {
   return (
     <Pressable
-      style={styles.iconButton}
+      style={styles.icon_button}
       onPress={onPress}
       accessibilityRole="button"
       accessibilityLabel={label}
@@ -35,7 +35,7 @@ function HeaderIconButton({
 
       {badge ? (
         <View style={styles.badge}>
-          <Text style={styles.badgeText}>{badge}</Text>
+          <Text style={styles.badge_text}>{badge}</Text>
         </View>
       ) : null}
     </Pressable>
@@ -65,19 +65,19 @@ export function HomeHeader({
 
   return (
     <View style={[styles.container, { paddingTop: topInset + 4 }]}>
-      <View style={styles.locationBlock}>
+      <View style={styles.location_block}>
         <Feather name="map-pin" size={18} color={colors.primary} />
 
         <View>
-          <Text style={styles.locationLabel}>ENTREGAR EM</Text>
+          <Text style={styles.location_label}>ENTREGAR EM</Text>
 
           <Pressable
-            style={styles.locationRow}
+            style={styles.location_row}
             onPress={onPressAddress}
             accessibilityRole="button"
             accessibilityLabel="Alterar endereço de entrega"
           >
-            <Text style={styles.locationText} numberOfLines={1}>
+            <Text style={styles.location_text} numberOfLines={1}>
               {address}
             </Text>
             <Feather name="chevron-down" size={16} color={colors.text} />
