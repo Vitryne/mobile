@@ -6,7 +6,6 @@ import {
 } from "../../../../../Shared/Styles/commonStyles";
 
 export const styles = StyleSheet.create({
-  // Ocupa a altura que o container de fora der (na Home são 44px).
   container: {
     flex: 1,
     flexDirection: "row",

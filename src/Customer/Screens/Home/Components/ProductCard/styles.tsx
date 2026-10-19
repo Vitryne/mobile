@@ -26,18 +26,18 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
   },
-  discountBadge: {
+  discount_badge: {
     paddingHorizontal: spacing.sm,
     paddingVertical: 3,
     borderRadius: radius.full,
     backgroundColor: colors.primary,
   },
-  discountText: {
+  discount_text: {
     fontSize: 10,
     fontWeight: "700",
     color: colors.white,
   },
-  heartButton: {
+  heart_button: {
     width: 30,
     height: 30,
     borderRadius: radius.full,
@@ -61,7 +61,7 @@ export const styles = StyleSheet.create({
     fontSize: 11,
     color: colors.textMuted,
   },
-  priceRow: {
+  price_row: {
     flexDirection: "row",
     alignItems: "baseline",
     gap: 6,
@@ -72,7 +72,7 @@ export const styles = StyleSheet.create({
     fontWeight: "700",
     color: colors.text,
   },
-  oldPrice: {
+  old_price: {
     fontSize: 11,
     color: colors.textMuted,
     textDecorationLine: "line-through",

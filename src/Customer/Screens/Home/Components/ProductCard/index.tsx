@@ -22,11 +22,10 @@ export type ProductCardProps = {
   store: string;
   price: number;
   oldPrice?: number;
-  discount?: number; // em %, aparece como "-18%"
+  discount?: number;
   image?: ImageSourcePropType;
   favorite: boolean;
   onToggleFavorite: () => void;
-  // Quem usa o card define a largura (ex: grade de 2 colunas na Home).
   style?: StyleProp<ViewStyle>;
 };
 
@@ -45,15 +44,15 @@ export function ProductCard({
     <View style={[styles.container, style]}>
       <CoverImage source={image} style={styles.image}>
         {discount ? (
-          <View style={styles.discountBadge}>
-            <Text style={styles.discountText}>-{discount}%</Text>
+          <View style={styles.discount_badge}>
+            <Text style={styles.discount_text}>-{discount}%</Text>
           </View>
         ) : (
           <View />
         )}
 
         <Pressable
-          style={styles.heartButton}
+          style={styles.heart_button}
           onPress={onToggleFavorite}
           hitSlop={6}
           accessibilityRole="button"
@@ -75,10 +74,10 @@ export function ProductCard({
           {store}
         </Text>
 
-        <View style={styles.priceRow}>
+        <View style={styles.price_row}>
           <Text style={styles.price}>{formatPrice(price)}</Text>
           {oldPrice ? (
-            <Text style={styles.oldPrice}>{formatPrice(oldPrice)}</Text>
+            <Text style={styles.old_price}>{formatPrice(oldPrice)}</Text>
           ) : null}
         </View>
       </View>
