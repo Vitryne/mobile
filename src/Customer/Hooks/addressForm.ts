@@ -25,7 +25,7 @@ export interface AddressFieldConfig {
 
 export type AddressFormValues = Record<AddressFieldName, string>;
 
-export const ADDRESS_FIELDS: AddressFieldConfig[] = [
+export const Address_FIELDS: AddressFieldConfig[] = [
   {
     name: "cep",
     label: "CEP",
@@ -160,7 +160,7 @@ export function useAddressForm(initialValues?: Partial<AddressFormValues>) {
   const [isFetchingCep, setIsFetchingCep] = useState(false);
   const [isCepInvalid, setIsCepInvalid] = useState(false);
 
-  const visibleFields = ADDRESS_FIELDS;
+  const visibleFields = Address_FIELDS;
 
   function handleChangeField(field: AddressFieldName, value: string) {
     let formattedValue = value;
@@ -193,11 +193,11 @@ export function useAddressForm(initialValues?: Partial<AddressFormValues>) {
 
     setIsFetchingCep(true);
 
-    const address = await fetchAddressByCep(cep);
+    const Address = await fetchAddressByCep(cep);
 
     setIsFetchingCep(false);
 
-    if (!address) {
+    if (!Address) {
       setIsCepInvalid(true);
       return;
     }
@@ -206,10 +206,10 @@ export function useAddressForm(initialValues?: Partial<AddressFormValues>) {
 
     setValues((previous) => ({
       ...previous,
-      city: address.city,
-      state: address.state,
-      street: address.street,
-      neighborhood: address.neighborhood,
+      city: Address.city,
+      state: Address.state,
+      street: Address.street,
+      neighborhood: Address.neighborhood,
     }));
   }
 

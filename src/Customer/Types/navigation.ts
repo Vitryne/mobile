@@ -10,7 +10,7 @@ export type CustomerStackParamList = {
         fullName?: string;
         cpf?: string;
         email?: string;
-        address?: AddressData;
+        Address?: AddressData;
       }
     | undefined;
 
@@ -20,13 +20,13 @@ export type CustomerStackParamList = {
     email: string;
   };
 
-  RegisterAddresData:
+  RegisterAddressData:
     | {
         editMode?: boolean;
         fullName: string;
         cpf: string;
         email: string;
-        address?: AddressData;
+        Address?: AddressData;
       }
     | undefined;
 
@@ -43,6 +43,8 @@ export type CustomerStackParamList = {
     neighborhood: string;
     complement: string;
   };
+
+  Home: undefined;
 };
 
 export type AddressData = {
@@ -54,4 +56,3 @@ export type AddressData = {
   neighborhood: string;
   complement: string;
 };
-
