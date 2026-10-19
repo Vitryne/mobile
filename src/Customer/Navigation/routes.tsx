@@ -6,6 +6,7 @@ import { HeaderBack } from "../Components/backButton";
 import { Home } from "../Screens/Home/Screens/Home";
 import { Loading } from "../Screens/Loading/index";
 import { Login } from "../Screens/Login";
+import { Product } from "../Screens/Product/index";
 import { RegisterAddressData } from "../Screens/Register/Screens/RegisterAddressData";
 import { RegisterAuthenticator } from "../Screens/Register/Screens/RegisterAuthenticator";
 import { RegisterConfirmData } from "../Screens/Register/Screens/RegisterConfirmData";
@@ -67,6 +68,11 @@ export function CustomerRoutes() {
       <Stack.Screen
         name="Home"
         component={Home}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Product"
+        component={Product}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

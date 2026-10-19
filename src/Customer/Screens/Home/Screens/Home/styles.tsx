@@ -30,12 +30,12 @@ export const styles = StyleSheet.create({
   scroll: {
     flex: 1,
   },
-  scrollContent: {
+  scroll_content: {
     paddingTop: SEARCH_AREA_HEIGHT,
     paddingBottom: spacing.lg,
   },
 
-  searchArea: {
+  search_area: {
     position: "absolute",
     top: 0,
     left: 0,
@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
     paddingBottom: 14,
     backgroundColor: colors.background,
   },
-  searchBar: {
+  search_bar: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
@@ -57,7 +57,7 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.white,
     ...softShadow,
   },
-  searchInput: {
+  search_input: {
     flex: 1,
     minWidth: 0,
     fontSize: 14,
@@ -65,19 +65,19 @@ export const styles = StyleSheet.create({
     padding: 0,
   },
 
-  horizontalList: {
+  horizontal_list: {
     flexGrow: 0,
   },
-  categoryListContent: {
+  category_list_content: {
     paddingHorizontal: SCREEN_PADDING,
     gap: 10,
   },
-  categoryItem: {
+  category_item: {
     width: 68,
     alignItems: "center",
     gap: spacing.sm,
   },
-  categoryRing: {
+  category_ring: {
     width: 68,
     height: 68,
     borderRadius: radius.full,
@@ -85,68 +85,68 @@ export const styles = StyleSheet.create({
     borderColor: "transparent",
     padding: 3,
   },
-  categoryRingSelected: {
+  category_ring_selected: {
     borderColor: colors.primary,
   },
-  categoryImage: {
+  category_image: {
     flex: 1,
     borderRadius: radius.full,
     overflow: "hidden",
   },
-  categoryLabel: {
+  category_label: {
     fontSize: 12,
     fontWeight: "500",
     color: colors.textMuted,
   },
-  categoryLabelSelected: {
+  category_label_selected: {
     fontWeight: "700",
     color: colors.text,
   },
 
-  bannerSection: {
+  banner_section: {
     marginTop: SCREEN_PADDING,
     paddingHorizontal: SCREEN_PADDING,
   },
-  bannerCard: {
+  banner_card: {
     height: 184,
     borderRadius: 24,
     overflow: "hidden",
   },
-  bannerGradient: {
+  banner_gradient: {
     flex: 1,
     justifyContent: "space-between",
     paddingHorizontal: 20,
     paddingTop: 18,
     paddingBottom: spacing.md,
   },
-  bannerTag: {
+  banner_tag: {
     alignSelf: "flex-start",
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: radius.full,
     backgroundColor: "rgba(255,255,255,0.92)",
   },
-  bannerTagText: {
+  banner_tag_text: {
     fontSize: 10,
     fontWeight: "700",
     letterSpacing: 0.6,
     color: colors.text,
   },
-  bannerTitle: {
+  banner_title: {
     fontSize: 26,
     lineHeight: 31,
     fontWeight: "700",
     color: colors.white,
   },
-  bannerFooter: {
+  banner_footer: {
     flexDirection: "row",
     alignItems: "center",
   },
-  bannerFooterSide: {
+  banner_footer_side: {
     flex: 1,
     alignItems: "flex-start",
   },
-  bannerButton: {
+  banner_button: {
     flexDirection: "row",
     alignItems: "center",
     gap: 6,
@@ -155,118 +155,118 @@ export const styles = StyleSheet.create({
     borderRadius: radius.full,
     backgroundColor: colors.primary,
   },
-  bannerButtonText: {
+  banner_button_text: {
     fontSize: 13,
     fontWeight: "700",
     color: colors.white,
   },
-  bannerDots: {
+  banner_dots: {
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.xs,
   },
-  bannerDot: {
+  banner_dot: {
     width: 6,
     height: 6,
     borderRadius: radius.full,
     backgroundColor: "rgba(255,255,255,0.5)",
   },
-  bannerDotActive: {
+  banner_dot_active: {
     width: 16,
     backgroundColor: colors.white,
   },
 
-  sectionHeader: {
+  section_header: {
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: SCREEN_PADDING,
     marginTop: spacing.xl,
     marginBottom: 14,
   },
-  sectionHeaderSpread: {
+  section_header_spread: {
     justifyContent: "space-between",
   },
-  sectionHeaderInline: {
+  section_header_inline: {
     gap: 20,
   },
-  sectionTitle: {
+  section_title: {
     fontSize: 18,
     fontWeight: "700",
     color: colors.text,
   },
-  sectionLink: {
+  section_link: {
     fontSize: 13,
     fontWeight: "700",
     color: colors.primary,
   },
 
-  storeListContent: {
+  store_list_content: {
     paddingHorizontal: SCREEN_PADDING,
     gap: spacing.md,
   },
-  storeCard: {
+  store_card: {
     width: 176,
     padding: spacing.sm,
     borderRadius: 20,
     backgroundColor: colors.white,
     ...softShadow,
   },
-  storeImage: {
+  store_image: {
     height: 96,
     padding: spacing.sm,
     borderRadius: 14,
     overflow: "hidden",
     alignItems: "flex-start",
   },
-  storeTag: {
+  store_tag: {
     paddingHorizontal: spacing.sm,
     paddingVertical: 3,
     borderRadius: radius.full,
     backgroundColor: colors.white,
   },
-  storeTagText: {
+  store_tag_text: {
     fontSize: 9,
     fontWeight: "700",
     letterSpacing: 0.4,
     color: colors.text,
   },
-  storeName: {
+  store_name: {
     marginTop: spacing.sm,
     fontSize: 13,
     fontWeight: "700",
     color: colors.text,
   },
-  storeMeta: {
+  store_meta: {
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.xs,
     marginTop: spacing.xs,
     marginBottom: spacing.xs,
   },
-  storeMetaText: {
+  store_meta_text: {
     fontSize: 11,
     color: colors.textMuted,
   },
-  storeMetaDot: {
+  store_meta_dot: {
     width: 4,
     height: 4,
     borderRadius: radius.full,
     backgroundColor: colors.textMuted,
   },
 
-  productGrid: {
+  product_grid: {
     flexDirection: "row",
     flexWrap: "wrap",
     gap: PRODUCT_GAP,
     paddingHorizontal: SCREEN_PADDING,
   },
-  productCard: {
+  product_card: {
     padding: 6,
     borderRadius: 20,
     backgroundColor: colors.white,
     ...softShadow,
   },
-  productImage: {
+  product_image: {
     aspectRatio: 0.9,
     padding: spacing.sm,
     borderRadius: radius.lg,
@@ -275,18 +275,18 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
   },
-  discountBadge: {
+  discount_badge: {
     paddingHorizontal: spacing.sm,
     paddingVertical: 3,
     borderRadius: radius.full,
     backgroundColor: colors.primary,
   },
-  discountText: {
+  discount_text: {
     fontSize: 10,
     fontWeight: "700",
     color: colors.white,
   },
-  heartButton: {
+  heart_button: {
     width: 30,
     height: 30,
     borderRadius: radius.full,
@@ -294,33 +294,33 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  productInfo: {
+  product_info: {
     paddingHorizontal: 6,
     paddingTop: spacing.sm,
     paddingBottom: 6,
     gap: 2,
   },
-  productName: {
+  product_name: {
     fontSize: 13,
     fontWeight: "700",
     color: colors.text,
   },
-  productStore: {
+  product_store: {
     fontSize: 11,
     color: colors.textMuted,
   },
-  productPriceRow: {
+  product_price_row: {
     flexDirection: "row",
     alignItems: "baseline",
     gap: 6,
     marginTop: spacing.xs,
   },
-  productPrice: {
+  product_price: {
     fontSize: 14,
     fontWeight: "700",
     color: colors.text,
   },
-  productOldPrice: {
+  product_old_price: {
     fontSize: 11,
     color: colors.textMuted,
     textDecorationLine: "line-through",

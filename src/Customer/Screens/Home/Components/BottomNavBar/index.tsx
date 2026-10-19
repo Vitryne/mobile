@@ -47,7 +47,10 @@ export function BottomNavBar({ activeTab, onTabPress }: BottomNavBarProps) {
             accessibilityState={{ selected: isActive }}
           >
             <View
-              style={[styles.iconBubble, isActive && styles.iconBubbleActive]}
+              style={[
+                styles.icon_bubble,
+                isActive && styles.icon_bubble_active,
+              ]}
             >
               <Feather
                 name={tab.icon}
@@ -56,7 +59,7 @@ export function BottomNavBar({ activeTab, onTabPress }: BottomNavBarProps) {
               />
             </View>
 
-            <Text style={[styles.label, isActive && styles.labelActive]}>
+            <Text style={[styles.label, isActive && styles.label_active]}>
               {tab.label}
             </Text>
           </Pressable>
