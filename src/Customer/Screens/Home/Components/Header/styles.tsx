@@ -58,8 +58,6 @@ export const styles = StyleSheet.create({
     elevation: 2,
   },
 
-  // Selo de contagem sobreposto ao ícone (sobreposição pontual, por isso
-  // o position: absolute aqui).
   badge: {
     position: "absolute",
     top: -2,

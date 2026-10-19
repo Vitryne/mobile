@@ -7,8 +7,6 @@ import { styles } from "./styles";
 
 type FeatherIconName = ComponentProps<typeof Feather>["name"];
 
-// No navegador não existe status bar/notch (insets.top = 0), então
-// garante um respiro mínimo só nessa plataforma.
 const WEB_MIN_TOP_INSET = 24;
 
 type HeaderIconButtonProps = {
