@@ -78,12 +78,12 @@ export function RegisterPersonalData() {
   }
 
   function handleContinue() {
-    if (isEditMode && editParams?.address) {
+    if (isEditMode && editParams?.Address) {
       navigation.navigate("RegisterConfirmData", {
         fullName: form.fullName,
         cpf: form.cpf,
         email: form.email,
-        ...editParams.address,
+        ...editParams.Address,
       });
       return;
     }
@@ -148,7 +148,7 @@ export function RegisterPersonalData() {
             value={form.email}
             onChangeText={form.setEmail}
             isValid={form.isEmailValid}
-            keyboardType="email-address"
+            keyboardType="email-Address"
             autoCapitalize="none"
             returnKeyType="next"
             blurOnSubmit={false}
