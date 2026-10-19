@@ -3,10 +3,11 @@ import { colors } from "../../Shared/Styles/commonStyles";
 import { CustomerStackParamList } from "../Types/navigation";
 
 import { HeaderBack } from "../Components/backButton";
+import { Home } from "../Screens/Home/Screens/Home";
 import { Loading } from "../Screens/Loading/index";
 import { Login } from "../Screens/Login";
 import { Product } from "../Screens/Product/index";
-import { RegisterAddresData } from "../Screens/Register/Screens/RegisterAddressData";
+import { RegisterAddressData } from "../Screens/Register/Screens/RegisterAddressData";
 import { RegisterAuthenticator } from "../Screens/Register/Screens/RegisterAuthenticator";
 import { RegisterConfirmData } from "../Screens/Register/Screens/RegisterConfirmData";
 import { RegisterPersonalData } from "../Screens/Register/Screens/RegisterPersonalData";
@@ -55,13 +56,18 @@ export function CustomerRoutes() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="RegisterAddresData"
-        component={RegisterAddresData}
+        name="RegisterAddressData"
+        component={RegisterAddressData}
         options={{ headerShown: false }}
       />
       <Stack.Screen
         name="RegisterConfirmData"
         component={RegisterConfirmData}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Home"
+        component={Home}
         options={{ headerShown: false }}
       />
       <Stack.Screen
