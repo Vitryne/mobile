@@ -2,11 +2,15 @@ import { colors, commonStyles } from "@/Shared/Styles/commonStyles";
 import { Ionicons } from "@expo/vector-icons";
 import { ScrollView, Text, View } from "react-native";
 import { useProduct } from "../../../Hooks/useProduct";
+import { ProductGallery } from "../Components/ProductGallery";
 import { ProductHeader } from "../Components/ProductHeader";
 import { styles } from "./styles";
 
 export function Product() {
   const {
+    images,
+    selectedImage,
+    setSelectedImage,
     isFavorite,
     cartCount,
     handleBack,
@@ -27,9 +31,11 @@ export function Product() {
       />
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={[styles.box, styles.gallery]}>
-          <Text style={styles.box_name}>IMAGEM / GALERIA</Text>
-        </View>
+        <ProductGallery
+          images={images}
+          selectedIndex={selectedImage}
+          onSelect={setSelectedImage}
+        />
 
         <View style={styles.sheet}>
           <View style={[styles.box, styles.store]}>
