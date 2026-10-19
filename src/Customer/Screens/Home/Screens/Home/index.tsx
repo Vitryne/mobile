@@ -1,13 +1,6 @@
 import { Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import {
-    ComponentProps,
-    ReactNode,
-    useCallback,
-    useMemo,
-    useRef,
-    useState,
-} from "react";
+import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
 import {
     Animated,
     Easing,
@@ -26,13 +19,13 @@ import {
     View,
     ViewStyle,
 } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
 import { BottomNavBar, TabKey } from "../../Components/BottomNavBar";
+import { HomeHeader } from "../../Components/Header";
 import {
     BANNERS,
     CATEGORIES,
-    DELIVERY_Address,
+    DELIVERY_ADDRESS,
     HomeBanner,
     HomeCategory,
     HomeProduct,
@@ -48,11 +41,7 @@ import {
     styles,
 } from "./styles";
 
-type FeatherIconName = ComponentProps<typeof Feather>["name"];
-
 const USE_NATIVE_DRIVER = Platform.OS !== "web";
-
-const WEB_MIN_TOP_INSET = 24;
 
 const BANNER_FALLBACK_COLOR = "#2B2B2E";
 const STAR_COLOR = "#F5A623";
@@ -136,37 +125,6 @@ function CoverImage({
 
   return (
     <View style={[style, { backgroundColor: fallbackColor }]}>{children}</View>
-  );
-}
-
-type Headericon_buttonProps = {
-  icon: FeatherIconName;
-  label: string;
-  badge?: number;
-  onPress?: () => void;
-};
-
-function Headericon_button({
-  icon,
-  label,
-  badge,
-  onPress,
-}: Headericon_buttonProps) {
-  return (
-    <Pressable
-      style={styles.icon_button}
-      onPress={onPress}
-      accessibilityRole="button"
-      accessibilityLabel={label}
-    >
-      <Feather name={icon} size={20} color={colors.text} />
-
-      {badge ? (
-        <View style={styles.badge}>
-          <Text style={styles.badge_text}>{badge}</Text>
-        </View>
-      ) : null}
-    </Pressable>
   );
 }
 
@@ -381,11 +339,6 @@ function ProductCard({
 
 export function Home() {
   const { width: windowWidth } = useWindowDimensions();
-  const insets = useSafeAreaInsets();
-  const topInset =
-    Platform.OS === "web"
-      ? Math.max(insets.top, WEB_MIN_TOP_INSET)
-      : insets.top;
 
   const [query, setQuery] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState(
@@ -496,31 +449,7 @@ export function Home() {
 
   return (
     <View style={styles.container}>
-      {/* Header: fixo, fora da área que rola */}
-      <View style={[styles.header, { paddingTop: topInset + 4 }]}>
-        <View style={styles.location_block}>
-          <Feather name="map-pin" size={18} color={colors.primary} />
-
-          <View>
-            <Text style={styles.location_label}>ENTREGAR EM</Text>
-            <Pressable style={styles.location_row} accessibilityRole="button">
-              <Text style={styles.location_text} numberOfLines={1}>
-                {DELIVERY_Address}
-              </Text>
-              <Feather name="chevron-down" size={16} color={colors.text} />
-            </Pressable>
-          </View>
-        </View>
-
-        <View style={styles.header_actions}>
-          <Headericon_button icon="bell" label="Notificações" />
-          <Headericon_button
-            icon="shopping-bag"
-            label="Pedidos"
-            badge={OPEN_ORDERS_COUNT}
-          />
-        </View>
-      </View>
+      <HomeHeader address={DELIVERY_ADDRESS} ordersCount={OPEN_ORDERS_COUNT} />
 
       <View style={styles.body}>
         <Animated.ScrollView
