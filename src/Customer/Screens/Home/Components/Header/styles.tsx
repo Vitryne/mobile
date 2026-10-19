@@ -17,24 +17,24 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
 
-  locationBlock: {
+  location_block: {
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
     flexShrink: 1,
   },
-  locationLabel: {
+  location_label: {
     fontSize: 10,
     fontWeight: "600",
     letterSpacing: 0.8,
     color: colors.textMuted,
   },
-  locationRow: {
+  location_row: {
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.xs,
   },
-  locationText: {
+  location_text: {
     fontSize: 15,
     fontWeight: "700",
     color: colors.text,
@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
   },
-  iconButton: {
+  icon_button: {
     width: 40,
     height: 40,
     borderRadius: radius.full,
@@ -58,8 +58,6 @@ export const styles = StyleSheet.create({
     elevation: 2,
   },
 
-  // Selo de contagem sobreposto ao ícone (sobreposição pontual, por isso
-  // o position: absolute aqui).
   badge: {
     position: "absolute",
     top: -2,
@@ -72,7 +70,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  badgeText: {
+  badge_text: {
     fontSize: 10,
     fontWeight: "700",
     color: colors.white,
