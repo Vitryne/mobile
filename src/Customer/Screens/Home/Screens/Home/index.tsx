@@ -73,7 +73,6 @@ function trackScroll(
   y: number,
   hideZone: number,
 ): TrackerAction {
-  // No topo (ou no "elástico" do iOS) a busca já está na posição natural.
   if (y <= 0) {
     const wasShown = tracker.shown;
     tracker.lastY = 0;
@@ -140,22 +139,22 @@ function CoverImage({
   );
 }
 
-type HeaderIconButtonProps = {
+type Headericon_buttonProps = {
   icon: FeatherIconName;
   label: string;
   badge?: number;
   onPress?: () => void;
 };
 
-function HeaderIconButton({
+function Headericon_button({
   icon,
   label,
   badge,
   onPress,
-}: HeaderIconButtonProps) {
+}: Headericon_buttonProps) {
   return (
     <Pressable
-      style={styles.iconButton}
+      style={styles.icon_button}
       onPress={onPress}
       accessibilityRole="button"
       accessibilityLabel={label}
@@ -164,7 +163,7 @@ function HeaderIconButton({
 
       {badge ? (
         <View style={styles.badge}>
-          <Text style={styles.badgeText}>{badge}</Text>
+          <Text style={styles.badge_text}>{badge}</Text>
         </View>
       ) : null}
     </Pressable>
@@ -185,14 +184,16 @@ function SectionHeader({
   return (
     <View
       style={[
-        styles.sectionHeader,
-        inlineLink ? styles.sectionHeaderInline : styles.sectionHeaderSpread,
+        styles.section_header,
+        inlineLink
+          ? styles.section_header_inline
+          : styles.section_header_spread,
       ]}
     >
-      <Text style={styles.sectionTitle}>{title}</Text>
+      <Text style={styles.section_title}>{title}</Text>
 
       <Pressable onPress={onPressLink} hitSlop={8} accessibilityRole="link">
-        <Text style={styles.sectionLink}>Ver mais</Text>
+        <Text style={styles.section_link}>Ver mais</Text>
       </Pressable>
     </View>
   );
@@ -207,19 +208,25 @@ type CategoryItemProps = {
 function CategoryItem({ item, selected, onPress }: CategoryItemProps) {
   return (
     <Pressable
-      style={styles.categoryItem}
+      style={styles.category_item}
       onPress={() => onPress(item.id)}
       accessibilityRole="button"
       accessibilityState={{ selected }}
     >
       <View
-        style={[styles.categoryRing, selected && styles.categoryRingSelected]}
+        style={[
+          styles.category_ring,
+          selected && styles.category_ring_selected,
+        ]}
       >
-        <CoverImage source={item.image} style={styles.categoryImage} />
+        <CoverImage source={item.image} style={styles.category_image} />
       </View>
 
       <Text
-        style={[styles.categoryLabel, selected && styles.categoryLabelSelected]}
+        style={[
+          styles.category_label,
+          selected && styles.category_label_selected,
+        ]}
         numberOfLines={1}
       >
         {item.label}
@@ -239,7 +246,7 @@ function PromoBanner({ item, width, total, activeIndex }: PromoBannerProps) {
   return (
     <CoverImage
       source={item.image}
-      style={[styles.bannerCard, { width }]}
+      style={[styles.banner_card, { width }]}
       fallbackColor={BANNER_FALLBACK_COLOR}
     >
       <LinearGradient
@@ -247,35 +254,35 @@ function PromoBanner({ item, width, total, activeIndex }: PromoBannerProps) {
         locations={[0, 0.55, 1]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
-        style={styles.bannerGradient}
+        style={styles.banner_gradient}
       >
-        <View style={styles.bannerTag}>
-          <Text style={styles.bannerTagText}>{item.tag}</Text>
+        <View style={styles.banner_tag}>
+          <Text style={styles.banner_tag_text}>{item.tag}</Text>
         </View>
 
-        <Text style={styles.bannerTitle}>{item.title}</Text>
+        <Text style={styles.banner_title}>{item.title}</Text>
 
-        <View style={styles.bannerFooter}>
-          <View style={styles.bannerFooterSide}>
-            <Pressable style={styles.bannerButton} accessibilityRole="button">
-              <Text style={styles.bannerButtonText}>{item.cta}</Text>
+        <View style={styles.banner_footer}>
+          <View style={styles.banner_footer_side}>
+            <Pressable style={styles.banner_button} accessibilityRole="button">
+              <Text style={styles.banner_button_text}>{item.cta}</Text>
               <Feather name="arrow-right" size={14} color={colors.white} />
             </Pressable>
           </View>
 
-          <View style={styles.bannerDots}>
+          <View style={styles.banner_dots}>
             {Array.from({ length: total }, (_, index) => (
               <View
                 key={index}
                 style={[
-                  styles.bannerDot,
-                  index === activeIndex && styles.bannerDotActive,
+                  styles.banner_dot,
+                  index === activeIndex && styles.banner_dot_active,
                 ]}
               />
             ))}
           </View>
 
-          <View style={styles.bannerFooterSide} />
+          <View style={styles.banner_footer_side} />
         </View>
       </LinearGradient>
     </CoverImage>
@@ -285,28 +292,28 @@ function PromoBanner({ item, width, total, activeIndex }: PromoBannerProps) {
 function StoreCard({ item }: { item: HomeStore }) {
   return (
     <Pressable
-      style={styles.storeCard}
+      style={styles.store_card}
       accessibilityRole="button"
       accessibilityLabel={item.name}
     >
-      <CoverImage source={item.image} style={styles.storeImage}>
+      <CoverImage source={item.image} style={styles.store_image}>
         {item.tag ? (
-          <View style={styles.storeTag}>
-            <Text style={styles.storeTagText}>{item.tag}</Text>
+          <View style={styles.store_tag}>
+            <Text style={styles.store_tag_text}>{item.tag}</Text>
           </View>
         ) : null}
       </CoverImage>
 
-      <Text style={styles.storeName} numberOfLines={1}>
+      <Text style={styles.store_name} numberOfLines={1}>
         {item.name}
       </Text>
 
-      <View style={styles.storeMeta}>
+      <View style={styles.store_meta}>
         <Ionicons name="star" size={11} color={STAR_COLOR} />
-        <Text style={styles.storeMetaText}>
+        <Text style={styles.store_meta_text}>
           {item.distance} · {item.rating}
         </Text>
-        <View style={styles.storeMetaDot} />
+        <View style={styles.store_meta_dot} />
       </View>
     </Pressable>
   );
@@ -326,18 +333,18 @@ function ProductCard({
   onToggleFavorite,
 }: ProductCardProps) {
   return (
-    <View style={[styles.productCard, { width }]}>
-      <CoverImage source={item.image} style={styles.productImage}>
+    <View style={[styles.product_card, { width }]}>
+      <CoverImage source={item.image} style={styles.product_image}>
         {item.discount ? (
-          <View style={styles.discountBadge}>
-            <Text style={styles.discountText}>-{item.discount}%</Text>
+          <View style={styles.discount_badge}>
+            <Text style={styles.discount_text}>-{item.discount}%</Text>
           </View>
         ) : (
           <View />
         )}
 
         <Pressable
-          style={styles.heartButton}
+          style={styles.heart_button}
           onPress={() => onToggleFavorite(item.id)}
           hitSlop={6}
           accessibilityRole="button"
@@ -351,18 +358,18 @@ function ProductCard({
         </Pressable>
       </CoverImage>
 
-      <View style={styles.productInfo}>
-        <Text style={styles.productName} numberOfLines={1}>
+      <View style={styles.product_info}>
+        <Text style={styles.product_name} numberOfLines={1}>
           {item.name}
         </Text>
-        <Text style={styles.productStore} numberOfLines={1}>
+        <Text style={styles.product_store} numberOfLines={1}>
           {item.store}
         </Text>
 
-        <View style={styles.productPriceRow}>
-          <Text style={styles.productPrice}>{formatPrice(item.price)}</Text>
+        <View style={styles.product_price_row}>
+          <Text style={styles.product_price}>{formatPrice(item.price)}</Text>
           {item.oldPrice ? (
-            <Text style={styles.productOldPrice}>
+            <Text style={styles.product_old_price}>
               {formatPrice(item.oldPrice)}
             </Text>
           ) : null}
@@ -491,13 +498,13 @@ export function Home() {
     <View style={styles.container}>
       {/* Header: fixo, fora da área que rola */}
       <View style={[styles.header, { paddingTop: topInset + 4 }]}>
-        <View style={styles.locationBlock}>
+        <View style={styles.location_block}>
           <Feather name="map-pin" size={18} color={colors.primary} />
 
           <View>
-            <Text style={styles.locationLabel}>ENTREGAR EM</Text>
-            <Pressable style={styles.locationRow} accessibilityRole="button">
-              <Text style={styles.locationText} numberOfLines={1}>
+            <Text style={styles.location_label}>ENTREGAR EM</Text>
+            <Pressable style={styles.location_row} accessibilityRole="button">
+              <Text style={styles.location_text} numberOfLines={1}>
                 {DELIVERY_Address}
               </Text>
               <Feather name="chevron-down" size={16} color={colors.text} />
@@ -505,9 +512,9 @@ export function Home() {
           </View>
         </View>
 
-        <View style={styles.headerActions}>
-          <HeaderIconButton icon="bell" label="Notificações" />
-          <HeaderIconButton
+        <View style={styles.header_actions}>
+          <Headericon_button icon="bell" label="Notificações" />
+          <Headericon_button
             icon="shopping-bag"
             label="Pedidos"
             badge={OPEN_ORDERS_COUNT}
@@ -518,7 +525,7 @@ export function Home() {
       <View style={styles.body}>
         <Animated.ScrollView
           style={styles.scroll}
-          contentContainerStyle={styles.scrollContent}
+          contentContainerStyle={styles.scroll_content}
           showsVerticalScrollIndicator={false}
           scrollEventThrottle={16}
           onScroll={handleScroll}
@@ -531,11 +538,11 @@ export function Home() {
             extraData={selectedCategoryId}
             horizontal
             showsHorizontalScrollIndicator={false}
-            style={styles.horizontalList}
-            contentContainerStyle={styles.categoryListContent}
+            style={styles.horizontal_list}
+            contentContainerStyle={styles.category_list_content}
           />
 
-          <View style={styles.bannerSection}>
+          <View style={styles.banner_section}>
             <FlatList
               data={BANNERS}
               keyExtractor={(item) => item.id}
@@ -546,7 +553,7 @@ export function Home() {
               showsHorizontalScrollIndicator={false}
               scrollEventThrottle={16}
               onScroll={handleBannerScroll}
-              style={styles.horizontalList}
+              style={styles.horizontal_list}
             />
           </View>
 
@@ -557,12 +564,12 @@ export function Home() {
             renderItem={renderStore}
             horizontal
             showsHorizontalScrollIndicator={false}
-            style={styles.horizontalList}
-            contentContainerStyle={styles.storeListContent}
+            style={styles.horizontal_list}
+            contentContainerStyle={styles.store_list_content}
           />
 
           <SectionHeader title="Recomendados para você" />
-          <View style={styles.productGrid}>
+          <View style={styles.product_grid}>
             {PRODUCTS.map((product) => (
               <ProductCard
                 key={product.id}
@@ -577,11 +584,11 @@ export function Home() {
 
         <Animated.View
           style={[
-            styles.searchArea,
+            styles.search_area,
             { transform: [{ translateY: searchTranslateY }] },
           ]}
         >
-          <View style={styles.searchBar}>
+          <View style={styles.search_bar}>
             <Feather name="search" size={18} color={colors.textMuted} />
 
             <TextInput
@@ -590,7 +597,7 @@ export function Home() {
               placeholder="Buscar peças, lojas ou marcas"
               placeholderTextColor="#9A9A9A"
               returnKeyType="search"
-              style={styles.searchInput}
+              style={styles.search_input}
             />
 
             <Pressable

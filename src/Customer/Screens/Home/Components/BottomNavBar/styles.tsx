@@ -26,14 +26,14 @@ export const styles = StyleSheet.create({
     gap: spacing.xs,
   },
 
-  iconBubble: {
+  icon_bubble: {
     width: 44,
     height: 30,
     borderRadius: radius.full,
     alignItems: "center",
     justifyContent: "center",
   },
-  iconBubbleActive: {
+  icon_bubble_active: {
     backgroundColor: colors.primarySoft,
   },
 
@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
     fontWeight: "500",
     color: colors.textMuted,
   },
-  labelActive: {
+  label_active: {
     fontWeight: "700",
     color: colors.primary,
   },
