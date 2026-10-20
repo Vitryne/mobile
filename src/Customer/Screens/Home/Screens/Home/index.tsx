@@ -1,18 +1,21 @@
+import type { CustomerStackParamList } from "@/Customer/Types/navigation";
 import { Feather, Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
 import { useCallback, useMemo, useRef, useState } from "react";
 import {
-    Animated,
-    Easing,
-    FlatList,
-    ListRenderItemInfo,
-    NativeScrollEvent,
-    NativeSyntheticEvent,
-    Platform,
-    Pressable,
-    Text,
-    useWindowDimensions,
-    View,
+  Animated,
+  Easing,
+  FlatList,
+  ListRenderItemInfo,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  Platform,
+  Pressable,
+  Text,
+  useWindowDimensions,
+  View,
 } from "react-native";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
 import { BottomNavBar, TabKey } from "../../Components/BottomNavBar";
@@ -21,21 +24,21 @@ import { HomeHeader } from "../../Components/Header";
 import { ProductCard } from "../../Components/ProductCard";
 import { SearchBar } from "../../Components/SearchBar";
 import {
-    BANNERS,
-    CATEGORIES,
-    DELIVERY_ADDRESS,
-    HomeBanner,
-    HomeCategory,
-    HomeStore,
-    OPEN_ORDERS_COUNT,
-    PRODUCTS,
-    STORES,
+  BANNERS,
+  CATEGORIES,
+  DELIVERY_ADDRESS,
+  HomeBanner,
+  HomeCategory,
+  HomeStore,
+  OPEN_ORDERS_COUNT,
+  PRODUCTS,
+  STORES,
 } from "./data";
 import {
-    PRODUCT_GAP,
-    SCREEN_PADDING,
-    SEARCH_AREA_HEIGHT,
-    styles,
+  PRODUCT_GAP,
+  SCREEN_PADDING,
+  SEARCH_AREA_HEIGHT,
+  styles,
 } from "./styles";
 
 const USE_NATIVE_DRIVER = Platform.OS !== "web";
@@ -244,6 +247,8 @@ function StoreCard({ item }: { item: HomeStore }) {
 }
 
 export function Home() {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<CustomerStackParamList>>();
   const { width: windowWidth } = useWindowDimensions();
 
   const [query, setQuery] = useState("");
@@ -322,6 +327,10 @@ export function Home() {
 
   function handleToggleFavorite(id: string) {
     setFavorites((previous) => ({ ...previous, [id]: !previous[id] }));
+  }
+
+  function handleOpenProduct() {
+    navigation.navigate("Product");
   }
 
   const handleBannerScroll = useCallback(
@@ -418,6 +427,7 @@ export function Home() {
                 image={product.image}
                 favorite={!!favorites[product.id]}
                 onToggleFavorite={() => handleToggleFavorite(product.id)}
+                onPress={handleOpenProduct}
                 style={{ width: productWidth }}
               />
             ))}

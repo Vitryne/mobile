@@ -1,11 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import {
-    ImageSourcePropType,
-    Pressable,
-    StyleProp,
-    Text,
-    View,
-    ViewStyle,
+  ImageSourcePropType,
+  Pressable,
+  StyleProp,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
 } from "react-native";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
 import { CoverImage } from "../CoverImage";
@@ -26,6 +27,7 @@ export type ProductCardProps = {
   image?: ImageSourcePropType;
   favorite: boolean;
   onToggleFavorite: () => void;
+  onPress: () => void;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -38,10 +40,17 @@ export function ProductCard({
   image,
   favorite,
   onToggleFavorite,
+  onPress,
   style,
 }: ProductCardProps) {
   return (
-    <View style={[styles.container, style]}>
+    <TouchableOpacity
+      style={[styles.container, style]}
+      activeOpacity={0.8}
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel={`Abrir ${name}`}
+    >
       <CoverImage source={image} style={styles.image}>
         {discount ? (
           <View style={styles.discount_badge}>
@@ -81,6 +90,6 @@ export function ProductCard({
           ) : null}
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
