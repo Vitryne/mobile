@@ -2,7 +2,8 @@ export type CustomerStackParamList = {
   Loading: undefined;
   Starter: undefined;
   Login: undefined;
-  Product:undefined;
+  Product: undefined;
+  Cart: undefined;
   RegisterConfirmData: undefined;
   RegisterPersonalData:
     | {
