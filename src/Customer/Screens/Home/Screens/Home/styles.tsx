@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { SEARCH_AREA_HEIGHT } from "../../../../../Customer/Hooks/useRevealOnScrollUp";
 import {
     colors,
     radius,
@@ -7,7 +8,6 @@ import {
 
 export const SCREEN_PADDING = 22;
 export const PRODUCT_GAP = 12;
-export const SEARCH_AREA_HEIGHT = 62;
 
 const softShadow = {
   shadowColor: "#000000",
@@ -46,23 +46,6 @@ export const styles = StyleSheet.create({
     paddingTop: 4,
     paddingBottom: 14,
     backgroundColor: colors.background,
-  },
-  search_bar: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-    paddingHorizontal: spacing.md,
-    borderRadius: radius.full,
-    backgroundColor: colors.white,
-    ...softShadow,
-  },
-  search_input: {
-    flex: 1,
-    minWidth: 0,
-    fontSize: 14,
-    color: colors.text,
-    padding: 0,
   },
 
   horizontal_list: {
@@ -259,70 +242,5 @@ export const styles = StyleSheet.create({
     flexWrap: "wrap",
     gap: PRODUCT_GAP,
     paddingHorizontal: SCREEN_PADDING,
-  },
-  product_card: {
-    padding: 6,
-    borderRadius: 20,
-    backgroundColor: colors.white,
-    ...softShadow,
-  },
-  product_image: {
-    aspectRatio: 0.9,
-    padding: spacing.sm,
-    borderRadius: radius.lg,
-    overflow: "hidden",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-  },
-  discount_badge: {
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 3,
-    borderRadius: radius.full,
-    backgroundColor: colors.primary,
-  },
-  discount_text: {
-    fontSize: 10,
-    fontWeight: "700",
-    color: colors.white,
-  },
-  heart_button: {
-    width: 30,
-    height: 30,
-    borderRadius: radius.full,
-    backgroundColor: colors.white,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  product_info: {
-    paddingHorizontal: 6,
-    paddingTop: spacing.sm,
-    paddingBottom: 6,
-    gap: 2,
-  },
-  product_name: {
-    fontSize: 13,
-    fontWeight: "700",
-    color: colors.text,
-  },
-  product_store: {
-    fontSize: 11,
-    color: colors.textMuted,
-  },
-  product_price_row: {
-    flexDirection: "row",
-    alignItems: "baseline",
-    gap: 6,
-    marginTop: spacing.xs,
-  },
-  product_price: {
-    fontSize: 14,
-    fontWeight: "700",
-    color: colors.text,
-  },
-  product_old_price: {
-    fontSize: 11,
-    color: colors.textMuted,
-    textDecorationLine: "line-through",
   },
 });

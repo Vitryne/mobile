@@ -1,27 +1,23 @@
-import type { CustomerStackParamList } from "@/Customer/Types/navigation";
 import { Feather, Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import {
     Animated,
-    Easing,
     FlatList,
     ListRenderItemInfo,
     NativeScrollEvent,
     NativeSyntheticEvent,
-    Platform,
     Pressable,
     Text,
     useWindowDimensions,
     View,
 } from "react-native";
+import { BottomNavBar } from "../../../../../Customer/Components/BottomNavBar";
+import { CoverImage } from "../../../../../Customer/Components/CoverImage";
+import { SearchBar } from "../../../../../Customer/Components/SearchBar";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
-import { BottomNavBar, TabKey } from "../../../../Components/BottomNavBar";
-import { CoverImage } from "../../../../Components/CoverImage";
-import { SearchBar } from "../../../../Components/SearchBar";
-import { HomeHeader } from "../../Components/Header";
+import { useRevealOnScrollUp } from "../../../../Hooks/useRevealOnScrollUp";
+import { HomeHeader } from "../../Components/HomeHeader";
 import { ProductCard } from "../../Components/ProductCard";
 import {
     BANNERS,
@@ -34,68 +30,10 @@ import {
     PRODUCTS,
     STORES,
 } from "../../Data/data";
-import {
-    PRODUCT_GAP,
-    SCREEN_PADDING,
-    SEARCH_AREA_HEIGHT,
-    styles,
-} from "./styles";
-
-const USE_NATIVE_DRIVER = Platform.OS !== "web";
+import { PRODUCT_GAP, SCREEN_PADDING, styles } from "./styles";
 
 const BANNER_FALLBACK_COLOR = "#2B2B2E";
 const STAR_COLOR = "#F5A623";
-
-const DIRECTION_THRESHOLD = 12;
-
-type ScrollTracker = {
-  lastY: number;
-  direction: -1 | 0 | 1;
-  travelled: number;
-  shown: boolean;
-};
-
-type TrackerAction = "show" | "hide" | "reset" | null;
-
-function trackScroll(
-  tracker: ScrollTracker,
-  y: number,
-  hideZone: number,
-): TrackerAction {
-  if (y <= 0) {
-    const wasShown = tracker.shown;
-    tracker.lastY = 0;
-    tracker.direction = 0;
-    tracker.travelled = 0;
-    tracker.shown = false;
-    return wasShown ? "reset" : null;
-  }
-
-  const delta = y - tracker.lastY;
-  tracker.lastY = y;
-  if (delta === 0) return null;
-
-  const direction = delta > 0 ? 1 : -1;
-  if (direction !== tracker.direction) {
-    tracker.direction = direction;
-    tracker.travelled = 0;
-  }
-
-  tracker.travelled += Math.abs(delta);
-  if (tracker.travelled < DIRECTION_THRESHOLD) return null;
-
-  if (direction < 0 && !tracker.shown && y > hideZone) {
-    tracker.shown = true;
-    return "show";
-  }
-
-  if (direction > 0 && tracker.shown) {
-    tracker.shown = false;
-    return "hide";
-  }
-
-  return null;
-}
 
 type SectionHeaderProps = {
   title: string;
@@ -247,8 +185,6 @@ function StoreCard({ item }: { item: HomeStore }) {
 }
 
 export function Home() {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<CustomerStackParamList>>();
   const { width: windowWidth } = useWindowDimensions();
 
   const [query, setQuery] = useState("");
@@ -265,72 +201,12 @@ export function Home() {
   const contentWidth = windowWidth - SCREEN_PADDING * 2;
   const productWidth = (contentWidth - PRODUCT_GAP) / 2;
 
-  const scrollY = useRef(new Animated.Value(0)).current;
-  const reveal = useRef(new Animated.Value(0)).current;
-  const tracker = useRef<ScrollTracker>({
-    lastY: 0,
-    direction: 0,
-    travelled: 0,
-    shown: false,
-  }).current;
-
-  const searchTranslateY = useMemo(() => {
-    const followContent = scrollY.interpolate({
-      inputRange: [0, SEARCH_AREA_HEIGHT],
-      outputRange: [0, -SEARCH_AREA_HEIGHT],
-      extrapolate: "clamp",
-    });
-    const hiddenFactor = reveal.interpolate({
-      inputRange: [0, 1],
-      outputRange: [1, 0],
-    });
-
-    return Animated.multiply(followContent, hiddenFactor);
-  }, [scrollY, reveal]);
-
-  const animateReveal = useCallback(
-    (toValue: 0 | 1) => {
-      Animated.timing(reveal, {
-        toValue,
-        duration: 200,
-        easing: Easing.out(Easing.cubic),
-        useNativeDriver: USE_NATIVE_DRIVER,
-      }).start();
-    },
-    [reveal],
-  );
-
-  const handleScroll = useMemo(
-    () =>
-      Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
-        useNativeDriver: USE_NATIVE_DRIVER,
-        listener: (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-          const action = trackScroll(
-            tracker,
-            event.nativeEvent.contentOffset.y,
-            SEARCH_AREA_HEIGHT,
-          );
-
-          if (action === "show") animateReveal(1);
-          else if (action === "hide") animateReveal(0);
-          else if (action === "reset") reveal.setValue(0);
-        },
-      }),
-    [scrollY, reveal, tracker, animateReveal],
-  );
-
-  function handleTabPress(tab: TabKey) {
-    if (tab === "home") return;
-  }
+  const { onScroll, translateY } = useRevealOnScrollUp();
 
   function handleOpenFilters() {}
 
   function handleToggleFavorite(id: string) {
     setFavorites((previous) => ({ ...previous, [id]: !previous[id] }));
-  }
-
-  function handleOpenProduct() {
-    navigation.navigate("Product");
   }
 
   const handleBannerScroll = useCallback(
@@ -374,7 +250,7 @@ export function Home() {
           contentContainerStyle={styles.scroll_content}
           showsVerticalScrollIndicator={false}
           scrollEventThrottle={16}
-          onScroll={handleScroll}
+          onScroll={onScroll}
           keyboardShouldPersistTaps="handled"
         >
           <FlatList
@@ -427,7 +303,6 @@ export function Home() {
                 image={product.image}
                 favorite={!!favorites[product.id]}
                 onToggleFavorite={() => handleToggleFavorite(product.id)}
-                onPress={handleOpenProduct}
                 style={{ width: productWidth }}
               />
             ))}
@@ -435,10 +310,7 @@ export function Home() {
         </Animated.ScrollView>
 
         <Animated.View
-          style={[
-            styles.search_area,
-            { transform: [{ translateY: searchTranslateY }] },
-          ]}
+          style={[styles.search_area, { transform: [{ translateY }] }]}
         >
           <SearchBar
             value={query}
@@ -448,7 +320,7 @@ export function Home() {
         </Animated.View>
       </View>
 
-      <BottomNavBar activeTab="home" onTabPress={handleTabPress} />
+      <BottomNavBar />
     </View>
   );
 }
