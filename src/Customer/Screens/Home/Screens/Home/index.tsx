@@ -1,4 +1,7 @@
+import type { CustomerStackParamList } from "@/Customer/Types/navigation";
 import { Feather, Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
 import { useCallback, useMemo, useRef, useState } from "react";
 import {
@@ -244,6 +247,8 @@ function StoreCard({ item }: { item: HomeStore }) {
 }
 
 export function Home() {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<CustomerStackParamList>>();
   const { width: windowWidth } = useWindowDimensions();
 
   const [query, setQuery] = useState("");
@@ -322,6 +327,10 @@ export function Home() {
 
   function handleToggleFavorite(id: string) {
     setFavorites((previous) => ({ ...previous, [id]: !previous[id] }));
+  }
+
+  function handleOpenProduct() {
+    navigation.navigate("Product");
   }
 
   const handleBannerScroll = useCallback(
@@ -418,6 +427,7 @@ export function Home() {
                 image={product.image}
                 favorite={!!favorites[product.id]}
                 onToggleFavorite={() => handleToggleFavorite(product.id)}
+                onPress={handleOpenProduct}
                 style={{ width: productWidth }}
               />
             ))}
