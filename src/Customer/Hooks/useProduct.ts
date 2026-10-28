@@ -83,7 +83,7 @@ export function useProduct() {
   }
 
   function handleGoToCart() {
-    console.log("ir para o carrinho");
+    navigation.navigate("Cart");
   }
 
   function handleOpenSizeTable() {

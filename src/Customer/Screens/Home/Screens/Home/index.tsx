@@ -205,6 +205,10 @@ export function Home() {
 
   function handleOpenFilters() {}
 
+  function handleOpenCart() {
+    navigation.navigate("Cart");
+  }
+
   function handleToggleFavorite(id: string) {
     setFavorites((previous) => ({ ...previous, [id]: !previous[id] }));
   }
@@ -242,7 +246,11 @@ export function Home() {
 
   return (
     <View style={styles.container}>
-      <HomeHeader address={DELIVERY_ADDRESS} ordersCount={OPEN_ORDERS_COUNT} />
+      <HomeHeader
+        address={DELIVERY_ADDRESS}
+        cartCount={OPEN_ORDERS_COUNT}
+        onPressCart={handleOpenCart}
+      />
 
       <View style={styles.body}>
         <Animated.ScrollView

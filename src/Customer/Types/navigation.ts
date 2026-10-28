@@ -4,6 +4,7 @@ export type CustomerStackParamList = {
   Login: undefined;
   Category: { categoryId: string; categoryName: string };
   Product: undefined;
+  Cart: undefined;
   RegisterConfirmData: undefined;
   RegisterPersonalData:
     | {

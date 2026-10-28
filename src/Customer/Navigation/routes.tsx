@@ -3,6 +3,7 @@ import { colors } from "../../Shared/Styles/commonStyles";
 import { CustomerStackParamList } from "../Types/navigation";
 
 import { HeaderBack } from "../Components/backButton";
+import { Cart } from "../Screens/Cart";
 import { Category } from "../Screens/Category/Screens/Category";
 import { Home } from "../Screens/Home/Screens/Home";
 import { Loading } from "../Screens/Loading/index";
@@ -79,6 +80,11 @@ export function CustomerRoutes() {
       <Stack.Screen
         name="Product"
         component={Product}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Cart"
+        component={Cart}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
