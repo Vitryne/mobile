@@ -1,9 +1,5 @@
+import { colors, radius, spacing } from "@/Shared/Styles/commonStyles";
 import { StyleSheet } from "react-native";
-import {
-    colors,
-    radius,
-    spacing,
-} from "../../../../../Shared/Styles/commonStyles";
 
 export const styles = StyleSheet.create({
   container: {
@@ -38,19 +34,7 @@ export const styles = StyleSheet.create({
     fontWeight: "700",
     color: colors.text,
   },
-  button: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: colors.primary,
-    borderRadius: radius.full,
-    paddingVertical: 14,
+  button_wrapper: {
     marginTop: spacing.sm,
-    gap: spacing.sm,
-  },
-  button_text: {
-    color: colors.white,
-    fontSize: 15,
-    fontWeight: "600",
   },
 });

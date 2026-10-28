@@ -1,8 +1,6 @@
-import { Ionicons } from "@expo/vector-icons";
-import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import { colors } from "../../../../../Shared/Styles/commonStyles";
-import { formatPrice } from "../../../../../Shared/Utils/formatPrice";
+import { PrimaryButton } from "@/Customer/Components/PrimaryButton";
+import { formatPrice } from "@/Shared/Utils/formatPrice";
+import { Text, View } from "react-native";
 import { styles } from "./styles";
 
 type Props = {
@@ -35,10 +33,9 @@ export default function CartFooter({
         <Text style={styles.total_value}>{formatPrice(total)}</Text>
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={onContinue}>
-        <Text style={styles.button_text}>Continuar para pagamento</Text>
-        <Ionicons name="arrow-forward" size={18} color={colors.white} />
-      </TouchableOpacity>
+      <View style={styles.button_wrapper}>
+        <PrimaryButton label="Continuar para pagamento" onPress={onContinue} />
+      </View>
     </View>
   );
 }
