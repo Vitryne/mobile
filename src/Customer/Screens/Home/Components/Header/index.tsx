@@ -42,18 +42,18 @@ function HeaderIconButton({
 
 type HomeHeaderProps = {
   address: string;
-  ordersCount?: number;
+  cartCount?: number;
   onPressAddress?: () => void;
   onPressNotifications?: () => void;
-  onPressOrders?: () => void;
+  onPressCart?: () => void;
 };
 
 export function HomeHeader({
   address,
-  ordersCount,
+  cartCount,
   onPressAddress,
   onPressNotifications,
-  onPressOrders,
+  onPressCart,
 }: HomeHeaderProps) {
   const insets = useSafeAreaInsets();
   const topInset =
@@ -91,9 +91,9 @@ export function HomeHeader({
         />
         <HeaderIconButton
           icon="shopping-bag"
-          label="Pedidos"
-          badge={ordersCount}
-          onPress={onPressOrders}
+          label="Sacola"
+          badge={cartCount}
+          onPress={onPressCart}
         />
       </View>
     </View>
