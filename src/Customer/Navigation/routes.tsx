@@ -4,6 +4,7 @@ import { CustomerStackParamList } from "../Types/navigation";
 
 import { HeaderBack } from "../Components/backButton";
 import { Cart } from "../Screens/Cart";
+import { Category } from "../Screens/Category/Screens/Category";
 import { Home } from "../Screens/Home/Screens/Home";
 import { Loading } from "../Screens/Loading/index";
 import { Login } from "../Screens/Login";
@@ -69,6 +70,11 @@ export function CustomerRoutes() {
       <Stack.Screen
         name="Home"
         component={Home}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Category"
+        component={Category}
         options={{ headerShown: false }}
       />
       <Stack.Screen

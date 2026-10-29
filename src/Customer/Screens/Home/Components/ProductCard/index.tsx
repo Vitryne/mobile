@@ -4,12 +4,11 @@ import {
   Pressable,
   StyleProp,
   Text,
-  TouchableOpacity,
   View,
   ViewStyle,
 } from "react-native";
+import { CoverImage } from "../../../../../Customer/Components/CoverImage";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
-import { CoverImage } from "../CoverImage";
 import { styles } from "./styles";
 
 function formatPrice(value: number) {
@@ -27,7 +26,7 @@ export type ProductCardProps = {
   image?: ImageSourcePropType;
   favorite: boolean;
   onToggleFavorite: () => void;
-  onPress: () => void;
+  onPress?: () => void;
   style?: StyleProp<ViewStyle>;
 };
 
@@ -44,12 +43,11 @@ export function ProductCard({
   style,
 }: ProductCardProps) {
   return (
-    <TouchableOpacity
+    <Pressable
       style={[styles.container, style]}
-      activeOpacity={0.8}
       onPress={onPress}
       accessibilityRole="button"
-      accessibilityLabel={`Abrir ${name}`}
+      accessibilityLabel={name}
     >
       <CoverImage source={image} style={styles.image}>
         {discount ? (
@@ -90,6 +88,6 @@ export function ProductCard({
           ) : null}
         </View>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
