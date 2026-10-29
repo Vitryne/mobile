@@ -1,39 +1,44 @@
 import { Feather, Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
 import { useCallback, useState } from "react";
 import {
-    Animated,
-    FlatList,
-    ListRenderItemInfo,
-    NativeScrollEvent,
-    NativeSyntheticEvent,
-    Pressable,
-    Text,
-    useWindowDimensions,
-    View,
+  Animated,
+  FlatList,
+  ListRenderItemInfo,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  Pressable,
+  Text,
+  useWindowDimensions,
+  View,
 } from "react-native";
 import { BottomNavBar } from "../../../../../Customer/Components/BottomNavBar";
 import { CoverImage } from "../../../../../Customer/Components/CoverImage";
 import { SearchBar } from "../../../../../Customer/Components/SearchBar";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
 import { useRevealOnScrollUp } from "../../../../Hooks/useRevealOnScrollUp";
+import { CustomerStackParamList } from "../../../../Types/navigation";
 import { HomeHeader } from "../../Components/Header";
 import { ProductCard } from "../../Components/ProductCard";
 import {
-    BANNERS,
-    CATEGORIES,
-    DELIVERY_ADDRESS,
-    HomeBanner,
-    HomeCategory,
-    HomeStore,
-    OPEN_ORDERS_COUNT,
-    PRODUCTS,
-    STORES,
+  BANNERS,
+  CATEGORIES,
+  DELIVERY_ADDRESS,
+  HomeBanner,
+  HomeCategory,
+  HomeStore,
+  OPEN_ORDERS_COUNT,
+  PRODUCTS,
+  STORES,
 } from "../../Data/data";
 import { PRODUCT_GAP, SCREEN_PADDING, styles } from "./styles";
 
 const BANNER_FALLBACK_COLOR = "#2B2B2E";
 const STAR_COLOR = "#F5A623";
+
+type HomeNavigation = NativeStackNavigationProp<CustomerStackParamList>;
 
 type SectionHeaderProps = {
   title: string;
@@ -67,14 +72,14 @@ function SectionHeader({
 type CategoryItemProps = {
   item: HomeCategory;
   selected: boolean;
-  onPress: (id: string) => void;
+  onPress: (item: HomeCategory) => void;
 };
 
 function CategoryItem({ item, selected, onPress }: CategoryItemProps) {
   return (
     <Pressable
       style={styles.category_item}
-      onPress={() => onPress(item.id)}
+      onPress={() => onPress(item)}
       accessibilityRole="button"
       accessibilityState={{ selected }}
     >
@@ -185,6 +190,7 @@ function StoreCard({ item }: { item: HomeStore }) {
 }
 
 export function Home() {
+  const navigation = useNavigation<HomeNavigation>();
   const { width: windowWidth } = useWindowDimensions();
 
   const [query, setQuery] = useState("");
@@ -209,6 +215,18 @@ export function Home() {
     setFavorites((previous) => ({ ...previous, [id]: !previous[id] }));
   }
 
+  function handleSelectCategory(category: HomeCategory) {
+    setSelectedCategoryId(category.id);
+    navigation.navigate("Category", {
+      categoryId: category.id,
+      categoryName: category.label,
+    });
+  }
+
+  function handleOpenProduct() {
+    navigation.navigate("Product");
+  }
+
   const handleBannerScroll = useCallback(
     (event: NativeSyntheticEvent<NativeScrollEvent>) => {
       const index = Math.round(
@@ -223,7 +241,7 @@ export function Home() {
     <CategoryItem
       item={item}
       selected={item.id === selectedCategoryId}
-      onPress={setSelectedCategoryId}
+      onPress={handleSelectCategory}
     />
   );
 
@@ -303,6 +321,7 @@ export function Home() {
                 image={product.image}
                 favorite={!!favorites[product.id]}
                 onToggleFavorite={() => handleToggleFavorite(product.id)}
+                onPress={handleOpenProduct}
                 style={{ width: productWidth }}
               />
             ))}
