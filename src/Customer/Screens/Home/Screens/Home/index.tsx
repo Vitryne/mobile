@@ -17,7 +17,7 @@ import { CoverImage } from "../../../../../Customer/Components/CoverImage";
 import { SearchBar } from "../../../../../Customer/Components/SearchBar";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
 import { useRevealOnScrollUp } from "../../../../Hooks/useRevealOnScrollUp";
-import { HomeHeader } from "../../Components/HomeHeader";
+import { HomeHeader } from "../../Components/Header";
 import { ProductCard } from "../../Components/ProductCard";
 import {
     BANNERS,
@@ -205,10 +205,6 @@ export function Home() {
 
   function handleOpenFilters() {}
 
-  function handleOpenCart() {
-    navigation.navigate("Cart");
-  }
-
   function handleToggleFavorite(id: string) {
     setFavorites((previous) => ({ ...previous, [id]: !previous[id] }));
   }
@@ -246,11 +242,7 @@ export function Home() {
 
   return (
     <View style={styles.container}>
-      <HomeHeader
-        address={DELIVERY_ADDRESS}
-        cartCount={OPEN_ORDERS_COUNT}
-        onPressCart={handleOpenCart}
-      />
+      <HomeHeader address={DELIVERY_ADDRESS} cartCount={OPEN_ORDERS_COUNT} />
 
       <View style={styles.body}>
         <Animated.ScrollView

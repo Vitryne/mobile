@@ -1,11 +1,17 @@
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ComponentProps } from "react";
 import { Platform, Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 import { colors } from "../../../../../Shared/Styles/commonStyles";
+import type { CustomerStackParamList } from "../../../../Types/navigation";
 import { styles } from "./styles";
 
 type FeatherIconName = ComponentProps<typeof Feather>["name"];
+
+type NavigationProp = NativeStackNavigationProp<CustomerStackParamList>;
 
 const WEB_MIN_TOP_INSET = 24;
 
@@ -31,11 +37,11 @@ function HeaderIconButton({
     >
       <Feather name={icon} size={20} color={colors.text} />
 
-      {badge ? (
+      {!!badge && (
         <View style={styles.badge}>
           <Text style={styles.badge_text}>{badge}</Text>
         </View>
-      ) : null}
+      )}
     </Pressable>
   );
 }
@@ -45,7 +51,6 @@ type HomeHeaderProps = {
   cartCount?: number;
   onPressAddress?: () => void;
   onPressNotifications?: () => void;
-  onPressCart?: () => void;
 };
 
 export function HomeHeader({
@@ -53,13 +58,18 @@ export function HomeHeader({
   cartCount,
   onPressAddress,
   onPressNotifications,
-  onPressCart,
 }: HomeHeaderProps) {
+  const navigation = useNavigation<NavigationProp>();
   const insets = useSafeAreaInsets();
+
   const topInset =
     Platform.OS === "web"
       ? Math.max(insets.top, WEB_MIN_TOP_INSET)
       : insets.top;
+
+  function handleOpenCart() {
+    navigation.navigate("Cart");
+  }
 
   return (
     <View style={[styles.container, { paddingTop: topInset + 4 }]}>
@@ -78,6 +88,7 @@ export function HomeHeader({
             <Text style={styles.location_text} numberOfLines={1}>
               {address}
             </Text>
+
             <Feather name="chevron-down" size={16} color={colors.text} />
           </Pressable>
         </View>
@@ -89,11 +100,12 @@ export function HomeHeader({
           label="Notificações"
           onPress={onPressNotifications}
         />
+
         <HeaderIconButton
           icon="shopping-bag"
           label="Sacola"
           badge={cartCount}
-          onPress={onPressCart}
+          onPress={handleOpenCart}
         />
       </View>
     </View>
