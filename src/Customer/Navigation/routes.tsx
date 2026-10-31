@@ -8,6 +8,8 @@ import { Category } from "../Screens/Category/Screens/Category";
 import { Home } from "../Screens/Home/Screens/Home";
 import { Loading } from "../Screens/Loading/index";
 import { Login } from "../Screens/Login";
+import { Payment } from "../Screens/Payment";
+import { PaymentPIX } from "../Screens/PaymentPIX/Screens";
 import { Product } from "../Screens/Product/index";
 import { RegisterAddressData } from "../Screens/Register/Screens/RegisterAddressData";
 import { RegisterAuthenticator } from "../Screens/Register/Screens/RegisterAuthenticator";
@@ -85,6 +87,16 @@ export function CustomerRoutes() {
       <Stack.Screen
         name="Cart"
         component={Cart}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Payment"
+        component={Payment}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PaymentPIX"
+        component={PaymentPIX}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

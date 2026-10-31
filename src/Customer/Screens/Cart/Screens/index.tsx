@@ -1,4 +1,3 @@
-import { useCart } from "@/Customer/Hooks/useCart";
 import type { CustomerStackParamList } from "@/Customer/Types/navigation";
 import { colors, commonStyles } from "@/Shared/Styles/commonStyles";
 import { Ionicons } from "@expo/vector-icons";
@@ -6,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useCart } from "../../../Hooks/useCart";
 import CartFooter from "../Components/CartFooter";
 import CartHeader from "../Components/CartHeader";
 import EmptyCart from "../Components/EmptyCart";
@@ -31,7 +31,9 @@ export function Cart() {
 
   function handleAddCoupon() {}
 
-  function handleCheckout() {}
+  function handleCheckout() {
+    navigation.navigate("Payment", { stores: cart.stores });
+  }
 
   return (
     <SafeAreaView style={commonStyles.screen}>
