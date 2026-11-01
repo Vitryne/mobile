@@ -4,7 +4,11 @@ export type PixStatusProps = {
   expired: boolean;
   remainingSeconds: number;
 };
-export type PixQRCodeProps = { code: string; expired: boolean };
+export type PixQRCodeProps = {
+  code: string;
+  expired: boolean;
+  onPress?: () => void;
+};
 export type PixCopyCodeProps = {
   code: string;
   copied: boolean;

@@ -1,6 +1,6 @@
 import { Feather } from "@expo/vector-icons";
 import * as Clipboard from "expo-clipboard";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Alert, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -22,6 +22,7 @@ import PixStatus from "../Components/PixStatus";
 import { styles } from "./styles";
 
 const VALIDITY_MS = 15 * 60 * 1000;
+const DOUBLE_TAP_INTERVAL = 350;
 
 function createDemoCode() {
   return `VITRYNE-DEMO-PIX-${Date.now()}-${Math.random()
@@ -29,11 +30,19 @@ function createDemoCode() {
     .slice(2, 10)}`;
 }
 
+function createProtocol() {
+  const number = Math.floor(1000 + Math.random() * 9000);
+  return `#A-${number}`;
+}
+
 export function PaymentPIX() {
   const navigation =
     useNavigation<NativeStackNavigationProp<CustomerStackParamList>>();
 
   const route = useRoute<RouteProp<CustomerStackParamList, "PaymentPIX">>();
+
+  const lastTap = useRef(0);
+  const confirming = useRef(false);
 
   const [pixCode, setPixCode] = useState(createDemoCode);
   const [expiresAt, setExpiresAt] = useState(() => Date.now() + VALIDITY_MS);
@@ -61,7 +70,7 @@ export function PaymentPIX() {
   const expired = remainingSeconds === 0;
 
   async function handleCopy() {
-    if (expired) return;
+    if (expired || Date.now() >= expiresAt) return;
 
     try {
       const copiedSuccessfully = await Clipboard.setStringAsync(pixCode);
@@ -83,6 +92,30 @@ export function PaymentPIX() {
     setExpiresAt(currentTime + VALIDITY_MS);
     setNow(currentTime);
     setCopied(false);
+
+    lastTap.current = 0;
+    confirming.current = false;
+  }
+
+  function handleQRCodePress() {
+    if (expired || Date.now() >= expiresAt || confirming.current) return;
+
+    const currentTime = Date.now();
+    const difference = currentTime - lastTap.current;
+
+    if (difference > 0 && difference < DOUBLE_TAP_INTERVAL) {
+      confirming.current = true;
+      lastTap.current = 0;
+
+      navigation.replace("OrderConfirmed", {
+        protocol: createProtocol(),
+        total: route.params.amount,
+      });
+
+      return;
+    }
+
+    lastTap.current = currentTime;
   }
 
   return (
@@ -101,7 +134,11 @@ export function PaymentPIX() {
             remainingSeconds={remainingSeconds}
           />
 
-          <PixQRCode code={pixCode} expired={expired} />
+          <PixQRCode
+            code={pixCode}
+            expired={expired}
+            onPress={handleQRCodePress}
+          />
 
           <PixCopyCode
             code={pixCode}

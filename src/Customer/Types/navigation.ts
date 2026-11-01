@@ -17,6 +17,11 @@ export type CustomerStackParamList = {
   PaymentPIX: {
     amount: number;
   };
+
+  OrderConfirmed: {
+    protocol: string;
+    total: number;
+  };
   RegisterConfirmData: undefined;
   RegisterPersonalData:
     | {
