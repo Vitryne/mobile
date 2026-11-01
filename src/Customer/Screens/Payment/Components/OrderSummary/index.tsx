@@ -19,7 +19,7 @@ export default function OrderSummary({
   return (
     <View style={styles.container}>
       <View style={styles.headingRow}>
-        <Text style={styles.heading}>Endereço de entrega</Text>
+        <Text style={styles.heading}>Produtos</Text>
         <Text style={styles.count}>
           {items.length} itens · {stores.length} lojas
         </Text>
@@ -29,7 +29,7 @@ export default function OrderSummary({
           nestedScrollEnabled
           style={styles.products}
           contentContainerStyle={styles.productContent}
-          showsVerticalScrollIndicator
+          showsVerticalScrollIndicator={false}
         >
           {items.map((item) => (
             <View key={item.id} style={styles.item}>

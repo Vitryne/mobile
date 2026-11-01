@@ -40,6 +40,10 @@ export const styles = StyleSheet.create({
   },
 
   toast: {
+    position: "absolute",
+    bottom: 12,
+    left: 12,
+    right: 12,
     marginHorizontal: 12,
     marginBottom: 6,
     height: 42,

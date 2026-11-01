@@ -124,7 +124,7 @@ export function PaymentPIX() {
         <View style={styles.toast} accessibilityRole="alert">
           <Feather name="check" color={colors.success} size={16} />
 
-          <Text style={styles.toast_text}>Código Copia e Cola copiado</Text>
+          <Text style={styles.toast_text}>Código PIX copiado</Text>
         </View>
       )}
     </SafeAreaView>

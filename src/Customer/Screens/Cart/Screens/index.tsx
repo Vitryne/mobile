@@ -49,7 +49,10 @@ export function Cart() {
         <EmptyCart onExplore={handleExplore} />
       ) : (
         <>
-          <ScrollView contentContainerStyle={commonStyles.scroll_content}>
+          <ScrollView
+            contentContainerStyle={commonStyles.scroll_content}
+            showsVerticalScrollIndicator={false}
+          >
             <View style={styles.address_banner}>
               <Ionicons
                 name="location-outline"

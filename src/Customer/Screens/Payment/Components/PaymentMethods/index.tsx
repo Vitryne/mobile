@@ -42,7 +42,7 @@ export default function PaymentMethods({
         nestedScrollEnabled
         style={styles.list}
         contentContainerStyle={styles.listContent}
-        showsVerticalScrollIndicator
+        showsVerticalScrollIndicator={false}
       >
         <Pressable
           onPress={() => onSelect("pix")}
