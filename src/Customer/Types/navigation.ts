@@ -14,7 +14,9 @@ export type CustomerStackParamList = {
   Payment: {
     stores: CartStore[];
   };
-
+  PaymentPIX: {
+    amount: number;
+  };
   RegisterConfirmData: undefined;
   RegisterPersonalData:
     | {

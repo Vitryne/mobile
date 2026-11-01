@@ -61,6 +61,13 @@ export function Payment() {
   }
 
   function handleConfirm() {
+    if (method === "pix") {
+      navigation.navigate("PaymentPIX", {
+        amount: total,
+      });
+      return;
+    }
+
     if (method === "newCard") {
       Alert.alert(
         "Novo cartão",
@@ -69,10 +76,13 @@ export function Payment() {
       return;
     }
 
-    Alert.alert(
-      "Pagamento",
-      "Esta é uma tela de demonstração. Nenhuma compra foi realizada.",
-    );
+    if (method === "savedCard") {
+      Alert.alert(
+        "Cartão salvo",
+        "O pagamento com cartão ainda não foi implementado.",
+      );
+      return;
+    }
   }
 
   return (
