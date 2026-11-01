@@ -1,6 +1,6 @@
-import type { OrderConfirmedSummaryProps } from "@/Customer/Types/orderConfirmed";
-import { formatPrice } from "@/Shared/Utils/formatPrice";
 import { Text, View } from "react-native";
+import { formatPrice } from "../../../../../Shared/Utils/formatPrice";
+import type { OrderConfirmedSummaryProps } from "../../../../Types/orderConfirmed";
 import { styles } from "./styles";
 
 export default function ConfirmedSummary({

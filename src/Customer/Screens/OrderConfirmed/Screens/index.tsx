@@ -1,5 +1,3 @@
-import type { CustomerStackParamList } from "@/Customer/Types/navigation";
-import { colors } from "@/Shared/Styles/commonStyles";
 import { Feather } from "@expo/vector-icons";
 import {
     useNavigation,
@@ -9,6 +7,8 @@ import {
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Alert, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { colors } from "../../../../Shared/Styles/commonStyles";
+import type { CustomerStackParamList } from "../../../Types/navigation";
 
 import ConfirmedSummary from "../Components/ConfirmedSummary";
 import { styles } from "./styles";
