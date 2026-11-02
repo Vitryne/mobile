@@ -10,6 +10,7 @@ export type CustomerStackParamList = {
   };
 
   Product: undefined;
+  PaymentCard: undefined;
   Cart: undefined;
   Payment: {
     stores: CartStore[];
