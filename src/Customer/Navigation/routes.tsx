@@ -3,9 +3,15 @@ import { colors } from "../../Shared/Styles/commonStyles";
 import { CustomerStackParamList } from "../Types/navigation";
 
 import { HeaderBack } from "../Components/backButton";
+import { Cart } from "../Screens/Cart";
+import { Category } from "../Screens/Category/Screens/Category";
 import { Home } from "../Screens/Home/Screens/Home";
 import { Loading } from "../Screens/Loading/index";
 import { Login } from "../Screens/Login";
+import { OrderConfirmed } from "../Screens/OrderConfirmed/Screens";
+import { Payment } from "../Screens/Payment";
+import { PaymentCardScreen } from "../Screens/PaymentCard";
+import { PaymentPIX } from "../Screens/PaymentPIX/Screens";
 import { Product } from "../Screens/Product/index";
 import { RegisterAddressData } from "../Screens/Register/Screens/RegisterAddressData";
 import { RegisterAuthenticator } from "../Screens/Register/Screens/RegisterAuthenticator";
@@ -71,8 +77,38 @@ export function CustomerRoutes() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
+        name="Category"
+        component={Category}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name="Product"
         component={Product}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Cart"
+        component={Cart}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Payment"
+        component={Payment}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PaymentCard"
+        component={PaymentCardScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PaymentPIX"
+        component={PaymentPIX}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="OrderConfirmed"
+        component={OrderConfirmed}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

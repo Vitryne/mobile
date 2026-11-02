@@ -1,22 +1,34 @@
-import { colors, commonStyles } from "@/Shared/Styles/commonStyles";
-import { Ionicons } from "@expo/vector-icons";
-import { ScrollView, Text, View } from "react-native";
+import { commonStyles } from "@/Shared/Styles/commonStyles";
+import { ScrollView, View } from "react-native";
 import { useProduct } from "../../../Hooks/useProduct";
+import { ProductDelivery } from "../Components/ProductDelivery";
+import { ProductDescription } from "../Components/ProductDescription";
+import { ProductFooter } from "../Components/ProductFooter";
 import { ProductGallery } from "../Components/ProductGallery";
 import { ProductHeader } from "../Components/ProductHeader";
+import { ProductInfo } from "../Components/ProductInfo";
+import { ProductReviews } from "../Components/ProductReviews";
+import { ProductSizes } from "../Components/ProductSizes";
+import { ProductStore } from "../Components/ProductStore";
 import { styles } from "./styles";
 
 export function Product() {
   const {
+    product,
     images,
     selectedImage,
     setSelectedImage,
+    selectedSize,
+    setSelectedSize,
     isFavorite,
     cartCount,
     handleBack,
     handleToggleFavorite,
     handleGoToStore,
     handleGoToCart,
+    handleOpenSizeTable,
+    handleOpenDelivery,
+    handleAddToCart,
   } = useProduct();
 
   return (
@@ -38,44 +50,37 @@ export function Product() {
         />
 
         <View style={styles.sheet}>
-          <View style={[styles.box, styles.store]}>
-            <Text style={styles.box_name}>LOJA</Text>
-          </View>
+          <ProductStore store={product.store} />
 
-          <View style={[styles.box, styles.title_price]}>
-            <Text style={styles.box_name}>TÍTULO E PREÇO</Text>
-          </View>
+          <ProductInfo product={product} />
 
-          <View style={[styles.box, styles.sizes]}>
-            <Text style={styles.box_name}>TAMANHO</Text>
-          </View>
+          <ProductSizes
+            sizes={product.sizes}
+            selectedSize={selectedSize}
+            lowStockMessage={product.lowStockMessage}
+            onSelect={setSelectedSize}
+            onOpenSizeTable={handleOpenSizeTable}
+          />
 
-          <View style={[styles.box, styles.delivery]}>
-            <Text style={styles.box_name}>ENTREGA</Text>
-          </View>
+          <ProductDelivery
+            title={product.deliveryTitle}
+            address={product.deliveryAddress}
+            fee={product.deliveryFee}
+            onPress={handleOpenDelivery}
+          />
 
-          <View style={[styles.box, styles.description]}>
-            <Text style={styles.box_name}>DESCRIÇÃO</Text>
-          </View>
+          <ProductDescription description={product.description} />
 
-          <View style={[styles.box, styles.review]}>
-            <Text style={styles.box_name}>AVALIAÇÃO 1</Text>
-          </View>
-          <View style={[styles.box, styles.review]}>
-            <Text style={styles.box_name}>AVALIAÇÃO 2</Text>
-          </View>
+          <ProductReviews reviews={product.reviews} />
         </View>
       </ScrollView>
 
-      <View style={styles.footer}>
-        <View style={[styles.box, styles.footer_favorite]}>
-          <Ionicons name="heart-outline" size={24} color={colors.primary} />
-        </View>
-
-        <View style={[styles.box, styles.footer_add]}>
-          <Text style={styles.box_name}>ADICIONAR</Text>
-        </View>
-      </View>
+      <ProductFooter
+        price={product.price}
+        isFavorite={isFavorite}
+        onToggleFavorite={handleToggleFavorite}
+        onAddToCart={handleAddToCart}
+      />
     </View>
   );
 }

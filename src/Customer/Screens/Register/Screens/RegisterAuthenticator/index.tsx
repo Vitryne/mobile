@@ -14,7 +14,6 @@ const MAX_ATTEMPTS = 3;
 const RESEND_COOLDOWN_SECONDS = 38;
 const LOCK_DURATION_SECONDS = 5 * 60;
 
-// Só pra essa tela funcionar sem backend ainda - troque pela validação real
 const MOCK_CORRECT_CODE = "000000";
 
 type Status = "idle" | "error" | "locked";
@@ -42,7 +41,6 @@ export function RegisterAuthenticator({ navigation, route }: Props) {
   const [resendSeconds, setResendSeconds] = useState(RESEND_COOLDOWN_SECONDS);
   const [lockSeconds, setLockSeconds] = useState(LOCK_DURATION_SECONDS);
 
-  // Contagem pro "Reenviar em 0:38" - só corre enquanto não está bloqueado
   useEffect(() => {
     if (status === "locked" || resendSeconds <= 0) return;
 
@@ -53,7 +51,6 @@ export function RegisterAuthenticator({ navigation, route }: Props) {
     return () => clearInterval(timer);
   }, [status, resendSeconds]);
 
-  // Contagem do bloqueio temporário - some sozinha e libera de novo
   useEffect(() => {
     if (status !== "locked") return;
 

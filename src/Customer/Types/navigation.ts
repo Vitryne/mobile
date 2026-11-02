@@ -1,8 +1,28 @@
+import type { CartStore } from "../Hooks/useCart";
 export type CustomerStackParamList = {
   Loading: undefined;
   Starter: undefined;
   Login: undefined;
-  Product:undefined;
+  Home: undefined;
+  Category: {
+    categoryId: string;
+    categoryName: string;
+  };
+
+  Product: undefined;
+  PaymentCard: undefined;
+  Cart: undefined;
+  Payment: {
+    stores: CartStore[];
+  };
+  PaymentPIX: {
+    amount: number;
+  };
+
+  OrderConfirmed: {
+    protocol: string;
+    total: number;
+  };
   RegisterConfirmData: undefined;
   RegisterPersonalData:
     | {
@@ -43,8 +63,6 @@ export type CustomerStackParamList = {
     neighborhood: string;
     complement: string;
   };
-
-  Home: undefined;
 };
 
 export type AddressData = {

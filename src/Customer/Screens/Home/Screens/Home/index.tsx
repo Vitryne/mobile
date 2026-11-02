@@ -1,98 +1,48 @@
 import { Feather, Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import {
     Animated,
-    Easing,
     FlatList,
-    ListRenderItemInfo,
-    NativeScrollEvent,
-    NativeSyntheticEvent,
-    Platform,
+    Image,
+    ImageBackground,
     Pressable,
     Text,
     useWindowDimensions,
     View,
+    type ListRenderItemInfo,
+    type NativeScrollEvent,
+    type NativeSyntheticEvent,
 } from "react-native";
+
+import { BottomNavBar } from "../../../../../Customer/Components/BottomNavBar";
+import { SearchBar } from "../../../../../Customer/Components/SearchBar";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
-import { BottomNavBar, TabKey } from "../../Components/BottomNavBar";
-import { CoverImage } from "../../Components/CoverImage";
+import { useRevealOnScrollUp } from "../../../../Hooks/useRevealOnScrollUp";
+import type { CustomerStackParamList } from "../../../../Types/navigation";
+
 import { HomeHeader } from "../../Components/Header";
 import { ProductCard } from "../../Components/ProductCard";
-import { SearchBar } from "../../Components/SearchBar";
+
 import {
     BANNERS,
     CATEGORIES,
     DELIVERY_ADDRESS,
-    HomeBanner,
-    HomeCategory,
-    HomeStore,
     OPEN_ORDERS_COUNT,
     PRODUCTS,
     STORES,
-} from "./data";
-import {
-    PRODUCT_GAP,
-    SCREEN_PADDING,
-    SEARCH_AREA_HEIGHT,
-    styles,
-} from "./styles";
+    type HomeBanner,
+    type HomeCategory,
+    type HomeStore,
+} from "../../Data/data";
 
-const USE_NATIVE_DRIVER = Platform.OS !== "web";
+import { PRODUCT_GAP, SCREEN_PADDING, styles } from "./styles";
 
-const BANNER_FALLBACK_COLOR = "#2B2B2E";
 const STAR_COLOR = "#F5A623";
 
-const DIRECTION_THRESHOLD = 12;
-
-type ScrollTracker = {
-  lastY: number;
-  direction: -1 | 0 | 1;
-  travelled: number;
-  shown: boolean;
-};
-
-type TrackerAction = "show" | "hide" | "reset" | null;
-
-function trackScroll(
-  tracker: ScrollTracker,
-  y: number,
-  hideZone: number,
-): TrackerAction {
-  if (y <= 0) {
-    const wasShown = tracker.shown;
-    tracker.lastY = 0;
-    tracker.direction = 0;
-    tracker.travelled = 0;
-    tracker.shown = false;
-    return wasShown ? "reset" : null;
-  }
-
-  const delta = y - tracker.lastY;
-  tracker.lastY = y;
-  if (delta === 0) return null;
-
-  const direction = delta > 0 ? 1 : -1;
-  if (direction !== tracker.direction) {
-    tracker.direction = direction;
-    tracker.travelled = 0;
-  }
-
-  tracker.travelled += Math.abs(delta);
-  if (tracker.travelled < DIRECTION_THRESHOLD) return null;
-
-  if (direction < 0 && !tracker.shown && y > hideZone) {
-    tracker.shown = true;
-    return "show";
-  }
-
-  if (direction > 0 && tracker.shown) {
-    tracker.shown = false;
-    return "hide";
-  }
-
-  return null;
-}
+type HomeNavigation = NativeStackNavigationProp<CustomerStackParamList>;
 
 type SectionHeaderProps = {
   title: string;
@@ -126,14 +76,14 @@ function SectionHeader({
 type CategoryItemProps = {
   item: HomeCategory;
   selected: boolean;
-  onPress: (id: string) => void;
+  onPress: (item: HomeCategory) => void;
 };
 
 function CategoryItem({ item, selected, onPress }: CategoryItemProps) {
   return (
     <Pressable
       style={styles.category_item}
-      onPress={() => onPress(item.id)}
+      onPress={() => onPress(item)}
       accessibilityRole="button"
       accessibilityState={{ selected }}
     >
@@ -143,7 +93,11 @@ function CategoryItem({ item, selected, onPress }: CategoryItemProps) {
           selected && styles.category_ring_selected,
         ]}
       >
-        <CoverImage source={item.image} style={styles.category_image} />
+        <Image
+          source={item.image}
+          style={styles.category_image}
+          resizeMode="cover"
+        />
       </View>
 
       <Text
@@ -168,10 +122,11 @@ type PromoBannerProps = {
 
 function PromoBanner({ item, width, total, activeIndex }: PromoBannerProps) {
   return (
-    <CoverImage
+    <ImageBackground
       source={item.image}
       style={[styles.banner_card, { width }]}
-      fallbackColor={BANNER_FALLBACK_COLOR}
+      imageStyle={styles.banner_image}
+      resizeMode="cover"
     >
       <LinearGradient
         colors={["rgba(0,0,0,0.62)", "rgba(0,0,0,0.25)", "rgba(0,0,0,0)"]}
@@ -190,6 +145,7 @@ function PromoBanner({ item, width, total, activeIndex }: PromoBannerProps) {
           <View style={styles.banner_footer_side}>
             <Pressable style={styles.banner_button} accessibilityRole="button">
               <Text style={styles.banner_button_text}>{item.cta}</Text>
+
               <Feather name="arrow-right" size={14} color={colors.white} />
             </Pressable>
           </View>
@@ -209,7 +165,7 @@ function PromoBanner({ item, width, total, activeIndex }: PromoBannerProps) {
           <View style={styles.banner_footer_side} />
         </View>
       </LinearGradient>
-    </CoverImage>
+    </ImageBackground>
   );
 }
 
@@ -220,13 +176,18 @@ function StoreCard({ item }: { item: HomeStore }) {
       accessibilityRole="button"
       accessibilityLabel={item.name}
     >
-      <CoverImage source={item.image} style={styles.store_image}>
+      <ImageBackground
+        source={item.image}
+        style={styles.store_image}
+        imageStyle={styles.store_image_radius}
+        resizeMode="cover"
+      >
         {item.tag ? (
           <View style={styles.store_tag}>
             <Text style={styles.store_tag_text}>{item.tag}</Text>
           </View>
         ) : null}
-      </CoverImage>
+      </ImageBackground>
 
       <Text style={styles.store_name} numberOfLines={1}>
         {item.name}
@@ -234,9 +195,11 @@ function StoreCard({ item }: { item: HomeStore }) {
 
       <View style={styles.store_meta}>
         <Ionicons name="star" size={11} color={STAR_COLOR} />
+
         <Text style={styles.store_meta_text}>
           {item.distance} · {item.rating}
         </Text>
+
         <View style={styles.store_meta_dot} />
       </View>
     </Pressable>
@@ -244,6 +207,7 @@ function StoreCard({ item }: { item: HomeStore }) {
 }
 
 export function Home() {
+  const navigation = useNavigation<HomeNavigation>();
   const { width: windowWidth } = useWindowDimensions();
 
   const [query, setQuery] = useState("");
@@ -251,6 +215,7 @@ export function Home() {
     CATEGORIES[0].id,
   );
   const [bannerIndex, setBannerIndex] = useState(0);
+
   const [favorites, setFavorites] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(
       PRODUCTS.map((product) => [product.id, product.favorite]),
@@ -258,70 +223,31 @@ export function Home() {
   );
 
   const contentWidth = windowWidth - SCREEN_PADDING * 2;
+
   const productWidth = (contentWidth - PRODUCT_GAP) / 2;
 
-  const scrollY = useRef(new Animated.Value(0)).current;
-  const reveal = useRef(new Animated.Value(0)).current;
-  const tracker = useRef<ScrollTracker>({
-    lastY: 0,
-    direction: 0,
-    travelled: 0,
-    shown: false,
-  }).current;
-
-  const searchTranslateY = useMemo(() => {
-    const followContent = scrollY.interpolate({
-      inputRange: [0, SEARCH_AREA_HEIGHT],
-      outputRange: [0, -SEARCH_AREA_HEIGHT],
-      extrapolate: "clamp",
-    });
-    const hiddenFactor = reveal.interpolate({
-      inputRange: [0, 1],
-      outputRange: [1, 0],
-    });
-
-    return Animated.multiply(followContent, hiddenFactor);
-  }, [scrollY, reveal]);
-
-  const animateReveal = useCallback(
-    (toValue: 0 | 1) => {
-      Animated.timing(reveal, {
-        toValue,
-        duration: 200,
-        easing: Easing.out(Easing.cubic),
-        useNativeDriver: USE_NATIVE_DRIVER,
-      }).start();
-    },
-    [reveal],
-  );
-
-  const handleScroll = useMemo(
-    () =>
-      Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
-        useNativeDriver: USE_NATIVE_DRIVER,
-        listener: (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-          const action = trackScroll(
-            tracker,
-            event.nativeEvent.contentOffset.y,
-            SEARCH_AREA_HEIGHT,
-          );
-
-          if (action === "show") animateReveal(1);
-          else if (action === "hide") animateReveal(0);
-          else if (action === "reset") reveal.setValue(0);
-        },
-      }),
-    [scrollY, reveal, tracker, animateReveal],
-  );
-
-  function handleTabPress(tab: TabKey) {
-    if (tab === "home") return;
-  }
+  const { onScroll, translateY } = useRevealOnScrollUp();
 
   function handleOpenFilters() {}
 
   function handleToggleFavorite(id: string) {
-    setFavorites((previous) => ({ ...previous, [id]: !previous[id] }));
+    setFavorites((previous) => ({
+      ...previous,
+      [id]: !previous[id],
+    }));
+  }
+
+  function handleSelectCategory(category: HomeCategory) {
+    setSelectedCategoryId(category.id);
+
+    navigation.navigate("Category", {
+      categoryId: category.id,
+      categoryName: category.label,
+    });
+  }
+
+  function handleOpenProduct() {
+    navigation.navigate("Product");
   }
 
   const handleBannerScroll = useCallback(
@@ -329,6 +255,7 @@ export function Home() {
       const index = Math.round(
         event.nativeEvent.contentOffset.x / contentWidth,
       );
+
       setBannerIndex((previous) => (previous === index ? previous : index));
     },
     [contentWidth],
@@ -338,7 +265,7 @@ export function Home() {
     <CategoryItem
       item={item}
       selected={item.id === selectedCategoryId}
-      onPress={setSelectedCategoryId}
+      onPress={handleSelectCategory}
     />
   );
 
@@ -357,7 +284,7 @@ export function Home() {
 
   return (
     <View style={styles.container}>
-      <HomeHeader address={DELIVERY_ADDRESS} ordersCount={OPEN_ORDERS_COUNT} />
+      <HomeHeader address={DELIVERY_ADDRESS} cartCount={OPEN_ORDERS_COUNT} />
 
       <View style={styles.body}>
         <Animated.ScrollView
@@ -365,7 +292,7 @@ export function Home() {
           contentContainerStyle={styles.scroll_content}
           showsVerticalScrollIndicator={false}
           scrollEventThrottle={16}
-          onScroll={handleScroll}
+          onScroll={onScroll}
           keyboardShouldPersistTaps="handled"
         >
           <FlatList
@@ -395,6 +322,7 @@ export function Home() {
           </View>
 
           <SectionHeader title="Lojas perto de você" inlineLink />
+
           <FlatList
             data={STORES}
             keyExtractor={(item) => item.id}
@@ -406,6 +334,7 @@ export function Home() {
           />
 
           <SectionHeader title="Recomendados para você" />
+
           <View style={styles.product_grid}>
             {PRODUCTS.map((product) => (
               <ProductCard
@@ -418,6 +347,7 @@ export function Home() {
                 image={product.image}
                 favorite={!!favorites[product.id]}
                 onToggleFavorite={() => handleToggleFavorite(product.id)}
+                onPress={handleOpenProduct}
                 style={{ width: productWidth }}
               />
             ))}
@@ -427,7 +357,9 @@ export function Home() {
         <Animated.View
           style={[
             styles.search_area,
-            { transform: [{ translateY: searchTranslateY }] },
+            {
+              transform: [{ translateY }],
+            },
           ]}
         >
           <SearchBar
@@ -438,7 +370,7 @@ export function Home() {
         </Animated.View>
       </View>
 
-      <BottomNavBar activeTab="home" onTabPress={handleTabPress} />
+      <BottomNavBar />
     </View>
   );
 }

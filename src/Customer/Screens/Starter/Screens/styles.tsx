@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-// Ajuste o caminho conforme a pasta real do commonStyles no seu projeto
 import {
     colors,
     radius,
@@ -12,18 +11,11 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
 
-  // A FlatList horizontal ocupa todo o espaço acima do footer
   list: {
     flex: 1,
   },
-
-  // Cada "página" da FlatList: width e height são aplicados inline no
-  // starter.tsx (width via useWindowDimensions, height via onLayout medido
-  // no próprio FlatList) - porcentagem ("100%") não resolve de forma
-  // confiável dentro do conteúdo de uma lista horizontal.
   slide: {},
 
-  // A foto absorve todo o espaço que sobrar depois do texto/dots
   image_container: {
     flex: 1,
     overflow: "hidden",
@@ -33,7 +25,6 @@ export const styles = StyleSheet.create({
     height: "100%",
   },
 
-  // Camada de esmaecimento por cima da foto (único uso de absolute do arquivo)
   gradient: {
     position: "absolute",
     left: 0,
@@ -84,11 +75,10 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.primary,
   },
 
-  // Footer: fixo embaixo, fora da FlatList
   footer: {
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.sm,
     paddingBottom: spacing.lg,
-    gap: spacing.sm + spacing.xs, // 12 - espaço entre os dois botões
+    gap: spacing.sm + spacing.xs,
   },
 });
