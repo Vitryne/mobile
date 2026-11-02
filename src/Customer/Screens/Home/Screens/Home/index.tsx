@@ -4,38 +4,42 @@ import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
 import { useCallback, useState } from "react";
 import {
-  Animated,
-  FlatList,
-  ListRenderItemInfo,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  Pressable,
-  Text,
-  useWindowDimensions,
-  View,
+    Animated,
+    FlatList,
+    Image,
+    ImageBackground,
+    Pressable,
+    Text,
+    useWindowDimensions,
+    View,
+    type ListRenderItemInfo,
+    type NativeScrollEvent,
+    type NativeSyntheticEvent,
 } from "react-native";
+
 import { BottomNavBar } from "../../../../../Customer/Components/BottomNavBar";
-import { CoverImage } from "../../../../../Customer/Components/CoverImage";
 import { SearchBar } from "../../../../../Customer/Components/SearchBar";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
 import { useRevealOnScrollUp } from "../../../../Hooks/useRevealOnScrollUp";
-import { CustomerStackParamList } from "../../../../Types/navigation";
+import type { CustomerStackParamList } from "../../../../Types/navigation";
+
 import { HomeHeader } from "../../Components/Header";
 import { ProductCard } from "../../Components/ProductCard";
+
 import {
-  BANNERS,
-  CATEGORIES,
-  DELIVERY_ADDRESS,
-  HomeBanner,
-  HomeCategory,
-  HomeStore,
-  OPEN_ORDERS_COUNT,
-  PRODUCTS,
-  STORES,
+    BANNERS,
+    CATEGORIES,
+    DELIVERY_ADDRESS,
+    OPEN_ORDERS_COUNT,
+    PRODUCTS,
+    STORES,
+    type HomeBanner,
+    type HomeCategory,
+    type HomeStore,
 } from "../../Data/data";
+
 import { PRODUCT_GAP, SCREEN_PADDING, styles } from "./styles";
 
-const BANNER_FALLBACK_COLOR = "#2B2B2E";
 const STAR_COLOR = "#F5A623";
 
 type HomeNavigation = NativeStackNavigationProp<CustomerStackParamList>;
@@ -89,7 +93,11 @@ function CategoryItem({ item, selected, onPress }: CategoryItemProps) {
           selected && styles.category_ring_selected,
         ]}
       >
-        <CoverImage source={item.image} style={styles.category_image} />
+        <Image
+          source={item.image}
+          style={styles.category_image}
+          resizeMode="cover"
+        />
       </View>
 
       <Text
@@ -114,10 +122,11 @@ type PromoBannerProps = {
 
 function PromoBanner({ item, width, total, activeIndex }: PromoBannerProps) {
   return (
-    <CoverImage
+    <ImageBackground
       source={item.image}
       style={[styles.banner_card, { width }]}
-      fallbackColor={BANNER_FALLBACK_COLOR}
+      imageStyle={styles.banner_image}
+      resizeMode="cover"
     >
       <LinearGradient
         colors={["rgba(0,0,0,0.62)", "rgba(0,0,0,0.25)", "rgba(0,0,0,0)"]}
@@ -136,6 +145,7 @@ function PromoBanner({ item, width, total, activeIndex }: PromoBannerProps) {
           <View style={styles.banner_footer_side}>
             <Pressable style={styles.banner_button} accessibilityRole="button">
               <Text style={styles.banner_button_text}>{item.cta}</Text>
+
               <Feather name="arrow-right" size={14} color={colors.white} />
             </Pressable>
           </View>
@@ -155,7 +165,7 @@ function PromoBanner({ item, width, total, activeIndex }: PromoBannerProps) {
           <View style={styles.banner_footer_side} />
         </View>
       </LinearGradient>
-    </CoverImage>
+    </ImageBackground>
   );
 }
 
@@ -166,13 +176,18 @@ function StoreCard({ item }: { item: HomeStore }) {
       accessibilityRole="button"
       accessibilityLabel={item.name}
     >
-      <CoverImage source={item.image} style={styles.store_image}>
+      <ImageBackground
+        source={item.image}
+        style={styles.store_image}
+        imageStyle={styles.store_image_radius}
+        resizeMode="cover"
+      >
         {item.tag ? (
           <View style={styles.store_tag}>
             <Text style={styles.store_tag_text}>{item.tag}</Text>
           </View>
         ) : null}
-      </CoverImage>
+      </ImageBackground>
 
       <Text style={styles.store_name} numberOfLines={1}>
         {item.name}
@@ -180,9 +195,11 @@ function StoreCard({ item }: { item: HomeStore }) {
 
       <View style={styles.store_meta}>
         <Ionicons name="star" size={11} color={STAR_COLOR} />
+
         <Text style={styles.store_meta_text}>
           {item.distance} · {item.rating}
         </Text>
+
         <View style={styles.store_meta_dot} />
       </View>
     </Pressable>
@@ -198,6 +215,7 @@ export function Home() {
     CATEGORIES[0].id,
   );
   const [bannerIndex, setBannerIndex] = useState(0);
+
   const [favorites, setFavorites] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(
       PRODUCTS.map((product) => [product.id, product.favorite]),
@@ -205,6 +223,7 @@ export function Home() {
   );
 
   const contentWidth = windowWidth - SCREEN_PADDING * 2;
+
   const productWidth = (contentWidth - PRODUCT_GAP) / 2;
 
   const { onScroll, translateY } = useRevealOnScrollUp();
@@ -212,11 +231,15 @@ export function Home() {
   function handleOpenFilters() {}
 
   function handleToggleFavorite(id: string) {
-    setFavorites((previous) => ({ ...previous, [id]: !previous[id] }));
+    setFavorites((previous) => ({
+      ...previous,
+      [id]: !previous[id],
+    }));
   }
 
   function handleSelectCategory(category: HomeCategory) {
     setSelectedCategoryId(category.id);
+
     navigation.navigate("Category", {
       categoryId: category.id,
       categoryName: category.label,
@@ -232,6 +255,7 @@ export function Home() {
       const index = Math.round(
         event.nativeEvent.contentOffset.x / contentWidth,
       );
+
       setBannerIndex((previous) => (previous === index ? previous : index));
     },
     [contentWidth],
@@ -298,6 +322,7 @@ export function Home() {
           </View>
 
           <SectionHeader title="Lojas perto de você" inlineLink />
+
           <FlatList
             data={STORES}
             keyExtractor={(item) => item.id}
@@ -309,6 +334,7 @@ export function Home() {
           />
 
           <SectionHeader title="Recomendados para você" />
+
           <View style={styles.product_grid}>
             {PRODUCTS.map((product) => (
               <ProductCard
@@ -329,7 +355,12 @@ export function Home() {
         </Animated.ScrollView>
 
         <Animated.View
-          style={[styles.search_area, { transform: [{ translateY }] }]}
+          style={[
+            styles.search_area,
+            {
+              transform: [{ translateY }],
+            },
+          ]}
         >
           <SearchBar
             value={query}

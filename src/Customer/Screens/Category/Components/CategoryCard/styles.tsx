@@ -8,34 +8,35 @@ import {
 export const styles = StyleSheet.create({
   container: {
     borderRadius: radius.lg,
-    backgroundColor: colors.white,
-    shadowColor: "#000000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 8,
-    elevation: 2,
-  },
-
-  image: {
-    aspectRatio: 0.81,
-    borderTopLeftRadius: radius.lg,
-    borderTopRightRadius: radius.lg,
+    backgroundColor: colors.card,
+    borderWidth: 1,
+    borderColor: colors.border,
     overflow: "hidden",
   },
 
+  image: {
+    width: "100%",
+    height: 190,
+    borderTopLeftRadius: radius.lg,
+    borderTopRightRadius: radius.lg,
+  },
+
   info: {
-    paddingHorizontal: spacing.md - 4,
-    paddingTop: 10,
-    paddingBottom: spacing.md - 4,
+    height: 52,
+    paddingHorizontal: spacing.sm + 2,
+    paddingVertical: spacing.sm,
+    justifyContent: "center",
     gap: 2,
   },
+
   name: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: "700",
     color: colors.text,
   },
+
   count: {
-    fontSize: 12,
+    fontSize: 11,
     color: colors.textMuted,
   },
 });

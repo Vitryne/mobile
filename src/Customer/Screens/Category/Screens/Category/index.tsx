@@ -2,23 +2,26 @@ import { useState } from "react";
 import {
     Animated,
     FlatList,
-    ListRenderItemInfo,
     Pressable,
     Text,
     useWindowDimensions,
     View,
+    type ListRenderItemInfo,
 } from "react-native";
+
 import { BottomNavBar } from "../../../../../Customer/Components/BottomNavBar";
 import { SearchBar } from "../../../../../Customer/Components/SearchBar";
 import { useRevealOnScrollUp } from "../../../../../Customer/Hooks/useRevealOnScrollUp";
 import { ScreenHeader } from "../../../../Components/ScreenHeader";
 import { CategoryCard } from "../../Components/CategoryCard";
+
 import {
     CATEGORIES,
-    CategoryFilter,
     FILTERS,
     TREND_BANNER,
+    type CategoryFilter,
 } from "../../Data/data";
+
 import { GRID_GAP, SCREEN_PADDING, styles } from "./styles";
 
 type FilterChipProps = {
@@ -44,16 +47,16 @@ function FilterChip({ item, selected, onPress }: FilterChipProps) {
 
 export function Category() {
   const { width } = useWindowDimensions();
+
   const [query, setQuery] = useState("");
   const [selectedFilterId, setSelectedFilterId] = useState(FILTERS[0].id);
 
   const { onScroll, translateY } = useRevealOnScrollUp();
 
-  const cardWidth = (width - SCREEN_PADDING * 2 - GRID_GAP) / 2;
+  const contentWidth = width - SCREEN_PADDING * 2;
+  const cardWidth = (contentWidth - GRID_GAP) / 2;
 
-  function handleOpenFilters() {
-    // TODO: abrir a tela/modal de filtros
-  }
+  function handleOpenFilters() {}
 
   const renderFilter = ({ item }: ListRenderItemInfo<CategoryFilter>) => (
     <FilterChip
@@ -102,6 +105,7 @@ export function Category() {
           <View style={styles.trend_banner}>
             <View style={styles.trend_texts}>
               <Text style={styles.trend_title}>{TREND_BANNER.title}</Text>
+
               <Text style={styles.trend_subtitle}>{TREND_BANNER.subtitle}</Text>
             </View>
 
