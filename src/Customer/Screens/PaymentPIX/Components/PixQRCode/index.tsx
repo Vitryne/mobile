@@ -1,13 +1,20 @@
+import type { PixQRCodeProps } from "@/Customer/Types/paymentPIX";
+import { colors } from "@/Shared/Styles/commonStyles";
 import { Feather } from "@expo/vector-icons";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import QRCode from "react-native-qrcode-svg";
-import { colors } from "../../../../../Shared/Styles/commonStyles";
-import type { PixQRCodeProps } from "../../../../Types/paymentPIX";
 import { styles } from "./styles";
 
-export default function PixQRCode({ code, expired }: PixQRCodeProps) {
+export default function PixQRCode({ code, expired, onPress }: PixQRCodeProps) {
   return (
-    <View style={styles.card}>
+    <Pressable
+      onPress={expired ? undefined : onPress}
+      disabled={expired}
+      accessibilityRole="button"
+      accessibilityLabel="QR Code de pagamento PIX demonstrativo"
+      accessibilityHint="Toque duas vezes para simular a confirmação"
+      style={styles.card}
+    >
       {!expired ? (
         <QRCode
           value={code}
@@ -24,6 +31,6 @@ export default function PixQRCode({ code, expired }: PixQRCodeProps) {
           <Text style={styles.expired_text}>Expirado</Text>
         </View>
       )}
-    </View>
+    </Pressable>
   );
 }
