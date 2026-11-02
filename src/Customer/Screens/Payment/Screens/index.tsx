@@ -1,7 +1,7 @@
 import {
-    useNavigation,
-    useRoute,
-    type RouteProp,
+  useNavigation,
+  useRoute,
+  type RouteProp,
 } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
@@ -60,19 +60,20 @@ export function Payment() {
     Alert.alert("Cupom", "A inclusão de cupons ainda não foi implementada.");
   }
 
+  function handleSelectMethod(selectedMethod: PaymentMethod) {
+    if (selectedMethod === "newCard") {
+      navigation.navigate("PaymentCard");
+      return;
+    }
+
+    setMethod(selectedMethod);
+  }
+
   function handleConfirm() {
     if (method === "pix") {
       navigation.navigate("PaymentPIX", {
         amount: total,
       });
-      return;
-    }
-
-    if (method === "newCard") {
-      Alert.alert(
-        "Novo cartão",
-        "O cadastro de cartão ainda não foi implementado.",
-      );
       return;
     }
 
@@ -94,7 +95,7 @@ export function Payment() {
 
         <View style={styles.flexSections}>
           <View style={styles.paymentArea}>
-            <PaymentMethods selected={method} onSelect={setMethod} />
+            <PaymentMethods selected={method} onSelect={handleSelectMethod} />
           </View>
 
           <View style={styles.summaryArea}>
