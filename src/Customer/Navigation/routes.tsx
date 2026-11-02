@@ -9,6 +9,7 @@ import { Home } from "../Screens/Home/Screens/Home";
 import { Loading } from "../Screens/Loading/index";
 import { Login } from "../Screens/Login";
 import { Payment } from "../Screens/Payment";
+import { PaymentCardScreen } from "../Screens/PaymentCard";
 import { PaymentPIX } from "../Screens/PaymentPIX/Screens";
 import { Product } from "../Screens/Product/index";
 import { RegisterAddressData } from "../Screens/Register/Screens/RegisterAddressData";
@@ -92,6 +93,11 @@ export function CustomerRoutes() {
       <Stack.Screen
         name="Payment"
         component={Payment}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PaymentCard"
+        component={PaymentCardScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
