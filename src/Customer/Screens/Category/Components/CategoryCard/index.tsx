@@ -1,12 +1,13 @@
 import {
-    ImageSourcePropType,
+    Image,
     Pressable,
-    StyleProp,
     Text,
     View,
-    ViewStyle,
+    type ImageSourcePropType,
+    type StyleProp,
+    type ViewStyle,
 } from "react-native";
-import { CoverImage } from "../../../../Components/CoverImage";
+
 import { styles } from "./styles";
 
 export type CategoryCardProps = {
@@ -33,12 +34,15 @@ export function CategoryCard({
       accessibilityRole="button"
       accessibilityLabel={`${name}, ${countLabel}`}
     >
-      <CoverImage source={image} style={styles.image} />
+      {image && (
+        <Image source={image} style={styles.image} resizeMode="cover" />
+      )}
 
       <View style={styles.info}>
         <Text style={styles.name} numberOfLines={1}>
           {name}
         </Text>
+
         <Text style={styles.count}>{countLabel}</Text>
       </View>
     </Pressable>

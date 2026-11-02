@@ -1,21 +1,17 @@
 import { Ionicons } from "@expo/vector-icons";
 import {
-  ImageSourcePropType,
-  Pressable,
-  StyleProp,
-  Text,
-  View,
-  ViewStyle,
+    Image,
+    Pressable,
+    Text,
+    View,
+    type ImageSourcePropType,
+    type StyleProp,
+    type ViewStyle,
 } from "react-native";
-import { CoverImage } from "../../../../../Customer/Components/CoverImage";
-import { colors } from "../../../../../Shared/Styles/commonStyles";
-import { styles } from "./styles";
 
-function formatPrice(value: number) {
-  const [integer, decimals] = value.toFixed(2).split(".");
-  const withThousands = integer.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  return `R$ ${withThousands},${decimals}`;
-}
+import { colors } from "../../../../../Shared/Styles/commonStyles";
+import { formatPrice } from "../../../../../Shared/Utils/formatPrice";
+import { styles } from "./styles";
 
 export type ProductCardProps = {
   name: string;
@@ -49,40 +45,50 @@ export function ProductCard({
       accessibilityRole="button"
       accessibilityLabel={name}
     >
-      <CoverImage source={image} style={styles.image}>
-        {discount ? (
-          <View style={styles.discount_badge}>
-            <Text style={styles.discount_text}>-{discount}%</Text>
-          </View>
-        ) : (
-          <View />
+      <View style={styles.image_container}>
+        {image && (
+          <Image source={image} style={styles.image} resizeMode="cover" />
         )}
 
-        <Pressable
-          style={styles.heart_button}
-          onPress={onToggleFavorite}
-          hitSlop={6}
-          accessibilityRole="button"
-          accessibilityLabel={favorite ? "Remover dos favoritos" : "Favoritar"}
-        >
-          <Ionicons
-            name={favorite ? "heart" : "heart-outline"}
-            size={16}
-            color={favorite ? colors.primary : colors.text}
-          />
-        </Pressable>
-      </CoverImage>
+        <View style={styles.image_actions}>
+          {discount ? (
+            <View style={styles.discount_badge}>
+              <Text style={styles.discount_text}>-{discount}%</Text>
+            </View>
+          ) : (
+            <View />
+          )}
+
+          <Pressable
+            style={styles.heart_button}
+            onPress={onToggleFavorite}
+            hitSlop={6}
+            accessibilityRole="button"
+            accessibilityLabel={
+              favorite ? "Remover dos favoritos" : "Favoritar"
+            }
+          >
+            <Ionicons
+              name={favorite ? "heart" : "heart-outline"}
+              size={16}
+              color={favorite ? colors.primary : colors.text}
+            />
+          </Pressable>
+        </View>
+      </View>
 
       <View style={styles.info}>
         <Text style={styles.name} numberOfLines={1}>
           {name}
         </Text>
+
         <Text style={styles.store} numberOfLines={1}>
           {store}
         </Text>
 
         <View style={styles.price_row}>
           <Text style={styles.price}>{formatPrice(price)}</Text>
+
           {oldPrice ? (
             <Text style={styles.old_price}>{formatPrice(oldPrice)}</Text>
           ) : null}
