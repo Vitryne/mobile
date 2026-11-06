@@ -23,6 +23,8 @@ export type CustomerStackParamList = {
     protocol: string;
     total: number;
   };
+
+  Orders: undefined;
   RegisterConfirmData: undefined;
   RegisterPersonalData:
     | {
