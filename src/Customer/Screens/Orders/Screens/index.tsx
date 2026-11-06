@@ -11,8 +11,8 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { BottomNavBar } from "@/Customer/Components/BottomNavBar";
-import type { Order } from "@/Customer/Types/orders";
+import { BottomNavBar } from "../../../Components/BottomNavBar";
+import type { Order } from "../../../Types/orders";
 
 import FeaturedOrder from "../Components/FeaturedOrder";
 import OrderHistoryCard from "../Components/OrderHistoryCard";

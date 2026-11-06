@@ -1,11 +1,11 @@
+import { Feather } from "@expo/vector-icons";
+import { Image, Pressable, Text, View } from "react-native";
+import { colors } from "../../../../../Shared/Styles/commonStyles";
+import { formatPrice } from "../../../../../Shared/Utils/formatPrice";
 import type {
     OrderHistoryCardProps,
     OrderStatus,
-} from "@/Customer/Types/orders";
-import { colors } from "@/Shared/Styles/commonStyles";
-import { formatPrice } from "@/Shared/Utils/formatPrice";
-import { Feather } from "@expo/vector-icons";
-import { Image, Pressable, Text, View } from "react-native";
+} from "../../../../Types/orders";
 import { styles } from "./styles";
 
 const STATUS_LABELS: Record<OrderStatus, string> = {

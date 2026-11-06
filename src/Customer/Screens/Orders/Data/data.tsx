@@ -1,4 +1,4 @@
-import type { Order } from "@/Customer/Types/orders";
+import type { Order } from "../../../Types/orders";
 
 export const ACTIVE_ORDERS: Order[] = [
   {
