@@ -1,17 +1,17 @@
 import { Feather } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { ComponentProps } from "react";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { ComponentProps } from "react";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { colors } from "../../../Shared/Styles/commonStyles";
-import { CustomerStackParamList } from "../../Types/navigation";
+import type { CustomerStackParamList } from "../../Types/navigation";
 import { styles } from "./styles";
 
 type FeatherIconName = ComponentProps<typeof Feather>["name"];
 
-type TabRoute = "Home" | "Category";
+type TabRoute = "Home" | "Category" | "Orders";
 
 type TabKey = "home" | "categories" | "orders" | "profile";
 
@@ -37,6 +37,7 @@ const TABS: Tab[] = [
   },
   {
     key: "orders",
+    route: "Orders",
     label: "Pedidos",
     icon: "clipboard",
   },
@@ -59,7 +60,15 @@ export function BottomNavBar() {
   function handlePress(target?: TabRoute) {
     if (!target || target === route.name) return;
 
-    navigation.replace(target);
+    if (target === "Category") {
+      navigation.navigate("Category", {
+        categoryId: "all",
+        categoryName: "Todas",
+      });
+      return;
+    }
+
+    navigation.navigate(target);
   }
 
   return (
@@ -82,9 +91,7 @@ export function BottomNavBar() {
             onPress={() => handlePress(tab.route)}
             accessibilityRole="tab"
             accessibilityLabel={tab.label}
-            accessibilityState={{
-              selected: isActive,
-            }}
+            accessibilityState={{ selected: isActive }}
           >
             <View
               style={[
