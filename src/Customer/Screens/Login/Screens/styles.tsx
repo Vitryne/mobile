@@ -42,6 +42,11 @@ export const styles = StyleSheet.create({
     paddingTop: 24,
     paddingBottom: 96,
   },
+  error_text: {
+    color: colors.danger,
+    fontSize: 12,
+    marginTop: 8,
+  },
   forgot_password_link: {
     alignSelf: "center",
     marginTop: 8,

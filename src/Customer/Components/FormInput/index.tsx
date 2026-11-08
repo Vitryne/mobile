@@ -1,5 +1,6 @@
+import { colors } from "@/Shared/Styles/commonStyles";
 import { Feather } from "@expo/vector-icons";
-import { useState } from "react";
+import { useState, type Ref } from "react";
 import {
   Text,
   TextInput,
@@ -10,6 +11,7 @@ import {
 import { styles } from "./styles";
 
 type FormInputProps = TextInputProps & {
+  ref?: Ref<TextInput>;
   label: string;
   required?: boolean;
   isValid?: boolean;
@@ -44,21 +46,21 @@ export function FormInput({
       >
         <TextInput
           style={styles.input}
-          placeholderTextColor="#C4C4C4"
+          placeholderTextColor={colors.description}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           secureTextEntry={isPassword && isHidden}
           {...rest}
         />
 
-        {isValid && <Feather name="check" size={18} color="#16A34A" />}
+        {isValid && <Feather name="check" size={18} color={colors.success} />}
 
         {isPassword && (
           <TouchableOpacity onPress={() => setIsHidden(!isHidden)} hitSlop={8}>
             <Feather
               name={isHidden ? "eye-off" : "eye"}
               size={18}
-              color="#9A9A9A"
+              color={colors.description}
             />
           </TouchableOpacity>
         )}
