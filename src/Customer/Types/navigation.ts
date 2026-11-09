@@ -1,4 +1,15 @@
 import type { CartStore } from "../Hooks/useCart";
+
+export type AddressData = {
+  cep: string;
+  city: string;
+  state: string;
+  street: string;
+  number: string;
+  neighborhood: string;
+  complement: string;
+};
+
 export type CustomerStackParamList = {
   Loading: undefined;
   Starter: undefined;
@@ -25,7 +36,7 @@ export type CustomerStackParamList = {
   };
 
   Orders: undefined;
-  RegisterConfirmData: undefined;
+
   RegisterPersonalData:
     | {
         editMode?: boolean;
@@ -42,37 +53,17 @@ export type CustomerStackParamList = {
     email: string;
   };
 
-  RegisterAddressData:
-    | {
-        editMode?: boolean;
-        fullName: string;
-        cpf: string;
-        email: string;
-        Address?: AddressData;
-      }
-    | undefined;
-
-  ConfirmaDados: {
+  RegisterAddressData: {
+    editMode?: boolean;
     fullName: string;
     cpf: string;
     email: string;
-
-    cep: string;
-    city: string;
-    state: string;
-    street: string;
-    number: string;
-    neighborhood: string;
-    complement: string;
+    initialAddress?: AddressData;
   };
-};
 
-export type AddressData = {
-  cep: string;
-  city: string;
-  state: string;
-  street: string;
-  number: string;
-  neighborhood: string;
-  complement: string;
+  RegisterConfirmData: {
+    fullName: string;
+    cpf: string;
+    email: string;
+  } & AddressData;
 };

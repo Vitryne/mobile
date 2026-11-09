@@ -6,15 +6,15 @@ import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useRef } from "react";
 import {
-    Image,
-    Keyboard,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Image,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import Logo from "../../../../../assets/Images/logo.svg";
 import { FormInput } from "../../../Components/FormInput";
@@ -41,19 +41,11 @@ export function Login() {
 
     const success = await form.handleSubmit();
     if (success) {
-      console.log("login mockado ok");
       navigation.navigate("CustomerStack", { screen: "Home" });
-
-      // email: "teste@gmail.com"
-      // password: "123456"
-    } else {
-      console.log("login mockado falhou");
     }
   }
 
-  function handleGoogleLogin() {
-    // Fazer no futuro
-  }
+  function handleGoogleLogin() {}
 
   function handleGoToRegister() {
     navigation.navigate("RegisterPersonalData");
@@ -93,7 +85,7 @@ export function Login() {
           showsVerticalScrollIndicator={false}
         >
           <FormInput
-            ref={"emailRef"}
+            ref={emailRef}
             label="E-mail"
             required
             placeholder="email@vitryne.com"
@@ -120,6 +112,10 @@ export function Login() {
             blurOnSubmit={false}
             onSubmitEditing={handleLogin}
           />
+
+          {form.errorMessage ? (
+            <Text style={styles.error_text}>{form.errorMessage}</Text>
+          ) : null}
 
           <TouchableOpacity style={styles.forgot_password_link}>
             <Text style={styles.forgot_password_text}>Esqueci minha senha</Text>

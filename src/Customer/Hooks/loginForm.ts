@@ -1,46 +1,75 @@
+import { login } from "@/Customer/Api/auth";
+import { ApiError } from "@/Shared/Api/apiConfig";
+import { saveToken } from "@/Shared/Api/tokenStorage";
 import { useState } from "react";
 
-const MOCKED_USER = {
-    email: "teste@gmail.com",
-    password: "123456",
-};
+function getLoginErrorMessage(error: unknown) {
+  if (error instanceof ApiError) {
+    if (error.status === 401) return "E-mail ou senha incorretos.";
+    if (error.status === 408) {
+      return "O servidor demorou para responder. Tente novamente.";
+    }
+    if (error.status === 0) return "Sem conexão com o servidor.";
+  }
+
+  return "Não foi possível entrar. Tente novamente.";
+}
 
 export function useLogin() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [isSubmitting, setIsSubmitting] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    const isPasswordValid = password.length >= 6;
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isPasswordValid = password.length >= 6;
 
-    const isFormValid = isEmailValid && isPasswordValid;
+  const isFormValid = isEmailValid && isPasswordValid;
 
-    async function handleSubmit(): Promise<boolean> {
-        if (!isFormValid) return false;
+  function handleChangeEmail(value: string) {
+    setEmail(value);
+    setErrorMessage(null);
+  }
 
-        setIsSubmitting(true);
+  function handleChangePassword(value: string) {
+    setPassword(value);
+    setErrorMessage(null);
+  }
 
-        // Quando tiver backend trocar por chamada real de API quando o backend estiver pronto
-        await new Promise((resolve) => setTimeout(resolve, 800));
+  async function handleSubmit(): Promise<boolean> {
+    if (!isFormValid) return false;
 
-        const isValidUser =
-            email.trim().toLowerCase() === MOCKED_USER.email &&
-            password === MOCKED_USER.password;
+    setIsSubmitting(true);
+    setErrorMessage(null);
 
-        setIsSubmitting(false);
+    try {
+      const session = await login({ email: email.trim(), password });
 
-        return isValidUser;
+      if (!session.accessToken) {
+        setErrorMessage("Não foi possível entrar. Tente novamente.");
+        return false;
+      }
+
+      await saveToken(session.accessToken);
+      return true;
+    } catch (error) {
+      setErrorMessage(getLoginErrorMessage(error));
+      return false;
+    } finally {
+      setIsSubmitting(false);
     }
+  }
 
-    return {
-        password,
-        setPassword,
-        email,
-        setEmail,
-        isEmailValid,
-        isPasswordValid,
-        isFormValid,
-        isSubmitting,
-        handleSubmit,
-    };
+  return {
+    password,
+    setPassword: handleChangePassword,
+    email,
+    setEmail: handleChangeEmail,
+    isEmailValid,
+    isPasswordValid,
+    isFormValid,
+    isSubmitting,
+    errorMessage,
+    handleSubmit,
+  };
 }

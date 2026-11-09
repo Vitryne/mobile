@@ -4,6 +4,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { PrimaryButton } from "../../../../Components/PrimaryButton";
+import { useRegister } from "../../../../Hooks/useRegister";
 import { CustomerStackParamList } from "../../../../Types/navigation";
 import { RegisterHeader } from "../../Components/RegisterHeader";
 import { styles } from "./styles";
@@ -14,6 +15,8 @@ export function RegisterConfirmData() {
 
   const route =
     useRoute<RouteProp<CustomerStackParamList, "RegisterConfirmData">>();
+
+  const register = useRegister();
 
   const {
     fullName,
@@ -32,8 +35,29 @@ export function RegisterConfirmData() {
     complement ? ` - ${complement}` : ""
   }`;
 
-  function handleFinish() {
-    navigation.navigate("Home");
+  async function handleFinish() {
+    if (register.isSubmitting) return;
+
+    const outcome = await register.handleSubmit({
+      fullName,
+      cpf,
+      email,
+      cep,
+      city,
+      state,
+      street,
+      number,
+      neighborhood,
+      complement,
+    });
+
+    if (outcome === "logged_in") {
+      navigation.navigate("Home");
+    }
+
+    if (outcome === "registered") {
+      navigation.navigate("Login");
+    }
   }
 
   return (
@@ -153,10 +177,17 @@ export function RegisterConfirmData() {
           </Text>
         </View>
 
+        {register.errorMessage ? (
+          <Text style={styles.error_text}>{register.errorMessage}</Text>
+        ) : null}
+
         <View style={styles.buttonContainer}>
           <PrimaryButton
-            label="Finalizar cadastro"
+            label={
+              register.isSubmitting ? "Finalizando..." : "Finalizar cadastro"
+            }
             onPress={handleFinish}
+            disabled={register.isSubmitting}
             icon={<Feather name="check" size={18} color="#FFFFFF" />}
           />
         </View>

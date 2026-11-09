@@ -94,6 +94,12 @@ export const styles = StyleSheet.create({
     color: colors.primary,
     textDecorationLine: "underline",
   },
+  error_text: {
+    color: colors.danger,
+    fontSize: 12,
+    textAlign: "center",
+    marginBottom: 12,
+  },
   buttonContainer: {
     marginTop: "auto",
   },

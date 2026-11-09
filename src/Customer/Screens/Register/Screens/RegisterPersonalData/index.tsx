@@ -3,19 +3,20 @@ import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useEffect, useRef, useState } from "react";
 import {
-    Image,
-    Keyboard,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Image,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { FormInput } from "../../../../Components/FormInput";
 import { PrimaryButton } from "../../../../Components/PrimaryButton";
-import { useRegisterForm } from "../../../../Hooks/registroForm";
+import { setRegisterPassword } from "../../../../Hooks/registerDraft";
+import { useRegister } from "../../../../Hooks/useRegister";
 import { CustomerStackParamList } from "../../../../Types/navigation";
 import { PasswordStrength } from "../../Components/PasswordStrength";
 import { RegisterHeader } from "../../Components/RegisterHeader";
@@ -28,7 +29,7 @@ export function RegisterPersonalData() {
   const editParams = route.params;
   const isEditMode = editParams?.editMode === true;
 
-  const form = useRegisterForm({
+  const form = useRegister({
     fullName: editParams?.fullName,
     cpf: editParams?.cpf,
     email: editParams?.email,
@@ -73,9 +74,7 @@ export function RegisterPersonalData() {
     };
   }, []);
 
-  function handleGoogleLogin() {
-    // Fazer no futuro
-  }
+  function handleGoogleLogin() {}
 
   function handleContinue() {
     if (isEditMode && editParams?.Address) {
@@ -88,7 +87,9 @@ export function RegisterPersonalData() {
       return;
     }
 
-    navigation.navigate("RegisterAuthenticator", {
+    setRegisterPassword(form.password);
+
+    navigation.navigate("RegisterAddressData", {
       fullName: form.fullName,
       cpf: form.cpf,
       email: form.email,
@@ -148,7 +149,7 @@ export function RegisterPersonalData() {
             value={form.email}
             onChangeText={form.setEmail}
             isValid={form.isEmailValid}
-            keyboardType="email-Address"
+            keyboardType="email-address"
             autoCapitalize="none"
             returnKeyType="next"
             blurOnSubmit={false}
@@ -174,7 +175,7 @@ export function RegisterPersonalData() {
               <PasswordStrength score={form.passwordScore} />
 
               <Text style={styles.password_hint}>
-                Mínimo 6 caracteres, com 1 número e 1 letra maiúscula.
+                Mínimo 8 caracteres, com 1 número e 1 letra maiúscula.
               </Text>
 
               <FormInput
