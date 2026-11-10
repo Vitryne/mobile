@@ -14,11 +14,15 @@ export function ProductInfo({ product }: ProductInfoProps) {
           <Text style={styles.price_cents}>{product.priceCents}</Text>
         </Text>
 
-        <Text style={styles.old_price}>{product.oldPrice}</Text>
+        {product.oldPrice ? (
+          <Text style={styles.old_price}>{product.oldPrice}</Text>
+        ) : null}
 
-        <View style={styles.discount}>
-          <Text style={styles.discount_text}>{product.discount}</Text>
-        </View>
+        {product.discount ? (
+          <View style={styles.discount}>
+            <Text style={styles.discount_text}>{product.discount}</Text>
+          </View>
+        ) : null}
       </View>
 
       <Text style={styles.installments}>{product.installments}</Text>

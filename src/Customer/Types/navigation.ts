@@ -20,7 +20,7 @@ export type CustomerStackParamList = {
     categoryName: string;
   };
 
-  Product: undefined;
+  Product: { productId: number };
   PaymentCard: undefined;
   Cart: undefined;
   Payment: {

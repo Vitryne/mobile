@@ -1,5 +1,47 @@
 import type { ImageSourcePropType } from "react-native";
 
+export type AvailableSizeDTO = {
+  id?: number;
+  size?: string;
+  quantity?: number;
+  available?: boolean;
+};
+
+export type ProductClientResponseDTO = {
+  id?: number;
+  name?: string;
+  description?: string;
+  type?: string;
+  color?: string;
+  rating?: number | null;
+  price?: number;
+  promotionalPrice?: number | null;
+  finalPrice?: number;
+  status?: string;
+  photoUrls?: string[];
+  availableSizes?: AvailableSizeDTO[];
+  availableProduct?: boolean;
+  newProduct?: boolean;
+  onSale?: boolean;
+};
+
+export type Product = {
+  id: number;
+  name: string;
+  description: string;
+  type: string;
+  color: string;
+  rating: number | null;
+  price: number;
+  finalPrice: number;
+  onSale: boolean;
+  discountPercent: number;
+  photoUrls: string[];
+  sizes: ProductSize[];
+  isAvailable: boolean;
+  isNew: boolean;
+};
+
 export type ProductHeaderProps = {
   isFavorite: boolean;
   cartCount: number;
@@ -25,7 +67,9 @@ export type ProductStoreData = {
 };
 
 export type ProductSize = {
+  id: number;
   label: string;
+  quantity: number;
   available: boolean;
 };
 
@@ -40,6 +84,7 @@ export type ProductReview = {
 };
 
 export type ProductData = {
+  id: number;
   title: string;
   reference: string;
   price: string;
@@ -48,7 +93,6 @@ export type ProductData = {
   discount: string;
   installments: string;
   description: string;
-  lowStockMessage: string;
   deliveryTitle: string;
   deliveryAddress: string;
   deliveryFee: string;

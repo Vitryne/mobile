@@ -1,5 +1,11 @@
-import { commonStyles } from "@/Shared/Styles/commonStyles";
-import { ScrollView, View } from "react-native";
+import { colors, commonStyles } from "@/Shared/Styles/commonStyles";
+import {
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useProduct } from "../../../Hooks/useProduct";
 import { ProductDelivery } from "../Components/ProductDelivery";
 import { ProductDescription } from "../Components/ProductDescription";
@@ -16,12 +22,16 @@ export function Product() {
   const {
     product,
     images,
+    isLoading,
+    errorMessage,
     selectedImage,
     setSelectedImage,
     selectedSize,
     setSelectedSize,
+    lowStockMessage,
     isFavorite,
     cartCount,
+    handleReload,
     handleBack,
     handleToggleFavorite,
     handleGoToStore,
@@ -30,6 +40,36 @@ export function Product() {
     handleOpenDelivery,
     handleAddToCart,
   } = useProduct();
+
+  if (isLoading) {
+    return (
+      <View style={[commonStyles.screen, styles.center]}>
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
+    );
+  }
+
+  if (!product) {
+    return (
+      <View style={[commonStyles.screen, styles.center]}>
+        <Text style={styles.error_text}>
+          {errorMessage ?? "Não foi possível carregar o produto."}
+        </Text>
+
+        <TouchableOpacity
+          style={styles.retry_button}
+          activeOpacity={0.8}
+          onPress={handleReload}
+        >
+          <Text style={styles.retry_text}>Tentar novamente</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity activeOpacity={0.8} onPress={handleBack}>
+          <Text style={styles.back_text}>Voltar</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
   return (
     <View style={commonStyles.screen}>
@@ -57,7 +97,7 @@ export function Product() {
           <ProductSizes
             sizes={product.sizes}
             selectedSize={selectedSize}
-            lowStockMessage={product.lowStockMessage}
+            lowStockMessage={lowStockMessage}
             onSelect={setSelectedSize}
             onOpenSizeTable={handleOpenSizeTable}
           />
@@ -76,7 +116,7 @@ export function Product() {
       </ScrollView>
 
       <ProductFooter
-        price={product.price}
+        price={`${product.price}${product.priceCents}`}
         isFavorite={isFavorite}
         onToggleFavorite={handleToggleFavorite}
         onAddToCart={handleAddToCart}

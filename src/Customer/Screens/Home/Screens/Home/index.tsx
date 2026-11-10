@@ -4,22 +4,23 @@ import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
 import { useCallback, useState } from "react";
 import {
-    Animated,
-    FlatList,
-    Image,
-    ImageBackground,
-    Pressable,
-    Text,
-    useWindowDimensions,
-    View,
-    type ListRenderItemInfo,
-    type NativeScrollEvent,
-    type NativeSyntheticEvent,
+  Animated,
+  FlatList,
+  Image,
+  ImageBackground,
+  Pressable,
+  Text,
+  useWindowDimensions,
+  View,
+  type ListRenderItemInfo,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
 } from "react-native";
 
 import { BottomNavBar } from "../../../../../Customer/Components/BottomNavBar";
 import { SearchBar } from "../../../../../Customer/Components/SearchBar";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
+import { useProducts } from "../../../../Hooks/useProducts";
 import { useRevealOnScrollUp } from "../../../../Hooks/useRevealOnScrollUp";
 import type { CustomerStackParamList } from "../../../../Types/navigation";
 
@@ -27,15 +28,14 @@ import { HomeHeader } from "../../Components/Header";
 import { ProductCard } from "../../Components/ProductCard";
 
 import {
-    BANNERS,
-    CATEGORIES,
-    DELIVERY_ADDRESS,
-    OPEN_ORDERS_COUNT,
-    PRODUCTS,
-    STORES,
-    type HomeBanner,
-    type HomeCategory,
-    type HomeStore,
+  BANNERS,
+  CATEGORIES,
+  DELIVERY_ADDRESS,
+  OPEN_ORDERS_COUNT,
+  STORES,
+  type HomeBanner,
+  type HomeCategory,
+  type HomeStore,
 } from "../../Data/data";
 
 import { PRODUCT_GAP, SCREEN_PADDING, styles } from "./styles";
@@ -210,17 +210,20 @@ export function Home() {
   const navigation = useNavigation<HomeNavigation>();
   const { width: windowWidth } = useWindowDimensions();
 
+  const {
+    products,
+    isLoading: isLoadingProducts,
+    errorMessage: productsError,
+    reload: reloadProducts,
+  } = useProducts();
+
   const [query, setQuery] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState(
     CATEGORIES[0].id,
   );
   const [bannerIndex, setBannerIndex] = useState(0);
 
-  const [favorites, setFavorites] = useState<Record<string, boolean>>(() =>
-    Object.fromEntries(
-      PRODUCTS.map((product) => [product.id, product.favorite]),
-    ),
-  );
+  const [favorites, setFavorites] = useState<Record<number, boolean>>({});
 
   const contentWidth = windowWidth - SCREEN_PADDING * 2;
 
@@ -230,7 +233,7 @@ export function Home() {
 
   function handleOpenFilters() {}
 
-  function handleToggleFavorite(id: string) {
+  function handleToggleFavorite(id: number) {
     setFavorites((previous) => ({
       ...previous,
       [id]: !previous[id],
@@ -246,8 +249,8 @@ export function Home() {
     });
   }
 
-  function handleOpenProduct() {
-    navigation.navigate("Product");
+  function handleOpenProduct(productId: number) {
+    navigation.navigate("Product", { productId });
   }
 
   const handleBannerScroll = useCallback(
@@ -335,19 +338,61 @@ export function Home() {
 
           <SectionHeader title="Recomendados para você" />
 
+          {isLoadingProducts ? (
+            <View style={styles.products_feedback}>
+              <Text style={styles.products_message}>
+                Carregando produtos...
+              </Text>
+            </View>
+          ) : null}
+
+          {productsError ? (
+            <View style={styles.products_feedback}>
+              <Text
+                style={[styles.products_message, styles.products_message_error]}
+              >
+                {productsError}
+              </Text>
+
+              <Pressable
+                onPress={reloadProducts}
+                hitSlop={8}
+                accessibilityRole="button"
+              >
+                <Text style={styles.section_link}>Tentar novamente</Text>
+              </Pressable>
+            </View>
+          ) : null}
+
+          {!isLoadingProducts && !productsError && products.length === 0 ? (
+            <View style={styles.products_feedback}>
+              <Text style={styles.products_message}>
+                Nenhum produto disponível no momento.
+              </Text>
+            </View>
+          ) : null}
+
           <View style={styles.product_grid}>
-            {PRODUCTS.map((product) => (
+            {products.map((product) => (
               <ProductCard
                 key={product.id}
                 name={product.name}
-                store={product.store}
-                price={product.price}
-                oldPrice={product.oldPrice}
-                discount={product.discount}
-                image={product.image}
+                store={product.type}
+                price={product.finalPrice}
+                oldPrice={product.onSale ? product.price : undefined}
+                discount={
+                  product.discountPercent > 0
+                    ? product.discountPercent
+                    : undefined
+                }
+                image={
+                  product.photoUrls[0]
+                    ? { uri: product.photoUrls[0] }
+                    : undefined
+                }
                 favorite={!!favorites[product.id]}
                 onToggleFavorite={() => handleToggleFavorite(product.id)}
-                onPress={handleOpenProduct}
+                onPress={() => handleOpenProduct(product.id)}
                 style={{ width: productWidth }}
               />
             ))}

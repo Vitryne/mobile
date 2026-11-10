@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
 import { SEARCH_AREA_HEIGHT } from "../../../../../Customer/Hooks/useRevealOnScrollUp";
 import {
-    colors,
-    radius,
-    spacing,
+  colors,
+  radius,
+  spacing,
 } from "../../../../../Shared/Styles/commonStyles";
 
 export const SCREEN_PADDING = 22;
@@ -277,6 +277,21 @@ export const styles = StyleSheet.create({
     height: 4,
     borderRadius: radius.full,
     backgroundColor: colors.textMuted,
+  },
+
+  products_feedback: {
+    paddingHorizontal: SCREEN_PADDING,
+    gap: spacing.sm,
+    alignItems: "flex-start",
+  },
+
+  products_message: {
+    fontSize: 13,
+    color: colors.textMuted,
+  },
+
+  products_message_error: {
+    color: colors.danger,
   },
 
   product_grid: {

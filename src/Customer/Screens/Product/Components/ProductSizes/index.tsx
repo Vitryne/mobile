@@ -27,7 +27,7 @@ export function ProductSizes({
 
           return (
             <TouchableOpacity
-              key={size.label}
+              key={size.id}
               activeOpacity={0.8}
               disabled={!size.available}
               onPress={() => onSelect(size.label)}
@@ -50,10 +50,12 @@ export function ProductSizes({
         })}
       </View>
 
-      <View style={styles.warning_row}>
-        <Ionicons name="hourglass-outline" size={14} color={colors.warning} />
-        <Text style={styles.warning_text}>{lowStockMessage}</Text>
-      </View>
+      {lowStockMessage ? (
+        <View style={styles.warning_row}>
+          <Ionicons name="hourglass-outline" size={14} color={colors.warning} />
+          <Text style={styles.warning_text}>{lowStockMessage}</Text>
+        </View>
+      ) : null}
     </View>
   );
 }
