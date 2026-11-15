@@ -9,6 +9,7 @@ const STATUS_LABELS: Record<OrderStatus, string> = {
   pending: "Aguardando confirmação da loja",
   confirmed: "Pedido confirmado",
   preparing: "Pedido em preparação",
+  ready_for_pickup: "Pronto para coleta",
   delivering: "Pedido em entrega",
   delivered: "Entregue com sucesso",
   canceled: "Pedido cancelado",
@@ -38,7 +39,17 @@ export default function OrderDetailsStatus({
         ]}
       >
         <Feather
-          name={delivered ? "check" : canceled ? "x" : "clock"}
+          name={
+            delivered
+              ? "check"
+              : canceled
+                ? "x"
+                : status === "pending"
+                  ? "clock"
+                  : status === "delivering"
+                    ? "truck"
+                    : "package"
+          }
           size={20}
           color={statusColor}
         />
