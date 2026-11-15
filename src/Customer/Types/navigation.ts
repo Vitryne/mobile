@@ -26,8 +26,11 @@ export type CustomerStackParamList = {
   Payment: {
     stores: CartStore[];
   };
+  Orders: undefined;
+
   PaymentPIX: {
     amount: number;
+    stores: CartStore[];
   };
 
   OrderConfirmed: {
@@ -35,7 +38,9 @@ export type CustomerStackParamList = {
     total: number;
   };
 
-  Orders: undefined;
+  OrderDetails: {
+    orderId: string;
+  };
 
   RegisterPersonalData:
     | {

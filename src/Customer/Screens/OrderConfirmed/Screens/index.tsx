@@ -5,8 +5,9 @@ import {
     type RouteProp,
 } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { Alert, Pressable, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
 import { colors } from "../../../../Shared/Styles/commonStyles";
 import type { CustomerStackParamList } from "../../../Types/navigation";
 
@@ -24,10 +25,9 @@ export function OrderConfirmed() {
   const { protocol, total } = route.params;
 
   function handleTrackOrder() {
-    Alert.alert(
-      "Acompanhar pedido",
-      "O acompanhamento do pedido ainda não foi implementado.",
-    );
+    navigation.replace("OrderDetails", {
+      orderId: protocol,
+    });
   }
 
   function handleContinueShopping() {
@@ -39,12 +39,7 @@ export function OrderConfirmed() {
       <View style={styles.container}>
         <View style={styles.success_circle_outer}>
           <View style={styles.success_circle_inner}>
-            <Feather
-              name="check"
-              size={50}
-              strokeWidth={3}
-              color={colors.white}
-            />
+            <Feather name="check" size={50} color={colors.white} />
           </View>
         </View>
 

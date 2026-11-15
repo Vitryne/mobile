@@ -1,17 +1,17 @@
 import { Feather } from "@expo/vector-icons";
-import * as Clipboard from "expo-clipboard";
-import { useEffect, useRef, useState } from "react";
-import { Alert, ScrollView, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-
 import {
     useNavigation,
     useRoute,
     type RouteProp,
 } from "@react-navigation/native";
-
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import * as Clipboard from "expo-clipboard";
+import { useEffect, useRef, useState } from "react";
+import { Alert, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 import { colors } from "../../../../Shared/Styles/commonStyles";
+import { useOrders } from "../../../Context/ordersContext";
 import type { CustomerStackParamList } from "../../../Types/navigation";
 
 import PixCopyCode from "../Components/PixCopyCode";
@@ -31,8 +31,7 @@ function createDemoCode() {
 }
 
 function createProtocol() {
-  const number = Math.floor(1000 + Math.random() * 9000);
-  return `#A-${number}`;
+  return `#A-${Date.now().toString().slice(-8)}`;
 }
 
 export function PaymentPIX() {
@@ -41,11 +40,15 @@ export function PaymentPIX() {
 
   const route = useRoute<RouteProp<CustomerStackParamList, "PaymentPIX">>();
 
+  const { addConfirmedOrder } = useOrders();
+
   const lastTap = useRef(0);
   const confirming = useRef(false);
 
   const [pixCode, setPixCode] = useState(createDemoCode);
+
   const [expiresAt, setExpiresAt] = useState(() => Date.now() + VALIDITY_MS);
+
   const [now, setNow] = useState(Date.now());
   const [copied, setCopied] = useState(false);
 
@@ -58,9 +61,13 @@ export function PaymentPIX() {
   }, []);
 
   useEffect(() => {
-    if (!copied) return;
+    if (!copied) {
+      return;
+    }
 
-    const timeout = setTimeout(() => setCopied(false), 3000);
+    const timeout = setTimeout(() => {
+      setCopied(false);
+    }, 3000);
 
     return () => clearTimeout(timeout);
   }, [copied]);
@@ -70,15 +77,12 @@ export function PaymentPIX() {
   const expired = remainingSeconds === 0;
 
   async function handleCopy() {
-    if (expired || Date.now() >= expiresAt) return;
+    if (expired || Date.now() >= expiresAt) {
+      return;
+    }
 
     try {
-      const copiedSuccessfully = await Clipboard.setStringAsync(pixCode);
-
-      if (copiedSuccessfully === false) {
-        throw new Error("Falha ao copiar");
-      }
-
+      await Clipboard.setStringAsync(pixCode);
       setCopied(true);
     } catch {
       Alert.alert("Não foi possível copiar", "Tente novamente.");
@@ -98,7 +102,9 @@ export function PaymentPIX() {
   }
 
   function handleQRCodePress() {
-    if (expired || Date.now() >= expiresAt || confirming.current) return;
+    if (expired || Date.now() >= expiresAt || confirming.current) {
+      return;
+    }
 
     const currentTime = Date.now();
     const difference = currentTime - lastTap.current;
@@ -107,8 +113,16 @@ export function PaymentPIX() {
       confirming.current = true;
       lastTap.current = 0;
 
+      const protocol = createProtocol();
+
+      addConfirmedOrder({
+        protocol,
+        total: route.params.amount,
+        stores: route.params.stores,
+      });
+
       navigation.replace("OrderConfirmed", {
-        protocol: createProtocol(),
+        protocol,
         total: route.params.amount,
       });
 
@@ -152,14 +166,14 @@ export function PaymentPIX() {
         </View>
 
         <Text style={styles.demo_label}>
-          Demonstração: o QR Code e o código acima não são válidos para
-          pagamentos bancários.
+          Pagamento demonstrativo. O código PIX não é válido para transações
+          bancárias.
         </Text>
       </ScrollView>
 
       {copied && !expired && (
         <View style={styles.toast} accessibilityRole="alert">
-          <Feather name="check" color={colors.success} size={16} />
+          <Feather name="check" size={16} color={colors.success} />
 
           <Text style={styles.toast_text}>Código PIX copiado</Text>
         </View>

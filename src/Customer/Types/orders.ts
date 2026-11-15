@@ -12,6 +12,10 @@ export type OrderProduct = {
   id: string;
   name: string;
   image: ImageSourcePropType;
+  size?: string;
+  quantity?: number;
+  price?: number;
+  storeName?: string;
 };
 
 export type Order = {
@@ -26,6 +30,11 @@ export type Order = {
   image: ImageSourcePropType;
   products: OrderProduct[];
   estimatedTime?: string;
+  subtotal?: number;
+  deliveryFee?: number;
+  discount?: number;
+  paymentMethod?: "pix" | "card";
+  address?: string;
 };
 
 export type FeaturedOrderProps = {
