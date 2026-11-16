@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { colors } from "../../Shared/Styles/commonStyles";
-import { CustomerStackParamList } from "../Types/navigation";
+import type { CustomerStackParamList } from "../Types/navigation";
 
 import { HeaderBack } from "../Components/backButton";
 import { OrdersProvider } from "../Context/ordersContext";
@@ -16,13 +16,18 @@ import { Payment } from "../Screens/Payment";
 import { PaymentCardScreen } from "../Screens/PaymentCard";
 import { PaymentPIX } from "../Screens/PaymentPIX/Screens";
 import { Product } from "../Screens/Product/index";
+import { Profile } from "../Screens/Profile/Screens";
 import { RegisterAddressData } from "../Screens/Register/Screens/RegisterAddressData";
 import { RegisterAuthenticator } from "../Screens/Register/Screens/RegisterAuthenticator";
 import { RegisterConfirmData } from "../Screens/Register/Screens/RegisterConfirmData";
 import { RegisterPersonalData } from "../Screens/Register/Screens/RegisterPersonalData";
 import { Starter } from "../Screens/Starter";
 
-const Stack = createNativeStackNavigator<CustomerStackParamList>();
+type CustomerNavigationParams = CustomerStackParamList & {
+  Profile: undefined;
+};
+
+const Stack = createNativeStackNavigator<CustomerNavigationParams>();
 
 export function CustomerRoutes() {
   return (
@@ -30,14 +35,21 @@ export function CustomerRoutes() {
       <Stack.Navigator
         initialRouteName="Loading"
         screenOptions={{
-          headerStyle: { backgroundColor: colors.background },
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
           headerTintColor: colors.text,
-          headerTitleStyle: { fontSize: 20, fontWeight: "600" },
+          headerTitleStyle: {
+            fontSize: 20,
+            fontWeight: "600",
+          },
           headerTitleAlign: "left",
           headerShadowVisible: false,
           headerBackVisible: false,
           headerLeft: () => <HeaderBack />,
-          contentStyle: { backgroundColor: colors.background },
+          contentStyle: {
+            backgroundColor: colors.background,
+          },
         }}
       >
         <Stack.Screen
@@ -123,6 +135,11 @@ export function CustomerRoutes() {
         <Stack.Screen
           name="OrderDetails"
           component={OrderDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
