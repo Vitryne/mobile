@@ -3,6 +3,7 @@ import { colors } from "../../Shared/Styles/commonStyles";
 import type { CustomerStackParamList } from "../Types/navigation";
 
 import { HeaderBack } from "../Components/backButton";
+import { CustomerSessionProvider } from "../Context/customerSessionContext";
 import { OrdersProvider } from "../Context/ordersContext";
 import { Cart } from "../Screens/Cart";
 import { Category } from "../Screens/Category/Screens/Category";
@@ -23,126 +24,124 @@ import { RegisterConfirmData } from "../Screens/Register/Screens/RegisterConfirm
 import { RegisterPersonalData } from "../Screens/Register/Screens/RegisterPersonalData";
 import { Starter } from "../Screens/Starter";
 
-type CustomerNavigationParams = CustomerStackParamList & {
-  Profile: undefined;
-};
-
-const Stack = createNativeStackNavigator<CustomerNavigationParams>();
+const Stack = createNativeStackNavigator<CustomerStackParamList>();
 
 export function CustomerRoutes() {
   return (
-    <OrdersProvider>
-      <Stack.Navigator
-        initialRouteName="Loading"
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: colors.background,
-          },
-          headerTintColor: colors.text,
-          headerTitleStyle: {
-            fontSize: 20,
-            fontWeight: "600",
-          },
-          headerTitleAlign: "left",
-          headerShadowVisible: false,
-          headerBackVisible: false,
-          headerLeft: () => <HeaderBack />,
-          contentStyle: {
-            backgroundColor: colors.background,
-          },
-        }}
-      >
-        <Stack.Screen
-          name="Loading"
-          component={Loading}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Starter"
-          component={Starter}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="RegisterPersonalData"
-          component={RegisterPersonalData}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="RegisterAuthenticator"
-          component={RegisterAuthenticator}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="RegisterAddressData"
-          component={RegisterAddressData}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="RegisterConfirmData"
-          component={RegisterConfirmData}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Category"
-          component={Category}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Product"
-          component={Product}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Cart"
-          component={Cart}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Payment"
-          component={Payment}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="PaymentCard"
-          component={PaymentCardScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="PaymentPIX"
-          component={PaymentPIX}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="OrderConfirmed"
-          component={OrderConfirmed}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Orders"
-          component={Orders}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="OrderDetails"
-          component={OrderDetails}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={Profile}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </OrdersProvider>
+    <CustomerSessionProvider>
+      <OrdersProvider>
+        <Stack.Navigator
+          initialRouteName="Loading"
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: colors.background,
+            },
+            headerTintColor: colors.text,
+            headerTitleStyle: {
+              fontSize: 20,
+              fontWeight: "600",
+            },
+            headerTitleAlign: "left",
+            headerShadowVisible: false,
+            headerBackVisible: false,
+            headerLeft: () => <HeaderBack />,
+            contentStyle: {
+              backgroundColor: colors.background,
+            },
+          }}
+        >
+          <Stack.Screen
+            name="Loading"
+            component={Loading}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Starter"
+            component={Starter}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="RegisterPersonalData"
+            component={RegisterPersonalData}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="RegisterAuthenticator"
+            component={RegisterAuthenticator}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="RegisterAddressData"
+            component={RegisterAddressData}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="RegisterConfirmData"
+            component={RegisterConfirmData}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Category"
+            component={Category}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Product"
+            component={Product}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Cart"
+            component={Cart}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Payment"
+            component={Payment}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PaymentCard"
+            component={PaymentCardScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PaymentPIX"
+            component={PaymentPIX}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="OrderConfirmed"
+            component={OrderConfirmed}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Orders"
+            component={Orders}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="OrderDetails"
+            component={OrderDetails}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </OrdersProvider>
+    </CustomerSessionProvider>
   );
 }
