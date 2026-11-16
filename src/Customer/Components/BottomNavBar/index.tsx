@@ -11,15 +11,17 @@ import { styles } from "./styles";
 
 type FeatherIconName = ComponentProps<typeof Feather>["name"];
 
-type TabRoute = "Home" | "Category" | "Orders";
+type BottomNavigationParams = CustomerStackParamList & {
+  Profile: undefined;
+};
 
-type TabKey = "home" | "categories" | "orders" | "profile";
+type TabRoute = "Home" | "Category" | "Orders" | "Profile";
 
 type Tab = {
-  key: TabKey;
+  key: string;
   label: string;
   icon: FeatherIconName;
-  route?: TabRoute;
+  route: TabRoute;
 };
 
 const TABS: Tab[] = [
@@ -43,6 +45,7 @@ const TABS: Tab[] = [
   },
   {
     key: "profile",
+    route: "Profile",
     label: "Perfil",
     icon: "user",
   },
@@ -55,10 +58,12 @@ export function BottomNavBar() {
   const route = useRoute();
 
   const navigation =
-    useNavigation<NativeStackNavigationProp<CustomerStackParamList>>();
+    useNavigation<NativeStackNavigationProp<BottomNavigationParams>>();
 
-  function handlePress(target?: TabRoute) {
-    if (!target || target === route.name) return;
+  function handlePress(target: TabRoute) {
+    if (target === route.name) {
+      return;
+    }
 
     if (target === "Category") {
       navigation.navigate("Category", {
@@ -82,7 +87,7 @@ export function BottomNavBar() {
       accessibilityRole="tablist"
     >
       {TABS.map((tab) => {
-        const isActive = tab.route !== undefined && tab.route === route.name;
+        const isActive = tab.route === route.name;
 
         return (
           <Pressable
@@ -91,7 +96,9 @@ export function BottomNavBar() {
             onPress={() => handlePress(tab.route)}
             accessibilityRole="tab"
             accessibilityLabel={tab.label}
-            accessibilityState={{ selected: isActive }}
+            accessibilityState={{
+              selected: isActive,
+            }}
           >
             <View
               style={[

@@ -6,18 +6,20 @@ import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useRef } from "react";
 import {
-  Image,
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
+    Image,
+    Keyboard,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from "react-native";
+
 import Logo from "../../../../../assets/Images/logo.svg";
 import { FormInput } from "../../../Components/FormInput";
+import { useCustomerSession } from "../../../Context/customerSessionContext";
 import { useLogin } from "../../../Hooks/loginForm";
 import type { CustomerStackParamList } from "../../../Types/navigation";
 import { styles } from "./styles";
@@ -30,6 +32,7 @@ type LoginNavigationProp = CompositeNavigationProp<
 export function Login() {
   const form = useLogin();
   const navigation = useNavigation<LoginNavigationProp>();
+  const { loginCustomer } = useCustomerSession();
 
   const scrollViewRef = useRef<ScrollView>(null);
   const emailRef = useRef<TextInput>(null);
@@ -37,11 +40,17 @@ export function Login() {
 
   async function handleLogin() {
     Keyboard.dismiss();
+
     if (!form.isFormValid || form.isSubmitting) return;
 
     const success = await form.handleSubmit();
+
     if (success) {
-      navigation.navigate("CustomerStack", { screen: "Home" });
+      loginCustomer(form.email);
+
+      navigation.navigate("CustomerStack", {
+        screen: "Home",
+      });
     }
   }
 
@@ -52,7 +61,9 @@ export function Login() {
   }
 
   function handleGoToDelivery() {
-    navigation.navigate("DeliveryStack", { screen: "Login" });
+    navigation.navigate("DeliveryStack", {
+      screen: "Login",
+    });
   }
 
   return (
@@ -62,12 +73,13 @@ export function Login() {
           <Logo width={159} height={28} color={colors.text} />
 
           <View style={styles.badge}>
-            <Feather name={"truck"} size={15} color={colors.primary} />
+            <Feather name="truck" size={15} color={colors.primary} />
             <Text style={styles.badge_text}>CONSUMIDOR</Text>
           </View>
         </View>
 
         <Text style={styles.title}>Olá, de novo.</Text>
+
         <Text style={styles.subtitle}>
           Sentimos sua falta. Precisando de um look novo?
         </Text>
@@ -157,6 +169,7 @@ export function Login() {
 
           <View style={styles.signup_row}>
             <Text style={styles.signup_text}>Novo por aqui? </Text>
+
             <TouchableOpacity onPress={handleGoToRegister}>
               <Text style={styles.signup_link}>Quero ser consumidor</Text>
             </TouchableOpacity>
@@ -169,7 +182,8 @@ export function Login() {
           onPress={handleGoToDelivery}
           style={styles.client_login_row}
         >
-          <Octicons name={"person"} size={20} color={colors.textMuted} />
+          <Octicons name="person" size={20} color={colors.textMuted} />
+
           <Text style={styles.client_login_text}>Entrar como entregador</Text>
         </TouchableOpacity>
       </View>
