@@ -6,6 +6,10 @@ import {
 } from "../../../../../Shared/Styles/commonStyles";
 
 export const styles = StyleSheet.create({
+  wrapper: {
+    gap: spacing.sm,
+  },
+
   container: {
     backgroundColor: colors.card,
     borderRadius: radius.lg,
@@ -23,6 +27,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-between",
+    gap: spacing.sm,
   },
 
   header_info: {
@@ -52,6 +57,14 @@ export const styles = StyleSheet.create({
     color: colors.primary,
     fontSize: 10,
     fontWeight: "700",
+  },
+
+  delivered_badge: {
+    backgroundColor: colors.successSoft,
+  },
+
+  delivered_badge_text: {
+    color: colors.success,
   },
 
   progress_container: {
@@ -91,6 +104,7 @@ export const styles = StyleSheet.create({
   status_info: {
     flex: 1,
     gap: 3,
+    minWidth: 0,
   },
 
   status_title: {
@@ -102,6 +116,25 @@ export const styles = StyleSheet.create({
   status_description: {
     fontSize: 11,
     color: colors.textMuted,
+  },
+
+  code_container: {
+    alignItems: "flex-end",
+    gap: 3,
+    flexShrink: 0,
+  },
+
+  code_label: {
+    fontSize: 8,
+    fontWeight: "700",
+    color: colors.primary,
+  },
+
+  code_value: {
+    fontSize: 17,
+    fontWeight: "800",
+    color: colors.primary,
+    letterSpacing: 1,
   },
 
   divider: {
@@ -161,6 +194,24 @@ export const styles = StyleSheet.create({
 
   details_text: {
     fontSize: 12,
+    fontWeight: "600",
+    color: colors.primary,
+  },
+
+  mock_button: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    gap: spacing.sm,
+    paddingVertical: 7,
+    paddingHorizontal: 14,
+    backgroundColor: colors.primarySoft,
+    borderRadius: radius.full,
+  },
+
+  mock_button_text: {
+    fontSize: 11,
     fontWeight: "600",
     color: colors.primary,
   },

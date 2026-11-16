@@ -1,21 +1,15 @@
 import { Feather } from "@expo/vector-icons";
 import { Image, Pressable, Text, View } from "react-native";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
-import { formatPrice } from "../../../../../Shared/Utils/formatPrice";
-import type {
-    OrderHistoryCardProps,
-    OrderStatus,
-} from "../../../../Types/orders";
+import type { OrderHistoryCardProps } from "../../../../Types/orders";
 import { styles } from "./styles";
 
-const STATUS_LABELS: Record<OrderStatus, string> = {
-  pending: "PENDENTE",
-  confirmed: "CONFIRMADO",
-  preparing: "PREPARANDO",
-  delivering: "EM ENTREGA",
-  delivered: "ENTREGUE",
-  canceled: "CANCELADO",
-};
+function formatPrice(value: number) {
+  return value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+}
 
 export default function OrderHistoryCard({
   order,
@@ -23,6 +17,13 @@ export default function OrderHistoryCard({
 }: OrderHistoryCardProps) {
   const isCanceled = order.status === "canceled";
   const isDelivered = order.status === "delivered";
+  const isInProgress = !isCanceled && !isDelivered;
+
+  const statusLabel = isCanceled
+    ? "CANCELADO"
+    : isDelivered
+      ? "ENTREGUE"
+      : "EM ANDAMENTO";
 
   return (
     <Pressable
@@ -51,6 +52,7 @@ export default function OrderHistoryCard({
       <View
         style={[
           styles.status_badge,
+          isInProgress && styles.status_in_progress,
           isDelivered && styles.status_delivered,
           isCanceled && styles.status_canceled,
         ]}
@@ -58,11 +60,13 @@ export default function OrderHistoryCard({
         <Text
           style={[
             styles.status_text,
+            isInProgress && styles.status_text_in_progress,
             isDelivered && styles.status_text_delivered,
             isCanceled && styles.status_text_canceled,
           ]}
+          numberOfLines={1}
         >
-          {STATUS_LABELS[order.status]}
+          {statusLabel}
         </Text>
       </View>
 

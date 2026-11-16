@@ -2,7 +2,7 @@ import { createContext, useContext, useState, type ReactNode } from "react";
 
 import type { CartStore } from "../Hooks/useCart";
 import { ACTIVE_ORDERS, ORDER_HISTORY } from "../Screens/Orders/Data/data";
-import type { Order, OrderProduct } from "../Types/orders";
+import type { Order, OrderProduct, OrderStatus } from "../Types/orders";
 
 type CreateOrderInput = {
   protocol: string;
@@ -15,9 +15,26 @@ type OrdersContextData = {
   orderHistory: Order[];
   getOrderById: (id: string) => Order | undefined;
   addConfirmedOrder: (input: CreateOrderInput) => void;
+  advanceOrderStatus: (id: string) => void;
 };
 
+const STATUS_SEQUENCE: OrderStatus[] = [
+  "pending",
+  "confirmed",
+  "preparing",
+  "ready_for_pickup",
+  "delivering",
+  "delivered",
+];
+
 const OrdersContext = createContext<OrdersContextData | undefined>(undefined);
+
+function createMockCode(protocol: string, offset: number) {
+  const digits = protocol.replace(/\D/g, "");
+  const number = Number(digits.slice(-6)) || 3194;
+
+  return String((number + offset) % 10000).padStart(4, "0");
+}
 
 export function OrdersProvider({ children }: { children: ReactNode }) {
   const [activeOrders, setActiveOrders] = useState<Order[]>(ACTIVE_ORDERS);
@@ -37,9 +54,9 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
       })),
     );
 
-    if (products.length === 0) {
-      return;
-    }
+    if (products.length === 0) return;
+
+    const firstProduct = products[0];
 
     const subtotal = products.reduce(
       (sum, product) => sum + (product.price ?? 0) * (product.quantity ?? 1),
@@ -52,8 +69,6 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
     );
 
     const discount = Math.max(0, subtotal + deliveryFee - total);
-
-    const firstProduct = products[0];
 
     const newOrder: Order = {
       id: protocol,
@@ -75,19 +90,41 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
       discount,
       paymentMethod: "pix",
       address: "Rua das Palmeiras, 218 · Zona 7 · Maringá",
+      pickupCode: createMockCode(protocol, 2330),
+      deliveryCode: createMockCode(protocol, 1635),
     };
 
     setActiveOrders((previous) => {
-      const alreadyExists = previous.some(
-        (order) => order.protocol === protocol,
-      );
-
-      if (alreadyExists) {
+      if (previous.some((order) => order.protocol === protocol)) {
         return previous;
       }
 
       return [newOrder, ...previous];
     });
+  }
+
+  function advanceOrderStatus(id: string) {
+    setActiveOrders((previous) =>
+      previous.map((order) => {
+        if (order.id !== id && order.protocol !== id) {
+          return order;
+        }
+
+        const currentIndex = STATUS_SEQUENCE.indexOf(order.status);
+
+        if (currentIndex < 0 || currentIndex >= STATUS_SEQUENCE.length - 1) {
+          return order;
+        }
+
+        return {
+          ...order,
+          status: STATUS_SEQUENCE[currentIndex + 1],
+          pickupCode: order.pickupCode ?? createMockCode(order.protocol, 2330),
+          deliveryCode:
+            order.deliveryCode ?? createMockCode(order.protocol, 1635),
+        };
+      }),
+    );
   }
 
   function getOrderById(id: string) {
@@ -103,6 +140,7 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
         orderHistory,
         getOrderById,
         addConfirmedOrder,
+        advanceOrderStatus,
       }}
     >
       {children}

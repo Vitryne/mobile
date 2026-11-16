@@ -61,6 +61,14 @@ export const styles = StyleSheet.create({
     color: colors.primary,
   },
 
+  status_in_progress: {
+    backgroundColor: "#FFFBEB",
+  },
+
+  status_text_in_progress: {
+    color: colors.warning,
+  },
+
   status_delivered: {
     backgroundColor: colors.successSoft,
   },

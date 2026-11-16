@@ -4,6 +4,7 @@ export type OrderStatus =
   | "pending"
   | "confirmed"
   | "preparing"
+  | "ready_for_pickup"
   | "delivering"
   | "delivered"
   | "canceled";
@@ -35,11 +36,14 @@ export type Order = {
   discount?: number;
   paymentMethod?: "pix" | "card";
   address?: string;
+  pickupCode?: string;
+  deliveryCode?: string;
 };
 
 export type FeaturedOrderProps = {
   order: Order;
   onPressDetails?: (order: Order) => void;
+  onAdvanceStatus?: (order: Order) => void;
 };
 
 export type OrderHistoryCardProps = {

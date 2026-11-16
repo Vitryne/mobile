@@ -21,7 +21,7 @@ import FeaturedOrder from "../Components/FeaturedOrder";
 import OrderHistoryCard from "../Components/OrderHistoryCard";
 import { styles } from "./styles";
 
-type HistoryFilter = "all" | "delivered" | "canceled";
+type HistoryFilter = "all" | "in_progress" | "delivered" | "canceled";
 
 const CARD_GAP = 12;
 const SCREEN_PADDING = 18;
@@ -32,7 +32,7 @@ export function Orders() {
 
   const { width } = useWindowDimensions();
 
-  const { activeOrders, orderHistory } = useOrders();
+  const { activeOrders, orderHistory, advanceOrderStatus } = useOrders();
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -42,9 +42,29 @@ export function Orders() {
 
   const cardWidth = screenWidth - SCREEN_PADDING * 2;
 
-  const filteredOrders = orderHistory.filter((order) => {
+  const allOrders = [
+    ...activeOrders,
+    ...orderHistory.filter(
+      (historyOrder) =>
+        !activeOrders.some((activeOrder) => activeOrder.id === historyOrder.id),
+    ),
+  ];
+
+  const inProgressOrders = allOrders.filter(
+    (order) => order.status !== "delivered" && order.status !== "canceled",
+  );
+
+  const completedOrders = allOrders.filter(
+    (order) => order.status === "delivered" || order.status === "canceled",
+  );
+
+  const filteredOrders = allOrders.filter((order) => {
     if (historyFilter === "all") {
       return true;
+    }
+
+    if (historyFilter === "in_progress") {
+      return order.status !== "delivered" && order.status !== "canceled";
     }
 
     return order.status === historyFilter;
@@ -63,6 +83,10 @@ export function Orders() {
   function handleFilter() {
     setHistoryFilter((current) => {
       if (current === "all") {
+        return "in_progress";
+      }
+
+      if (current === "in_progress") {
         return "delivered";
       }
 
@@ -80,6 +104,14 @@ export function Orders() {
     });
   }
 
+  function handleAdvanceStatus(order: Order) {
+    advanceOrderStatus(order.id);
+
+    if (order.status === "delivering") {
+      setActiveIndex(0);
+    }
+  }
+
   return (
     <SafeAreaView style={styles.screen} edges={["top"]}>
       <View style={styles.container}>
@@ -92,8 +124,8 @@ export function Orders() {
             <Text style={styles.title}>Pedidos</Text>
 
             <Text style={styles.subtitle}>
-              {activeOrders.length} em andamento · {orderHistory.length} no
-              histórico
+              {inProgressOrders.length} em andamento · {completedOrders.length}{" "}
+              finalizados
             </Text>
           </View>
 
@@ -116,15 +148,11 @@ export function Orders() {
                   contentContainerStyle={styles.carousel_content}
                 >
                   {activeOrders.map((order) => (
-                    <View
-                      key={order.id}
-                      style={{
-                        width: cardWidth,
-                      }}
-                    >
+                    <View key={order.id} style={{ width: cardWidth }}>
                       <FeaturedOrder
                         order={order}
                         onPressDetails={handleOrderDetails}
+                        onAdvanceStatus={handleAdvanceStatus}
                       />
                     </View>
                   ))}
@@ -155,16 +183,18 @@ export function Orders() {
             <Text style={styles.section_title}>Histórico de pedidos</Text>
 
             <Pressable
-              style={styles.filter_button}
               onPress={handleFilter}
               accessibilityRole="button"
+              style={styles.filter_button}
             >
               <Text style={styles.filter_text}>
                 {historyFilter === "all"
                   ? "Filtrar"
-                  : historyFilter === "delivered"
-                    ? "Entregues"
-                    : "Cancelados"}
+                  : historyFilter === "in_progress"
+                    ? "Em andamento"
+                    : historyFilter === "delivered"
+                      ? "Entregues"
+                      : "Cancelados"}
               </Text>
             </Pressable>
           </View>
