@@ -26,4 +26,3 @@ async function registerClient(
 }
 
 export { registerClient };
-

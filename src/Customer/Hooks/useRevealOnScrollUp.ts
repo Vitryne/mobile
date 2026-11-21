@@ -1,10 +1,10 @@
 import { useCallback, useMemo, useRef } from "react";
 import {
-    Animated,
-    Easing,
-    NativeScrollEvent,
-    NativeSyntheticEvent,
-    Platform,
+  Animated,
+  Easing,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  Platform,
 } from "react-native";
 
 const USE_NATIVE_DRIVER = Platform.OS !== "web";

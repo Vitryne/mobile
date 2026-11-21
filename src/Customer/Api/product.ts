@@ -1,6 +1,6 @@
 import type {
-    Product,
-    ProductClientResponseDTO,
+  Product,
+  ProductClientResponseDTO,
 } from "@/Customer/Types/product";
 import { api } from "@/Shared/Api/apiConfig";
 

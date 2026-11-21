@@ -2,14 +2,14 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
-    FlatList,
-    Image,
-    LayoutChangeEvent,
-    ListRenderItemInfo,
-    Text,
-    useWindowDimensions,
-    View,
-    ViewToken,
+  FlatList,
+  Image,
+  LayoutChangeEvent,
+  ListRenderItemInfo,
+  Text,
+  useWindowDimensions,
+  View,
+  ViewToken,
 } from "react-native";
 import { PrimaryButton } from "../../../Components/PrimaryButton";
 import { SecundaryButton } from "../../../Components/SecundaryButton";
@@ -57,7 +57,10 @@ export function Starter({ navigation }: Props) {
   useEffect(() => {
     const timer = setTimeout(() => {
       const nextIndex = (activeIndex + 1) % SLIDES.length;
-      listRef.current?.scrollToIndex({ index: nextIndex, animated: true });
+      listRef.current?.scrollToIndex({
+        index: nextIndex,
+        animated: true,
+      });
     }, AUTO_PLAY_INTERVAL_MS);
 
     return () => clearTimeout(timer);

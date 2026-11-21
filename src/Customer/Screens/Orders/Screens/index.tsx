@@ -2,13 +2,13 @@ import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
 import {
-    Pressable,
-    ScrollView,
-    Text,
-    useWindowDimensions,
-    View,
-    type NativeScrollEvent,
-    type NativeSyntheticEvent,
+  Pressable,
+  ScrollView,
+  Text,
+  useWindowDimensions,
+  View,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 

@@ -13,4 +13,3 @@ function clearRegisterPassword() {
 }
 
 export { clearRegisterPassword, getRegisterPassword, setRegisterPassword };
-

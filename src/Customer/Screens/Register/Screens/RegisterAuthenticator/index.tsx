@@ -227,7 +227,6 @@ export function RegisterAuthenticator({ navigation, route }: Props) {
           label="Verificar e continuar"
           onPress={handleVerify}
           disabled={!canVerify}
-          icon={<Feather name="arrow-right" size={18} color="#FFFFFF" />}
         />
 
         <View style={styles.securityNote}>

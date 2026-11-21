@@ -1,46 +1,46 @@
 import { useState } from "react";
 
 const MOCKED_USER = {
-    email: "teste@gmail.com",
-    password: "123456",
+  email: "teste@gmail.com",
+  password: "123456",
 };
 
 export function useLogin() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [isSubmitting, setIsSubmitting] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    const isPasswordValid = password.length >= 6;
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isPasswordValid = password.length >= 6;
 
-    const isFormValid = isEmailValid && isPasswordValid;
+  const isFormValid = isEmailValid && isPasswordValid;
 
-    async function handleSubmit(): Promise<boolean> {
-        if (!isFormValid) return false;
+  async function handleSubmit(): Promise<boolean> {
+    if (!isFormValid) return false;
 
-        setIsSubmitting(true);
+    setIsSubmitting(true);
 
-        // Quando tiver backend trocar por chamada real de API quando o backend estiver pronto
-        await new Promise((resolve) => setTimeout(resolve, 800));
+    // Quando tiver backend trocar por chamada real de API quando o backend estiver pronto
+    await new Promise((resolve) => setTimeout(resolve, 800));
 
-        const isValidUser =
-            email.trim().toLowerCase() === MOCKED_USER.email &&
-            password === MOCKED_USER.password;
+    const isValidUser =
+      email.trim().toLowerCase() === MOCKED_USER.email &&
+      password === MOCKED_USER.password;
 
-        setIsSubmitting(false);
+    setIsSubmitting(false);
 
-        return isValidUser;
-    }
+    return isValidUser;
+  }
 
-    return {
-        password,
-        setPassword,
-        email,
-        setEmail,
-        isEmailValid,
-        isPasswordValid,
-        isFormValid,
-        isSubmitting,
-        handleSubmit,
-    };
+  return {
+    password,
+    setPassword,
+    email,
+    setEmail,
+    isEmailValid,
+    isPasswordValid,
+    isFormValid,
+    isSubmitting,
+    handleSubmit,
+  };
 }
