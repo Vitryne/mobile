@@ -3,28 +3,48 @@ import { Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { colors } from "../../../../../Shared/Styles/commonStyles";
-import { MOCK_USER } from "../../Data/data";
 import { styles } from "./styles";
 
 type ProfileHeaderProps = {
+  fullName: string;
+  email: string;
+  initials: string;
+  avatarColor: string;
   onEditProfile: () => void;
 };
 
-export default function ProfileHeader({ onEditProfile }: ProfileHeaderProps) {
+export default function ProfileHeader({
+  fullName,
+  email,
+  initials,
+  avatarColor,
+  onEditProfile,
+}: ProfileHeaderProps) {
   return (
     <SafeAreaView style={styles.safe_area} edges={["top"]}>
       <View style={styles.container}>
         <Text style={styles.title}>Perfil</Text>
 
         <View style={styles.user_row}>
-          <View style={styles.avatar}>
-            <Text style={styles.avatar_text}>{MOCK_USER.initials}</Text>
+          <View
+            style={[
+              styles.avatar,
+              {
+                backgroundColor: avatarColor,
+              },
+            ]}
+          >
+            <Text style={styles.avatar_text}>{initials}</Text>
           </View>
 
           <View style={styles.user_info}>
-            <Text style={styles.user_name}>{MOCK_USER.name}</Text>
+            <Text style={styles.user_name} numberOfLines={1}>
+              {fullName}
+            </Text>
 
-            <Text style={styles.user_email}>{MOCK_USER.email}</Text>
+            <Text style={styles.user_email} numberOfLines={1}>
+              {email}
+            </Text>
 
             <Pressable
               style={styles.edit_button}

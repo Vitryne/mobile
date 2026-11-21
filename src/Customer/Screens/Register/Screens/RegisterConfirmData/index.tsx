@@ -1,11 +1,16 @@
 import { Feather } from "@expo/vector-icons";
-import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import {
+  type RouteProp,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import { PrimaryButton } from "../../../../Components/PrimaryButton";
+import { useCustomerSession } from "../../../../Context/customerSessionContext";
 import { useRegister } from "../../../../Hooks/useRegister";
-import { CustomerStackParamList } from "../../../../Types/navigation";
+import type { CustomerStackParamList } from "../../../../Types/navigation";
 import { RegisterHeader } from "../../Components/RegisterHeader";
 import { styles } from "./styles";
 
@@ -17,6 +22,8 @@ export function RegisterConfirmData() {
     useRoute<RouteProp<CustomerStackParamList, "RegisterConfirmData">>();
 
   const register = useRegister();
+
+  const { registerCustomer, loginCustomer } = useCustomerSession();
 
   const {
     fullName,
@@ -51,8 +58,17 @@ export function RegisterConfirmData() {
       complement,
     });
 
+    if (outcome === "logged_in" || outcome === "registered") {
+      registerCustomer({
+        fullName,
+        email,
+      });
+    }
+
     if (outcome === "logged_in") {
+      loginCustomer(email);
       navigation.navigate("Home");
+      return;
     }
 
     if (outcome === "registered") {
@@ -69,6 +85,7 @@ export function RegisterConfirmData() {
         showsVerticalScrollIndicator={false}
       >
         <Text style={styles.title}>Quase lá, confira tudo.</Text>
+
         <Text style={styles.subtitle}>Passo 4 de 4 · Confirmar</Text>
 
         <View style={styles.card}>
@@ -101,16 +118,19 @@ export function RegisterConfirmData() {
 
           <View style={styles.dataRow}>
             <Text style={styles.label}>Nome</Text>
+
             <Text style={styles.value}>{fullName}</Text>
           </View>
 
           <View style={styles.dataRow}>
             <Text style={styles.label}>CPF</Text>
+
             <Text style={styles.value}>{cpf}</Text>
           </View>
 
           <View style={[styles.dataRow, styles.lastRow]}>
             <Text style={styles.label}>E-mail</Text>
+
             <Text style={styles.value}>{email}</Text>
           </View>
         </View>
@@ -145,21 +165,25 @@ export function RegisterConfirmData() {
 
           <View style={styles.dataRow}>
             <Text style={styles.label}>CEP</Text>
+
             <Text style={styles.value}>{cep}</Text>
           </View>
 
           <View style={styles.dataRow}>
             <Text style={styles.label}>Endereço</Text>
+
             <Text style={styles.value}>{formattedAddress}</Text>
           </View>
 
           <View style={styles.dataRow}>
             <Text style={styles.label}>Bairro</Text>
+
             <Text style={styles.value}>{neighborhood}</Text>
           </View>
 
           <View style={[styles.dataRow, styles.lastRow]}>
             <Text style={styles.label}>Cidade</Text>
+
             <Text style={styles.value}>
               {city} - {state}
             </Text>
