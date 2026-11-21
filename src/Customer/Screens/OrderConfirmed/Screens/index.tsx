@@ -1,8 +1,8 @@
 import { Feather } from "@expo/vector-icons";
 import {
-  useNavigation,
-  useRoute,
-  type RouteProp,
+    useNavigation,
+    useRoute,
+    type RouteProp,
 } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Pressable, Text, View } from "react-native";
@@ -25,9 +25,7 @@ export function OrderConfirmed() {
   const { protocol, total } = route.params;
 
   function handleTrackOrder() {
-    navigation.replace("OrderDetails", {
-      orderId: protocol,
-    });
+    navigation.replace("Orders");
   }
 
   function handleContinueShopping() {

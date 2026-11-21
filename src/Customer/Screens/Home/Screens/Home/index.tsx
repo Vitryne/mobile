@@ -18,6 +18,7 @@ import {
 } from "react-native";
 
 import { BottomNavBar } from "../../../../../Customer/Components/BottomNavBar";
+import CatalogSearch from "../../../../../Customer/Components/CatalogSearch";
 import { SearchBar } from "../../../../../Customer/Components/SearchBar";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
 import { useProducts } from "../../../../Hooks/useProducts";
@@ -208,6 +209,7 @@ function StoreCard({ item }: { item: HomeStore }) {
 
 export function Home() {
   const navigation = useNavigation<HomeNavigation>();
+
   const { width: windowWidth } = useWindowDimensions();
 
   const {
@@ -217,10 +219,12 @@ export function Home() {
     reload: reloadProducts,
   } = useProducts();
 
-  const [query, setQuery] = useState("");
+  const [searchVisible, setSearchVisible] = useState(false);
+
   const [selectedCategoryId, setSelectedCategoryId] = useState(
     CATEGORIES[0].id,
   );
+
   const [bannerIndex, setBannerIndex] = useState(0);
 
   const [favorites, setFavorites] = useState<Record<number, boolean>>({});
@@ -231,7 +235,13 @@ export function Home() {
 
   const { onScroll, translateY } = useRevealOnScrollUp();
 
-  function handleOpenFilters() {}
+  function handleOpenSearch() {
+    setSearchVisible(true);
+  }
+
+  function handleCloseSearch() {
+    setSearchVisible(false);
+  }
 
   function handleToggleFavorite(id: number) {
     setFavorites((previous) => ({
@@ -250,7 +260,11 @@ export function Home() {
   }
 
   function handleOpenProduct(productId: number) {
-    navigation.navigate("Product", { productId });
+    setSearchVisible(false);
+
+    navigation.navigate("Product", {
+      productId,
+    });
   }
 
   const handleBannerScroll = useCallback(
@@ -387,13 +401,17 @@ export function Home() {
                 }
                 image={
                   product.photoUrls[0]
-                    ? { uri: product.photoUrls[0] }
+                    ? {
+                        uri: product.photoUrls[0],
+                      }
                     : undefined
                 }
                 favorite={!!favorites[product.id]}
                 onToggleFavorite={() => handleToggleFavorite(product.id)}
                 onPress={() => handleOpenProduct(product.id)}
-                style={{ width: productWidth }}
+                style={{
+                  width: productWidth,
+                }}
               />
             ))}
           </View>
@@ -407,15 +425,39 @@ export function Home() {
             },
           ]}
         >
-          <SearchBar
-            value={query}
-            onChangeText={setQuery}
-            onPressFilter={handleOpenFilters}
-          />
+          <View>
+            <SearchBar
+              value=""
+              onChangeText={handleOpenSearch}
+              onPressFilter={handleOpenSearch}
+            />
+
+            <Pressable
+              style={{
+                ...{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  bottom: 0,
+                  left: 0,
+                },
+              }}
+              onPress={handleOpenSearch}
+              accessibilityRole="button"
+              accessibilityLabel="Abrir pesquisa"
+            />
+          </View>
         </Animated.View>
       </View>
 
       <BottomNavBar />
+
+      <CatalogSearch
+        visible={searchVisible}
+        products={products}
+        onClose={handleCloseSearch}
+        onOpenProduct={handleOpenProduct}
+      />
     </View>
   );
 }
