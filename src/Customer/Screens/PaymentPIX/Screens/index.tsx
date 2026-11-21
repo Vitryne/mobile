@@ -118,7 +118,7 @@ export function PaymentPIX() {
       addConfirmedOrder({
         protocol,
         total: route.params.amount,
-        stores: route.params.stores,
+        items: route.params.items,
       });
 
       navigation.replace("OrderConfirmed", {

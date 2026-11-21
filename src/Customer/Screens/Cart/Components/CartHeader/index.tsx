@@ -6,7 +6,6 @@ import { styles } from "./styles";
 
 type Props = {
   itemCount: number;
-  storeCount: number;
   showClear: boolean;
   onBack: () => void;
   onClear: () => void;
@@ -14,13 +13,11 @@ type Props = {
 
 export default function CartHeader({
   itemCount,
-  storeCount,
   showClear,
   onBack,
   onClear,
 }: Props) {
   const itemLabel = itemCount === 1 ? "item" : "itens";
-  const storeLabel = storeCount === 1 ? "loja" : "lojas";
 
   return (
     <View style={styles.container}>
@@ -31,7 +28,7 @@ export default function CartHeader({
       <View style={styles.title_block}>
         <Text style={styles.title}>Sacola</Text>
         <Text style={styles.subtitle}>
-          {itemCount} {itemLabel} · {storeCount} {storeLabel}
+          {itemCount} {itemLabel}
         </Text>
       </View>
 

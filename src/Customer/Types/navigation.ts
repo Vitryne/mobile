@@ -1,4 +1,4 @@
-import type { CartStore } from "../Hooks/useCart";
+import type { CartItem } from "./cart";
 
 export type AddressData = {
   cep: string;
@@ -25,13 +25,14 @@ export type CustomerStackParamList = {
   PaymentCard: undefined;
   Cart: undefined;
   Payment: {
-    stores: CartStore[];
+    items: CartItem[];
+    total: number;
   };
   Orders: undefined;
 
   PaymentPIX: {
     amount: number;
-    stores: CartStore[];
+    items: CartItem[];
   };
 
   OrderConfirmed: {

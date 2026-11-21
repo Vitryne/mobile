@@ -1,43 +1,92 @@
-import { useState } from "react";
-import type { ImageSourcePropType } from "react-native";
+import {
+  clearCart,
+  fetchCart,
+  removeCartItem,
+  updateCartItem,
+} from "@/Customer/Api/cart";
+import type { Cart, CartItem } from "@/Customer/Types/cart";
+import { ApiError } from "@/Shared/Api/apiConfig";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback, useRef, useState } from "react";
 
-export type CartItem = {
-  id: string;
-  name: string;
-  size: string;
-  price: number;
-  quantity: number;
-  image: ImageSourcePropType;
-};
+const EMPTY_CART: Cart = { items: [], total: 0 };
 
-export type CartStore = {
-  id: string;
-  name: string;
-  logo: ImageSourcePropType;
-  deliveryTime: string;
-  deliveryFee: number;
-  items: CartItem[];
-};
-
-export function useCart(initialStores: CartStore[]) {
-  const [stores, setStores] = useState<CartStore[]>(initialStores);
-  const [itemToRemove, setItemToRemove] = useState<CartItem | null>(null);
-
-  function changeQuantity(itemId: string, delta: number) {
-    setStores((previous) =>
-      previous.map((store) => ({
-        ...store,
-        items: store.items.map((item) =>
-          item.id === itemId
-            ? { ...item, quantity: item.quantity + delta }
-            : item,
-        ),
-      })),
-    );
+export function getCartErrorMessage(error: unknown, fallback: string) {
+  if (error instanceof ApiError) {
+    if (error.status === 401 || error.status === 403) {
+      return "Faça login para acessar sua sacola.";
+    }
+    if (error.status === 408) {
+      return "O servidor demorou para responder. Tente novamente.";
+    }
+    if (error.status === 0) return "Sem conexão com o servidor.";
+    if (error.status === 409) return error.message;
   }
 
-  function increase(itemId: string) {
-    changeQuantity(itemId, 1);
+  return fallback;
+}
+
+export function useCart() {
+  const [cart, setCart] = useState<Cart>(EMPTY_CART);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [updateError, setUpdateError] = useState<string | null>(null);
+  const [itemToRemove, setItemToRemove] = useState<CartItem | null>(null);
+
+  // Evita duas alterações ao mesmo tempo (ex.: toques rápidos no +)
+  const isUpdatingRef = useRef(false);
+
+  const loadCart = useCallback(async (isActive: () => boolean) => {
+    setIsLoading(true);
+    setLoadError(null);
+
+    try {
+      const data = await fetchCart();
+
+      if (isActive()) setCart(data);
+    } catch (error) {
+      if (isActive()) {
+        setLoadError(
+          getCartErrorMessage(error, "Não foi possível carregar a sacola."),
+        );
+      }
+    } finally {
+      if (isActive()) setIsLoading(false);
+    }
+  }, []);
+
+  // Recarrega sempre que a tela ganha foco
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+
+      loadCart(() => active);
+
+      return () => {
+        active = false;
+      };
+    }, [loadCart]),
+  );
+
+  async function runUpdate(action: () => Promise<Cart>) {
+    if (isUpdatingRef.current) return;
+
+    isUpdatingRef.current = true;
+    setUpdateError(null);
+
+    try {
+      setCart(await action());
+    } catch (error) {
+      setUpdateError(
+        getCartErrorMessage(error, "Não foi possível atualizar a sacola."),
+      );
+    } finally {
+      isUpdatingRef.current = false;
+    }
+  }
+
+  function increase(item: CartItem) {
+    runUpdate(() => updateCartItem(item.id, item.quantity + 1));
   }
 
   // Com 1 unidade, pede confirmação antes de remover
@@ -46,22 +95,16 @@ export function useCart(initialStores: CartStore[]) {
       setItemToRemove(item);
       return;
     }
-    changeQuantity(item.id, -1);
+
+    runUpdate(() => updateCartItem(item.id, item.quantity - 1));
   }
 
-  // A loja some da sacola quando fica sem itens
   function confirmRemove() {
     if (!itemToRemove) return;
 
-    setStores((previous) =>
-      previous
-        .map((store) => ({
-          ...store,
-          items: store.items.filter((item) => item.id !== itemToRemove.id),
-        }))
-        .filter((store) => store.items.length > 0),
-    );
+    const itemId = itemToRemove.id;
     setItemToRemove(null);
+    runUpdate(() => removeCartItem(itemId));
   }
 
   function cancelRemove() {
@@ -69,32 +112,29 @@ export function useCart(initialStores: CartStore[]) {
   }
 
   function clearAll() {
-    setStores([]);
+    runUpdate(clearCart);
   }
 
-  const allItems = stores.flatMap((store) => store.items);
-  const itemCount = allItems.reduce((sum, item) => sum + item.quantity, 0);
-  const storeCount = stores.length;
-  const subtotal = allItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0,
-  );
-  const delivery = stores.reduce((sum, store) => sum + store.deliveryFee, 0);
-  const total = subtotal + delivery;
+  function reload() {
+    loadCart(() => true);
+  }
+
+  const itemCount = cart.items.reduce((sum, item) => sum + item.quantity, 0);
 
   return {
-    stores,
-    itemToRemove,
+    items: cart.items,
     itemCount,
-    storeCount,
-    subtotal,
-    delivery,
-    total,
-    isEmpty: stores.length === 0,
+    total: cart.total,
+    isEmpty: cart.items.length === 0,
+    isLoading,
+    loadError,
+    updateError,
+    itemToRemove,
     increase,
     decrease,
     confirmRemove,
     cancelRemove,
     clearAll,
+    reload,
   };
 }

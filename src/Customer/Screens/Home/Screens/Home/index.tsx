@@ -20,6 +20,7 @@ import {
 import { BottomNavBar } from "../../../../../Customer/Components/BottomNavBar";
 import { SearchBar } from "../../../../../Customer/Components/SearchBar";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
+import { useCartCount } from "../../../../Hooks/useCartCount";
 import { useProducts } from "../../../../Hooks/useProducts";
 import { useRevealOnScrollUp } from "../../../../Hooks/useRevealOnScrollUp";
 import type { CustomerStackParamList } from "../../../../Types/navigation";
@@ -31,7 +32,6 @@ import {
   BANNERS,
   CATEGORIES,
   DELIVERY_ADDRESS,
-  OPEN_ORDERS_COUNT,
   STORES,
   type HomeBanner,
   type HomeCategory,
@@ -217,6 +217,7 @@ export function Home() {
     reload: reloadProducts,
   } = useProducts();
 
+  const { cartCount } = useCartCount();
   const [query, setQuery] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState(
     CATEGORIES[0].id,
@@ -287,7 +288,7 @@ export function Home() {
 
   return (
     <View style={styles.container}>
-      <HomeHeader address={DELIVERY_ADDRESS} cartCount={OPEN_ORDERS_COUNT} />
+      <HomeHeader address={DELIVERY_ADDRESS} cartCount={cartCount} />
 
       <View style={styles.body}>
         <Animated.ScrollView

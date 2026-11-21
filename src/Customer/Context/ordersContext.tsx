@@ -1,14 +1,19 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 
-import type { CartStore } from "../Hooks/useCart";
 import { ACTIVE_ORDERS, ORDER_HISTORY } from "../Screens/Orders/Data/data";
+import type { CartItem } from "../Types/cart";
 import type { Order, OrderProduct, OrderStatus } from "../Types/orders";
 
 type CreateOrderInput = {
   protocol: string;
   total: number;
-  stores: CartStore[];
+  items: CartItem[];
 };
+
+const FALLBACK_IMAGE = require("../../../assets/Images/detail_1.jpg");
+
+// Mockado até o carrinho/pedido trazer a loja
+const STORE_NAME_MOCK = "Vitryne";
 
 type OrdersContextData = {
   activeOrders: Order[];
@@ -41,18 +46,16 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
 
   const [orderHistory] = useState<Order[]>(ORDER_HISTORY);
 
-  function addConfirmedOrder({ protocol, total, stores }: CreateOrderInput) {
-    const products: OrderProduct[] = stores.flatMap((store) =>
-      store.items.map((item) => ({
-        id: String(item.id),
-        name: item.name,
-        image: item.image,
-        size: item.size,
-        quantity: item.quantity,
-        price: item.price,
-        storeName: store.name,
-      })),
-    );
+  function addConfirmedOrder({ protocol, total, items }: CreateOrderInput) {
+    const products: OrderProduct[] = items.map((item) => ({
+      id: String(item.id),
+      name: item.name,
+      image: item.photoUrl ? { uri: item.photoUrl } : FALLBACK_IMAGE,
+      size: item.size,
+      quantity: item.quantity,
+      price: item.price,
+      storeName: STORE_NAME_MOCK,
+    }));
 
     if (products.length === 0) return;
 
@@ -63,17 +66,15 @@ export function OrdersProvider({ children }: { children: ReactNode }) {
       0,
     );
 
-    const deliveryFee = stores.reduce(
-      (sum, store) => sum + store.deliveryFee,
-      0,
-    );
+    // Frete ainda não vem da API
+    const deliveryFee = 0;
 
     const discount = Math.max(0, subtotal + deliveryFee - total);
 
     const newOrder: Order = {
       id: protocol,
       protocol,
-      store: stores.length === 1 ? stores[0].name : `${stores.length} lojas`,
+      store: STORE_NAME_MOCK,
       date: new Date().toLocaleString("pt-BR"),
       productName: firstProduct.name,
       itemCount: products.reduce(

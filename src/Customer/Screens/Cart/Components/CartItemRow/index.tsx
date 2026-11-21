@@ -1,20 +1,26 @@
-import type { CartItem } from "@/Customer/Hooks/useCart";
+import type { CartItem } from "@/Customer/Types/cart";
 import { colors } from "@/Shared/Styles/commonStyles";
 import { formatPrice } from "@/Shared/Utils/formatPrice";
 import { Ionicons } from "@expo/vector-icons";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 
+const FALLBACK_IMAGE = require("../../../../../../assets/Images/detail_1.jpg");
+
 type Props = {
   item: CartItem;
-  onIncrease: (itemId: string) => void;
+  onIncrease: (item: CartItem) => void;
   onDecrease: (item: CartItem) => void;
 };
 
 export default function CartItemRow({ item, onIncrease, onDecrease }: Props) {
   return (
     <View style={styles.container}>
-      <Image source={item.image} style={styles.image} resizeMode="cover" />
+      <Image
+        source={item.photoUrl ? { uri: item.photoUrl } : FALLBACK_IMAGE}
+        style={styles.image}
+        resizeMode="cover"
+      />
 
       <View style={styles.info}>
         <View>
@@ -35,15 +41,13 @@ export default function CartItemRow({ item, onIncrease, onDecrease }: Props) {
 
             <TouchableOpacity
               style={styles.stepper_button}
-              onPress={() => onIncrease(item.id)}
+              onPress={() => onIncrease(item)}
             >
               <Ionicons name="add" size={16} color={colors.text} />
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.price}>
-            {formatPrice(item.price * item.quantity)}
-          </Text>
+          <Text style={styles.price}>{formatPrice(item.subtotal)}</Text>
         </View>
       </View>
     </View>
