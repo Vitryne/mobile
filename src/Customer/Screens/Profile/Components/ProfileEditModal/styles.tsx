@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
 import {
-  colors,
-  radius,
-  spacing,
+    colors,
+    radius,
+    spacing,
 } from "../../../../../Shared/Styles/commonStyles";
 
 export const styles = StyleSheet.create({
@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
   },
 
   backdrop: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
   },
 
   container: {
