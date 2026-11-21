@@ -219,9 +219,8 @@ export function Home() {
     reload: reloadProducts,
   } = useProducts();
 
-  const [searchVisible, setSearchVisible] = useState(false);
   const { cartCount } = useCartCount();
-  const [query, setQuery] = useState("");
+  const [searchVisible, setSearchVisible] = useState(false);
   const [selectedCategoryId, setSelectedCategoryId] = useState(
     CATEGORIES[0].id,
   );
@@ -435,13 +434,11 @@ export function Home() {
 
             <Pressable
               style={{
-                ...{
-                  position: "absolute",
-                  top: 0,
-                  right: 0,
-                  bottom: 0,
-                  left: 0,
-                },
+                position: "absolute",
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
               }}
               onPress={handleOpenSearch}
               accessibilityRole="button"

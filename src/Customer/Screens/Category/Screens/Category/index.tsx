@@ -15,10 +15,6 @@ import {
 import { BottomNavBar } from "../../../../../Customer/Components/BottomNavBar";
 import CatalogSearch from "../../../../../Customer/Components/CatalogSearch";
 import { SearchBar } from "../../../../../Customer/Components/SearchBar";
-import {
-  filterCatalogProducts,
-  getCategoryProductCount,
-} from "../../../../../Customer/Data/catalog";
 import { useRevealOnScrollUp } from "../../../../../Customer/Hooks/useRevealOnScrollUp";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
 
@@ -28,22 +24,33 @@ import type { CustomerStackParamList } from "../../../../Types/navigation";
 import { ProductCard } from "../../../Home/Components/ProductCard";
 import { CategoryCard } from "../../Components/CategoryCard";
 
-import {
-  CATEGORIES,
-  FILTERS,
-  TREND_BANNER,
-  type CategoryFilter,
-} from "../../Data/data";
+import { CATEGORIES, TREND_BANNER } from "../../Data/data";
 
 import { GRID_GAP, SCREEN_PADDING, styles } from "./styles";
 
 type CategoryNavigation = NativeStackNavigationProp<CustomerStackParamList>;
 
-type FilterChipProps = {
-  item: CategoryFilter;
-  selected: boolean;
-  onPress: (id: CategoryFilter["id"]) => void;
+type TypeFilter = {
+  id: string;
+  label: string;
 };
+
+type FilterChipProps = {
+  item: TypeFilter;
+  selected: boolean;
+  onPress: (id: string) => void;
+};
+
+function normalizeType(value: string): string {
+  const normalized = value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, " ");
+
+  return normalized.endsWith("s") ? normalized.slice(0, -1) : normalized;
+}
 
 function FilterChip({ item, selected, onPress }: FilterChipProps) {
   return (
@@ -130,9 +137,7 @@ export function Category() {
 
   const [searchVisible, setSearchVisible] = useState(false);
 
-  const [selectedFilterId, setSelectedFilterId] = useState<
-    CategoryFilter["id"]
-  >(FILTERS[0].id);
+  const [selectedFilterId, setSelectedFilterId] = useState("all");
 
   const [favorites, setFavorites] = useState<Record<number, boolean>>({});
 
@@ -142,8 +147,33 @@ export function Category() {
 
   const cardWidth = (contentWidth - GRID_GAP) / 2;
 
+  const typeFilters = useMemo<TypeFilter[]>(() => {
+    const uniqueTypes = new Map<string, string>();
+
+    products.forEach((product) => {
+      const label = product.type.trim();
+      const id = normalizeType(label);
+
+      if (id && !uniqueTypes.has(id)) {
+        uniqueTypes.set(id, label);
+      }
+    });
+
+    return [
+      { id: "all", label: "Todos" },
+      ...Array.from(uniqueTypes, ([id, label]) => ({ id, label })).sort(
+        (first, second) => first.label.localeCompare(second.label, "pt-BR"),
+      ),
+    ];
+  }, [products]);
+
   const filteredProducts = useMemo(
-    () => filterCatalogProducts(products, selectedFilterId),
+    () =>
+      selectedFilterId === "all"
+        ? products
+        : products.filter(
+            (product) => normalizeType(product.type) === selectedFilterId,
+          ),
     [products, selectedFilterId],
   );
 
@@ -151,9 +181,12 @@ export function Category() {
     () =>
       CATEGORIES.map((category) => ({
         ...category,
-        count: getCategoryProductCount(products, category.id, selectedFilterId),
+        count: filteredProducts.filter(
+          (product) =>
+            normalizeType(product.type) === normalizeType(category.name),
+        ).length,
       })).filter((category) => category.count > 0),
-    [products, selectedFilterId],
+    [filteredProducts],
   );
 
   function handleOpenSearch() {
@@ -179,7 +212,7 @@ export function Category() {
     }));
   }
 
-  const renderFilter = ({ item }: ListRenderItemInfo<CategoryFilter>) => (
+  const renderFilter = ({ item }: ListRenderItemInfo<TypeFilter>) => (
     <FilterChip
       item={item}
       selected={item.id === selectedFilterId}
@@ -201,7 +234,7 @@ export function Category() {
           keyboardShouldPersistTaps="handled"
         >
           <FlatList
-            data={FILTERS}
+            data={typeFilters}
             keyExtractor={(item) => item.id}
             renderItem={renderFilter}
             extraData={selectedFilterId}
@@ -241,15 +274,22 @@ export function Category() {
             <>
               <View style={styles.grid}>
                 {visibleCategories.map((category) => (
-                  <CategoryCard
+                  <Pressable
                     key={category.id}
-                    name={category.name}
-                    count={category.count}
-                    image={category.image}
-                    style={{
-                      width: cardWidth,
-                    }}
-                  />
+                    onPress={() =>
+                      setSelectedFilterId(normalizeType(category.name))
+                    }
+                    accessibilityRole="button"
+                    accessibilityLabel={`Filtrar por ${category.name}`}
+                    style={{ width: cardWidth }}
+                  >
+                    <CategoryCard
+                      name={category.name}
+                      count={category.count}
+                      image={category.image}
+                      style={{ width: cardWidth }}
+                    />
+                  </Pressable>
                 ))}
               </View>
 
