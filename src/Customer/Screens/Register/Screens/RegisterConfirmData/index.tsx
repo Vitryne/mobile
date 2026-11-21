@@ -1,8 +1,8 @@
 import { Feather } from "@expo/vector-icons";
 import {
-    type RouteProp,
-    useNavigation,
-    useRoute,
+  type RouteProp,
+  useNavigation,
+  useRoute,
 } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
