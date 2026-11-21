@@ -1,10 +1,10 @@
-import { Feather } from '@expo/vector-icons';
-import React from 'react';
-import { KeyboardTypeOptions, Text, TextInput, View } from 'react-native';
+import { Feather } from "@expo/vector-icons";
+import React from "react";
+import { KeyboardTypeOptions, Text, TextInput, View } from "react-native";
 
-import { colors } from '../../../../../Shared/Styles/commonStyles';
-import { FieldStatus } from '../../../../Types/paymentCard';
-import { styles } from './styles';
+import { colors } from "../../../../../Shared/Styles/commonStyles";
+import { FieldStatus } from "../../../../Types/paymentCard";
+import { styles } from "./styles";
 
 type CardFieldProps = {
   label: string;
@@ -14,7 +14,7 @@ type CardFieldProps = {
   error?: string;
   keyboardType?: KeyboardTypeOptions;
   secureTextEntry?: boolean;
-  autoCapitalize?: 'none' | 'characters' | 'words';
+  autoCapitalize?: "none" | "characters" | "words";
   maxLength?: number;
   onChangeText: (text: string) => void;
   onBlur: () => void;
@@ -26,9 +26,9 @@ const CardField = ({
   placeholder,
   status,
   error,
-  keyboardType = 'default',
+  keyboardType = "default",
   secureTextEntry = false,
-  autoCapitalize = 'none',
+  autoCapitalize = "none",
   maxLength,
   onChangeText,
   onBlur,
@@ -42,8 +42,8 @@ const CardField = ({
       <View
         style={[
           styles.input_container,
-          status === 'valid' && styles.input_container_valid,
-          status === 'error' && styles.input_container_error,
+          status === "valid" && styles.input_container_valid,
+          status === "error" && styles.input_container_error,
         ]}
       >
         <TextInput
@@ -60,7 +60,9 @@ const CardField = ({
           onBlur={onBlur}
         />
 
-        {status === 'valid' && <Feather name="check" size={18} color={colors.success} />}
+        {status === "valid" && (
+          <Feather name="check" size={18} color={colors.success} />
+        )}
       </View>
 
       {!!error && <Text style={styles.error_text}>{error}</Text>}

@@ -30,4 +30,3 @@ async function clearToken() {
 }
 
 export { clearToken, getToken, saveToken };
-

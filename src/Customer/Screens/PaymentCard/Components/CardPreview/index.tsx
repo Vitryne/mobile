@@ -1,17 +1,17 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import React from "react";
+import { Text, View } from "react-native";
 
-import { CardBrand, PaymentCardPreview } from '../../../../Types/paymentCard';
-import { styles } from './styles';
+import { CardBrand, PaymentCardPreview } from "../../../../Types/paymentCard";
+import { styles } from "./styles";
 
 type CardPreviewProps = {
   preview: PaymentCardPreview;
 };
 
 const brandLabels: Record<CardBrand, string> = {
-  visa: 'Visa',
-  mastercard: 'Mastercard',
-  other: 'Cartão',
+  visa: "Visa",
+  mastercard: "Mastercard",
+  other: "Cartão",
 };
 
 const hiddenGroups = [0, 1, 2];
