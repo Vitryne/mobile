@@ -15,9 +15,9 @@ import ProfileMenu from "../Components/ProfileMenu";
 import ProfileShortcuts from "../Components/ProfileShortcuts";
 
 import {
-    PROFILE_VERSION,
-    type ProfileMenuOption,
-    type ProfileShortcut,
+  PROFILE_VERSION,
+  type ProfileMenuOption,
+  type ProfileShortcut,
 } from "../Data/data";
 
 import { styles } from "./styles";

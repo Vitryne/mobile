@@ -1,11 +1,11 @@
 import {
-    Image,
-    Pressable,
-    Text,
-    View,
-    type ImageSourcePropType,
-    type StyleProp,
-    type ViewStyle,
+  Image,
+  Pressable,
+  Text,
+  View,
+  type ImageSourcePropType,
+  type StyleProp,
+  type ViewStyle,
 } from "react-native";
 
 import { styles } from "./styles";
