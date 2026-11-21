@@ -1,4 +1,7 @@
+import { addCartItem } from "@/Customer/Api/cart";
 import { fetchProduct } from "@/Customer/Api/product";
+import { getCartErrorMessage } from "@/Customer/Hooks/useCart";
+import { useCartCount } from "@/Customer/Hooks/useCartCount";
 import type { CustomerStackParamList } from "@/Customer/Types/navigation";
 import type {
   Product,
@@ -14,8 +17,8 @@ import {
   type RouteProp,
 } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useEffect, useState } from "react";
-import type { ImageSourcePropType } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { Alert, type ImageSourcePropType } from "react-native";
 
 const LOW_STOCK_LIMIT = 3;
 const INSTALLMENTS = 6;
@@ -123,8 +126,11 @@ export function useProduct() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [chosenSize, setChosenSize] = useState<string | null>(null);
 
-  // Mockado até existir a rota do carrinho
-  const [cartCount] = useState(2);
+  const { cartCount, setCartCount } = useCartCount();
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
+
+  // Evita adicionar duas vezes com toques rápidos
+  const isAddingRef = useRef(false);
 
   useEffect(() => {
     let isActive = true;
@@ -198,8 +204,38 @@ export function useProduct() {
     console.log("abrir entrega");
   }
 
-  function handleAddToCart() {
-    console.log("adicionar ao carrinho", selectedStock?.id);
+  async function handleAddToCart() {
+    if (isAddingRef.current) return;
+
+    if (!selectedStock || !selectedStock.available) {
+      Alert.alert("Sacola", "Escolha um tamanho disponível.");
+      return;
+    }
+
+    isAddingRef.current = true;
+    setIsAddingToCart(true);
+
+    try {
+      const cart = await addCartItem(selectedStock.id, 1);
+
+      setCartCount(cart.items.reduce((sum, item) => sum + item.quantity, 0));
+      Alert.alert(
+        "Adicionado à sacola",
+        `${product?.name ?? "Produto"} · tamanho ${selectedStock.label}`,
+        [
+          { text: "Continuar comprando", style: "cancel" },
+          { text: "Ver sacola", onPress: handleGoToCart },
+        ],
+      );
+    } catch (error) {
+      Alert.alert(
+        "Sacola",
+        getCartErrorMessage(error, "Não foi possível adicionar à sacola."),
+      );
+    } finally {
+      isAddingRef.current = false;
+      setIsAddingToCart(false);
+    }
   }
 
   return {
@@ -214,6 +250,7 @@ export function useProduct() {
     lowStockMessage,
     isFavorite,
     cartCount,
+    isAddingToCart,
     handleReload,
     handleBack,
     handleToggleFavorite,

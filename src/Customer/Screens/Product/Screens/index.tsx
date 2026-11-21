@@ -31,6 +31,7 @@ export function Product() {
     lowStockMessage,
     isFavorite,
     cartCount,
+    isAddingToCart,
     handleReload,
     handleBack,
     handleToggleFavorite,
@@ -118,6 +119,7 @@ export function Product() {
       <ProductFooter
         price={`${product.price}${product.priceCents}`}
         isFavorite={isFavorite}
+        isAdding={isAddingToCart}
         onToggleFavorite={handleToggleFavorite}
         onAddToCart={handleAddToCart}
       />

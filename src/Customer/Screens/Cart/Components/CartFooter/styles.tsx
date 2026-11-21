@@ -34,7 +34,23 @@ export const styles = StyleSheet.create({
     fontWeight: "700",
     color: colors.text,
   },
-  button_wrapper: {
+  button: {
+    minHeight: 46,
     marginTop: spacing.sm,
+    borderRadius: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: spacing.sm,
+    backgroundColor: colors.primary,
+    shadowColor: colors.primary,
+    shadowOpacity: 0.18,
+    shadowRadius: 9,
+    elevation: 3,
+  },
+  button_text: {
+    color: colors.white,
+    fontWeight: "600",
+    fontSize: 13,
   },
 });

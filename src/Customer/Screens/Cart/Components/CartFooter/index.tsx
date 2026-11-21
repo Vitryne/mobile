@@ -1,31 +1,18 @@
-import { PrimaryButton } from "@/Customer/Components/PrimaryButton";
 import { formatPrice } from "@/Shared/Utils/formatPrice";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { styles } from "./styles";
 
 type Props = {
-  subtotal: number;
-  delivery: number;
   total: number;
   onContinue: () => void;
 };
 
-export default function CartFooter({
-  subtotal,
-  delivery,
-  total,
-  onContinue,
-}: Props) {
+export default function CartFooter({ total, onContinue }: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <Text style={styles.label}>Subtotal</Text>
-        <Text style={styles.value}>{formatPrice(subtotal)}</Text>
-      </View>
-
-      <View style={styles.row}>
         <Text style={styles.label}>Entrega</Text>
-        <Text style={styles.value}>{formatPrice(delivery)}</Text>
+        <Text style={styles.value}>Calculada no pagamento</Text>
       </View>
 
       <View style={styles.row}>
@@ -33,9 +20,13 @@ export default function CartFooter({
         <Text style={styles.total_value}>{formatPrice(total)}</Text>
       </View>
 
-      <View style={styles.button_wrapper}>
-        <PrimaryButton label="Continuar para pagamento" onPress={onContinue} />
-      </View>
+      <Pressable
+        style={styles.button}
+        onPress={onContinue}
+        accessibilityRole="button"
+      >
+        <Text style={styles.button_text}>Continuar para pagamento</Text>
+      </Pressable>
     </View>
   );
 }

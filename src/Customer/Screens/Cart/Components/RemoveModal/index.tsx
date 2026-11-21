@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Modal, Text, TouchableOpacity, View } from "react-native";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
-import { CartItem } from "../../../../Hooks/useCart";
+import type { CartItem } from "@/Customer/Types/cart";
 import { styles } from "./styles";
 
 type Props = {
