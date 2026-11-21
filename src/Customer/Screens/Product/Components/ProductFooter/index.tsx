@@ -7,6 +7,7 @@ import { styles } from "./styles";
 export function ProductFooter({
   price,
   isFavorite,
+  isAdding,
   onToggleFavorite,
   onAddToCart,
 }: ProductFooterProps) {
@@ -27,10 +28,13 @@ export function ProductFooter({
       <TouchableOpacity
         style={styles.add_button}
         activeOpacity={0.8}
+        disabled={isAdding}
         onPress={onAddToCart}
       >
         <Ionicons name="bag-handle-outline" size={20} color={colors.white} />
-        <Text style={styles.add_text}>{`Adicionar · ${price}`}</Text>
+        <Text style={styles.add_text}>
+          {isAdding ? "Adicionando..." : `Adicionar · ${price}`}
+        </Text>
       </TouchableOpacity>
     </View>
   );

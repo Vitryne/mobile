@@ -1,4 +1,4 @@
-import type { CartStore } from "../Hooks/useCart";
+import type { CartItem } from "./cart";
 
 export type PaymentMethod = "pix" | "savedCard" | "newCard";
 
@@ -20,7 +20,7 @@ export type PaymentMethodsProps = {
 };
 
 export type OrderSummaryProps = {
-  stores: CartStore[];
+  items: CartItem[];
   subtotal: number;
   delivery: number;
   discount: number;

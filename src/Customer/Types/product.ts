@@ -144,6 +144,7 @@ export type ProductReviewsProps = {
 export type ProductFooterProps = {
   price: string;
   isFavorite: boolean;
+  isAdding: boolean;
   onToggleFavorite: () => void;
   onAddToCart: () => void;
 };

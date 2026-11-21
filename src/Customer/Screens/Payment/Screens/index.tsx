@@ -27,19 +27,10 @@ export function Payment() {
 
   const [method, setMethod] = useState<PaymentMethod>("pix");
 
-  const stores = route.params.stores;
+  const { items, total: subtotal } = route.params;
 
-  const subtotal = stores.reduce(
-    (sum, store) =>
-      sum +
-      store.items.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0,
-      ),
-    0,
-  );
-
-  const delivery = stores.reduce((sum, store) => sum + store.deliveryFee, 0);
+  // Frete ainda não vem da API
+  const delivery = 0;
 
   const discount = method === "pix" ? subtotal * 0.05 : 0;
 
@@ -73,7 +64,7 @@ export function Payment() {
     if (method === "pix") {
       navigation.navigate("PaymentPIX", {
         amount: total,
-        stores,
+        items,
       });
       return;
     }
@@ -101,7 +92,7 @@ export function Payment() {
 
           <View style={styles.summaryArea}>
             <OrderSummary
-              stores={stores}
+              items={items}
               subtotal={subtotal}
               delivery={delivery}
               discount={discount}

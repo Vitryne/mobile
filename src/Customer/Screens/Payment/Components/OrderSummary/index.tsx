@@ -5,23 +5,22 @@ import { formatPrice } from "../../../../../Shared/Utils/formatPrice";
 import type { OrderSummaryProps } from "../../../..//Types/payment";
 import { styles } from "./styles";
 
+const FALLBACK_IMAGE = require("../../../../../../assets/Images/detail_1.jpg");
+
 export default function OrderSummary({
-  stores,
+  items,
   subtotal,
   delivery,
   discount,
   total,
   onCoupon,
 }: OrderSummaryProps) {
-  const items = stores.flatMap((store) =>
-    store.items.map((item) => ({ ...item, storeName: store.name })),
-  );
   return (
     <View style={styles.container}>
       <View style={styles.headingRow}>
         <Text style={styles.heading}>Produtos</Text>
         <Text style={styles.count}>
-          {items.length} itens · {stores.length} lojas
+          {items.length} {items.length === 1 ? "item" : "itens"}
         </Text>
       </View>
       <View style={styles.card}>
@@ -34,7 +33,7 @@ export default function OrderSummary({
           {items.map((item) => (
             <View key={item.id} style={styles.item}>
               <Image
-                source={item.image}
+                source={item.photoUrl ? { uri: item.photoUrl } : FALLBACK_IMAGE}
                 style={styles.image}
                 resizeMode="cover"
               />
@@ -43,12 +42,10 @@ export default function OrderSummary({
                   {item.name}
                 </Text>
                 <Text numberOfLines={2} style={styles.subtitle}>
-                  {item.storeName} · Tam. {item.size} · {item.quantity} uni
+                  Tam. {item.size} · {item.quantity} uni
                 </Text>
               </View>
-              <Text style={styles.price}>
-                {formatPrice(item.price * item.quantity)}
-              </Text>
+              <Text style={styles.price}>{formatPrice(item.subtotal)}</Text>
             </View>
           ))}
         </ScrollView>

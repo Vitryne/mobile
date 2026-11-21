@@ -44,4 +44,35 @@ export const styles = StyleSheet.create({
     fontSize: 13,
     color: colors.textMuted,
   },
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: spacing.lg,
+    gap: spacing.md,
+  },
+  message_text: {
+    fontSize: 14,
+    color: colors.textMuted,
+    textAlign: "center",
+  },
+  error_text: {
+    fontSize: 13,
+    color: colors.danger,
+    backgroundColor: colors.dangerSoft,
+    borderRadius: radius.md,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+  },
+  retry_button: {
+    backgroundColor: colors.primary,
+    borderRadius: radius.full,
+    paddingVertical: 10,
+    paddingHorizontal: spacing.lg,
+  },
+  retry_text: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: colors.white,
+  },
 });
