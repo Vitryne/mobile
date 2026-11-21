@@ -10,12 +10,7 @@ export type VehicleType = "motorcycle" | "car" | "bike";
    os três tipos. Cada tipo usa só um subconjunto.
 -------------------------------------------------- */
 export type VehicleFieldName =
-  | "brand"
-  | "model"
-  | "plate"
-  | "year"
-  | "color"
-  | "bikeType";
+  "brand" | "model" | "plate" | "year" | "color" | "bikeType";
 
 /* --------------------------------------------------
    Estado do formulário: um valor string por campo.

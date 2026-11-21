@@ -1,13 +1,19 @@
-import { Feather } from '@expo/vector-icons';
-import React from 'react';
-import { ActivityIndicator, ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Feather } from "@expo/vector-icons";
+import React from "react";
+import {
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { colors, commonStyles } from '../../../../Shared/Styles/commonStyles';
-import { usePaymentCardForm } from '../../../Hooks/usePaymentCardForm';
-import CardField from '../Components/CardField';
-import CardPreview from '../Components/CardPreview';
-import { styles } from './styles';
+import { colors, commonStyles } from "../../../../Shared/Styles/commonStyles";
+import { usePaymentCardForm } from "../../../Hooks/usePaymentCardForm";
+import CardField from "../Components/CardField";
+import CardPreview from "../Components/CardPreview";
+import { styles } from "./styles";
 
 export const PaymentCardScreen = () => {
   const {
@@ -46,10 +52,10 @@ export const PaymentCardScreen = () => {
             value={values.number}
             placeholder="0000 0000 0000 0000"
             keyboardType="number-pad"
-            status={getFieldStatus('number')}
-            error={getFieldError('number')}
-            onChangeText={(text) => handleChange('number', text)}
-            onBlur={() => handleBlur('number')}
+            status={getFieldStatus("number")}
+            error={getFieldError("number")}
+            onChangeText={(text) => handleChange("number", text)}
+            onBlur={() => handleBlur("number")}
           />
 
           <CardField
@@ -57,10 +63,10 @@ export const PaymentCardScreen = () => {
             value={values.holderName}
             placeholder="COMO ESTÁ NO CARTÃO"
             autoCapitalize="characters"
-            status={getFieldStatus('holderName')}
-            error={getFieldError('holderName')}
-            onChangeText={(text) => handleChange('holderName', text)}
-            onBlur={() => handleBlur('holderName')}
+            status={getFieldStatus("holderName")}
+            error={getFieldError("holderName")}
+            onChangeText={(text) => handleChange("holderName", text)}
+            onBlur={() => handleBlur("holderName")}
           />
 
           <View style={[commonStyles.row, styles.fields_row]}>
@@ -70,10 +76,10 @@ export const PaymentCardScreen = () => {
                 value={values.expiry}
                 placeholder="MM/AA"
                 keyboardType="number-pad"
-                status={getFieldStatus('expiry')}
-                error={getFieldError('expiry')}
-                onChangeText={(text) => handleChange('expiry', text)}
-                onBlur={() => handleBlur('expiry')}
+                status={getFieldStatus("expiry")}
+                error={getFieldError("expiry")}
+                onChangeText={(text) => handleChange("expiry", text)}
+                onBlur={() => handleBlur("expiry")}
               />
             </View>
 
@@ -84,10 +90,10 @@ export const PaymentCardScreen = () => {
                 placeholder="•••"
                 keyboardType="number-pad"
                 secureTextEntry
-                status={getFieldStatus('cvv')}
-                error={getFieldError('cvv')}
-                onChangeText={(text) => handleChange('cvv', text)}
-                onBlur={() => handleBlur('cvv')}
+                status={getFieldStatus("cvv")}
+                error={getFieldError("cvv")}
+                onChangeText={(text) => handleChange("cvv", text)}
+                onBlur={() => handleBlur("cvv")}
               />
             </View>
           </View>
@@ -97,25 +103,35 @@ export const PaymentCardScreen = () => {
             value={values.cpf}
             placeholder="000.000.000-00"
             keyboardType="number-pad"
-            status={getFieldStatus('cpf')}
-            error={getFieldError('cpf')}
-            onChangeText={(text) => handleChange('cpf', text)}
-            onBlur={() => handleBlur('cpf')}
+            status={getFieldStatus("cpf")}
+            error={getFieldError("cpf")}
+            onChangeText={(text) => handleChange("cpf", text)}
+            onBlur={() => handleBlur("cpf")}
           />
         </View>
 
         <View style={styles.info_box}>
           <Feather name="check" size={16} color={colors.success} />
           <Text style={styles.info_text}>
-            Dados tokenizados pelo gateway — o app não armazena o cartão completo.
+            Dados tokenizados pelo gateway — o app não armazena o cartão
+            completo.
           </Text>
         </View>
 
-        <TouchableOpacity style={styles.checkbox_row} onPress={toggleSaveForLater}>
-          <View style={[styles.checkbox, saveForLater && styles.checkbox_checked]}>
-            {saveForLater && <Feather name="check" size={14} color={colors.white} />}
+        <TouchableOpacity
+          style={styles.checkbox_row}
+          onPress={toggleSaveForLater}
+        >
+          <View
+            style={[styles.checkbox, saveForLater && styles.checkbox_checked]}
+          >
+            {saveForLater && (
+              <Feather name="check" size={14} color={colors.white} />
+            )}
           </View>
-          <Text style={styles.checkbox_label}>Salvar cartão para próximas compras</Text>
+          <Text style={styles.checkbox_label}>
+            Salvar cartão para próximas compras
+          </Text>
         </TouchableOpacity>
       </ScrollView>
 

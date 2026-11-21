@@ -1,6 +1,6 @@
 import type {
-    Product,
-    ProductClientResponseDTO,
+  Product,
+  ProductClientResponseDTO,
 } from "@/Customer/Types/product";
 import { api } from "@/Shared/Api/apiConfig";
 
@@ -56,4 +56,3 @@ async function fetchProducts(): Promise<Product[]> {
 }
 
 export { fetchProduct, fetchProducts };
-
