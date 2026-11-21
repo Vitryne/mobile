@@ -42,7 +42,7 @@ async function fetchProduct(id: number): Promise<Product> {
   const response = await api.get<ProductClientResponseDTO>(
     `/product/client/${id}`,
   );
-
+  console.log("fetchProduct response:", response.data); // Log the response data for debugging
   return mapProduct(response.data);
 }
 
@@ -51,7 +51,7 @@ async function fetchProduct(id: number): Promise<Product> {
  */
 async function fetchProducts(): Promise<Product[]> {
   const response = await api.get<ProductClientResponseDTO[]>("/product");
-
+  console.log("fetchProduct response 2:", response.data); // Log the response data for debugging
   return response.data.map(mapProduct);
 }
 
