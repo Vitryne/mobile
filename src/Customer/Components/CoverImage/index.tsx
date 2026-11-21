@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
 import {
-    ImageBackground,
-    ImageSourcePropType,
-    StyleProp,
-    View,
-    ViewStyle,
+  ImageBackground,
+  ImageSourcePropType,
+  StyleProp,
+  View,
+  ViewStyle,
 } from "react-native";
 import { colors } from "../../../Shared/Styles/commonStyles";
 

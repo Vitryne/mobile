@@ -45,13 +45,10 @@ export function DocumentUploadItem({
   const config = statusConfig[status];
 
   return (
-    <View
-      style={[
-        styles.card,
-        status === "invalid" && styles.card_invalid,
-      ]}
-    >
-      <View style={[styles.icon_box, { backgroundColor: config.iconBackground }]}>
+    <View style={[styles.card, status === "invalid" && styles.card_invalid]}>
+      <View
+        style={[styles.icon_box, { backgroundColor: config.iconBackground }]}
+      >
         <Feather name={icon} size={18} color={config.iconColor} />
       </View>
 
@@ -65,7 +62,11 @@ export function DocumentUploadItem({
       {status === "sent" ? (
         <Feather name="check" size={20} color={colors.success} />
       ) : (
-        <TouchableOpacity style={styles.button} onPress={onPress} activeOpacity={0.8}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={onPress}
+          activeOpacity={0.8}
+        >
           <Feather name="upload" size={14} color={colors.white} />
           <Text style={styles.button_text}>{config.buttonLabel}</Text>
         </TouchableOpacity>

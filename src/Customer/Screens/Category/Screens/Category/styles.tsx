@@ -3,9 +3,9 @@ import { StyleSheet } from "react-native";
 import { SEARCH_AREA_HEIGHT } from "../../../../../Customer/Hooks/useRevealOnScrollUp";
 
 import {
-    colors,
-    radius,
-    spacing,
+  colors,
+  radius,
+  spacing,
 } from "../../../../../Shared/Styles/commonStyles";
 
 export const SCREEN_PADDING = 22;

@@ -66,7 +66,10 @@ api.interceptors.request.use(async (config) => {
 api.interceptors.response.use(
   (response) => response,
   async (
-    error: AxiosError<{ message?: string; fields?: Record<string, string> }>,
+    error: AxiosError<{
+      message?: string;
+      fields?: Record<string, string>;
+    }>,
   ) => {
     if (error.response) {
       // O 401 do próprio login (senha errada) segue como erro normal.

@@ -1,8 +1,8 @@
 import { Feather } from "@expo/vector-icons";
 import {
-    useNavigation,
-    useRoute,
-    type RouteProp,
+  useNavigation,
+  useRoute,
+  type RouteProp,
 } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import * as Clipboard from "expo-clipboard";

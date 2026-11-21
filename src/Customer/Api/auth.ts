@@ -24,4 +24,3 @@ async function login(credentials: LoginCredentials): Promise<AuthSession> {
 }
 
 export { login };
-

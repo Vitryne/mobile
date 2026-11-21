@@ -1,7 +1,7 @@
 import {
-    useNavigation,
-    useRoute,
-    type RouteProp,
+  useNavigation,
+  useRoute,
+  type RouteProp,
 } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
