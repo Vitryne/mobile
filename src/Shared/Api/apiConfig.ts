@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import { create, AxiosError } from "axios";
 import { clearToken, getToken } from "./tokenStorage";
 
 /**
@@ -6,7 +6,7 @@ import { clearToken, getToken } from "./tokenStorage";
  * Toda chamada da API deve importar 'api' daqui em vez de criar sua própria config.
  * Se a URL do backend mudar, só precisa trocar o baseURL abaixo
  */
-export const api = axios.create({
+export const api = create({
   baseURL: "http://localhost:8080",
   timeout: 10000,
   headers: {

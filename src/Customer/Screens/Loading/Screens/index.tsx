@@ -27,8 +27,6 @@ export function Loading({ navigation }: Props) {
         <Logo
           width={261}
           height={46}
-          top={373}
-          left={71}
           opacity={1}
           color={colors.white}
         />

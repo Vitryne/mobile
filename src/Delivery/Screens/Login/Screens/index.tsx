@@ -18,10 +18,8 @@ import {
 import Logo from "../../../../../assets/Images/logo.svg";
 import { FormInput } from "../../../Components/FormInput";
 import { useLogin } from "../../../Hooks/loginForm";
-import type {
-    AppStackParamList,
-    DeliveryStackParamList,
-} from "../../../Types/navigation";
+import type { AppStackParamList } from "@/Shared/Types/navigation";
+import type { DeliveryStackParamList } from "../../../Types/navigation";
 import { styles } from "./styles";
 
 type LoginNavigationProp = CompositeNavigationProp<

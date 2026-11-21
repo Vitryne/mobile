@@ -188,7 +188,6 @@ export function RegisterConfirmData() {
             }
             onPress={handleFinish}
             disabled={register.isSubmitting}
-            icon={<Feather name="check" size={18} color="#FFFFFF" />}
           />
         </View>
       </ScrollView>

@@ -1,10 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useEffect, useRef, useState } from "react";
 import { Keyboard, Platform, ScrollView, TextInput } from "react-native";
 import { Bank } from "../Screens/Register/Screens/RegisterBankAccount/banks";
+import { DeliveryStackParamList } from "../Types/navigation";
 
 export function useBankAccountForm() {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<DeliveryStackParamList>>();
 
   const [bankCode, setBankCode] = useState("");
   const [bankName, setBankName] = useState("");
@@ -80,7 +83,7 @@ export function useBankAccountForm() {
       pixKey: pixKey.trim(),
     });
 
-    navigation.navigate("RegisterSuccess");
+    navigation.navigate("Login");
   }
 
   return {

@@ -1,5 +1,5 @@
 import { Feather } from "@expo/vector-icons";
-import { useState } from "react";
+import { Ref, useState } from "react";
 import {
   Text,
   TextInput,
@@ -10,6 +10,7 @@ import {
 import { styles } from "./styles";
 
 type FormInputProps = TextInputProps & {
+  ref?: Ref<TextInput>;
   label: string;
   required?: boolean;
   isValid?: boolean;

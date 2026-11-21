@@ -86,7 +86,7 @@ export const styles = StyleSheet.create({
   },
   google_button_text: {
     fontSize: 15,
-    fontWeight: "470",
+    fontWeight: "500",
     color: colors.text,
   },
   google_icon: {
