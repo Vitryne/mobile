@@ -1,5 +1,6 @@
 import { commonStyles } from "@/Shared/Styles/commonStyles";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useEffect, useRef, useState } from "react";
 import {
   Keyboard,
@@ -12,6 +13,7 @@ import {
 } from "react-native";
 import { FormInput } from "../../../../Components/FormInput";
 import { useRegisterForm } from "../../../../Hooks/registroForm";
+import { DeliveryStackParamList } from "../../../../Types/navigation";
 import { PasswordStrength } from "../../Components/PasswordStrength";
 import { PrimaryButton } from "../../Components/PrimaryButton";
 import { RegisterHeader } from "../../Components/RegisterHeader";
@@ -22,7 +24,8 @@ export function RegisterPersonalData() {
 
   const scrollViewRef = useRef<ScrollView>(null);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<DeliveryStackParamList>>();
 
   const cpfRef = useRef<TextInput>(null);
   const emailRef = useRef<TextInput>(null);

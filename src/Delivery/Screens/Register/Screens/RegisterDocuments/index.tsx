@@ -5,7 +5,10 @@ import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import type { DeliveryStackParamList } from "../../../../Types/navigation";
-import { DocumentUploadItem } from "../../Components/DocumentUploadItem";
+import {
+  DocumentStatus,
+  DocumentUploadItem,
+} from "../../Components/DocumentUploadItem";
 import { PrimaryButton } from "../../Components/PrimaryButton";
 import { RegisterHeader } from "../../Components/RegisterHeader";
 import { styles } from "./styles";

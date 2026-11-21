@@ -24,14 +24,7 @@ export function Loading({ navigation }: Props) {
       resizeMode="cover"
     >
       <View style={styles.overlay}>
-        <Logo
-          width={261}
-          height={46}
-          top={373}
-          left={71}
-          opacity={1}
-          color={colors.white}
-        />
+        <Logo width={261} height={46} opacity={1} color={colors.white} />
 
         <Text style={styles.splash_subtitle}>MODA . ENTREGA . PREMIUM</Text>
         <ActivityIndicator size="small" color={colors.white} />

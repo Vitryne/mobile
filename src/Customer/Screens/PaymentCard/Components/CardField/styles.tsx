@@ -1,10 +1,14 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
-import { colors, radius, spacing } from '../../../../../Shared/Styles/commonStyles';
+import {
+  colors,
+  radius,
+  spacing,
+} from "../../../../../Shared/Styles/commonStyles";
 
 export const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: "100%",
   },
   label: {
     fontSize: 13,
@@ -15,8 +19,8 @@ export const styles = StyleSheet.create({
     color: colors.danger,
   },
   input_container: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     height: 48,
     paddingHorizontal: spacing.md,
     borderWidth: 1.5,

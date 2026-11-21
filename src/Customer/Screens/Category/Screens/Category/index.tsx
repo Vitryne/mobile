@@ -1,12 +1,12 @@
 import { useState } from "react";
 import {
-    Animated,
-    FlatList,
-    Pressable,
-    Text,
-    useWindowDimensions,
-    View,
-    type ListRenderItemInfo,
+  Animated,
+  FlatList,
+  Pressable,
+  Text,
+  useWindowDimensions,
+  View,
+  type ListRenderItemInfo,
 } from "react-native";
 
 import { BottomNavBar } from "../../../../../Customer/Components/BottomNavBar";
@@ -16,10 +16,10 @@ import { ScreenHeader } from "../../../../Components/ScreenHeader";
 import { CategoryCard } from "../../Components/CategoryCard";
 
 import {
-    CATEGORIES,
-    FILTERS,
-    TREND_BANNER,
-    type CategoryFilter,
+  CATEGORIES,
+  FILTERS,
+  TREND_BANNER,
+  type CategoryFilter,
 } from "../../Data/data";
 
 import { GRID_GAP, SCREEN_PADDING, styles } from "./styles";
