@@ -6,7 +6,7 @@
 
 Aplicativo destinado aos consumidores da plataforma para descoberta de produtos, realização de pedidos e acompanhamento das entregas.
 
-[![Java](https://skillicons.dev/icons?i=react,ts)](https://skillicons.dev)
+[![Stack](https://skillicons.dev/icons?i=react,ts)](https://skillicons.dev)
 
 </div>
 
@@ -58,7 +58,13 @@ npx expo start
 
 ## ⚙️ Variáveis de Ambiente
 
-Crie um arquivo `.env` na raiz do projeto. Você consegue verificar as variáveis que são utilizadas hoje, no arquivo `.env.example`
+As variáveis usadas pelo projeto estão listadas em `.env.example`. Copie o arquivo para `.env` e preencha com os valores do seu ambiente. O `.env` não é versionado.
+
+| Variável | Descrição |
+| --- | --- |
+| `EXPO_PUBLIC_API_URL` | URL base da API. Opcional em desenvolvimento; em dispositivo físico, informe o IP da máquina na rede local. |
+
+Variáveis com prefixo `EXPO_PUBLIC_` são incorporadas ao aplicativo: nunca coloque segredos nelas.
 
 ---
 
