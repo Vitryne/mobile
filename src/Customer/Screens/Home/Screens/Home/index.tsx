@@ -217,7 +217,7 @@ const searchStyles = StyleSheet.create({
   },
 
   touch_overlay: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
   },
 });
 
