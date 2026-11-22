@@ -36,8 +36,6 @@ type Suggestion = {
   productId?: number;
 };
 
-let searchHistory: string[] = [];
-
 export default function CatalogSearch({
   visible,
   products,
@@ -46,7 +44,7 @@ export default function CatalogSearch({
 }: CatalogSearchProps) {
   const [query, setQuery] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [history, setHistory] = useState(searchHistory);
+  const [history, setHistory] = useState<string[]>([]);
 
   const activeProducts = useMemo(() => getActiveProducts(products), [products]);
 
@@ -91,14 +89,14 @@ export default function CatalogSearch({
       return;
     }
 
-    searchHistory = [
-      cleanValue,
-      ...searchHistory.filter(
-        (item) => normalizeSearch(item) !== normalizeSearch(cleanValue),
-      ),
-    ].slice(0, 5);
-
-    setHistory([...searchHistory]);
+    setHistory((previous) =>
+      [
+        cleanValue,
+        ...previous.filter(
+          (item) => normalizeSearch(item) !== normalizeSearch(cleanValue),
+        ),
+      ].slice(0, 5),
+    );
   }
 
   function handleSubmit(value = query) {
@@ -142,7 +140,6 @@ export default function CatalogSearch({
   }
 
   function handleClearHistory() {
-    searchHistory = [];
     setHistory([]);
   }
 
@@ -275,7 +272,7 @@ export default function CatalogSearch({
                 <Feather name="search" size={17} color={colors.primary} />
 
                 <Text style={styles.search_action_text}>
-                  Buscar "{query.trim()}"
+                  {`Buscar "${query.trim()}"`}
                 </Text>
               </Pressable>
             </>

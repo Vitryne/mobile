@@ -1,21 +1,21 @@
-import { colors, commonStyles } from "@/Shared/Styles/commonStyles";
-import { AppStackParamList } from "@/Shared/Types/navigation";
 import { Octicons } from "@expo/vector-icons";
 import type { CompositeNavigationProp } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useRef } from "react";
 import {
-  Image,
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
+    Image,
+    Keyboard,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from "react-native";
+import { colors, commonStyles } from "../../../../Shared/Styles/commonStyles";
+import { AppStackParamList } from "../../../../Shared/Types/navigation";
 
 import Logo from "../../../../../assets/Images/logo.svg";
 import { FormInput } from "../../../Components/FormInput";
