@@ -4,8 +4,10 @@ import {
   type CompositeNavigationProp,
 } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
+  ActivityIndicator,
+  Animated,
   Pressable,
   ScrollView,
   Text,
@@ -16,7 +18,8 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { useOrders } from "../../../Context/ordersContext";
+import { colors } from "../../../../Shared/Styles/commonStyles";
+import { useOrders } from "../../../Hooks/useOrders";
 import type {
   CustomerStackParamList,
   CustomerTabParamList,
@@ -42,15 +45,37 @@ export function Orders() {
 
   const { width } = useWindowDimensions();
 
-  const { activeOrders, orderHistory, advanceOrderStatus } = useOrders();
+  const { activeOrders, orderHistory, isLoading, loadError, reload } =
+    useOrders();
 
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const [scrollX] = useState(() => new Animated.Value(0));
+
+  const carouselRef = useRef<ScrollView>(null);
+
+  const snapTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (snapTimeoutRef.current) clearTimeout(snapTimeoutRef.current);
+    };
+  }, []);
 
   const [historyFilter, setHistoryFilter] = useState<HistoryFilter>("all");
 
   const screenWidth = Math.min(width, 430);
 
   const cardWidth = screenWidth - SCREEN_PADDING * 2;
+
+  const cardStep = cardWidth + CARD_GAP;
+
+  const hasManyActive = activeOrders.length > 1;
+
+  const currentIndex = Math.min(
+    activeIndex,
+    Math.max(activeOrders.length - 1, 0),
+  );
 
   const allOrders = [
     ...activeOrders,
@@ -85,9 +110,33 @@ export function Orders() {
   ) {
     const position = event.nativeEvent.contentOffset.x;
 
-    const index = Math.round(position / (cardWidth + CARD_GAP));
+    scrollX.setValue(position);
 
-    setActiveIndex(Math.max(0, Math.min(index, activeOrders.length - 1)));
+    const index = Math.max(
+      0,
+      Math.min(Math.round(position / cardStep), activeOrders.length - 1),
+    );
+
+    setActiveIndex(index);
+
+    if (snapTimeoutRef.current) clearTimeout(snapTimeoutRef.current);
+
+    snapTimeoutRef.current = setTimeout(() => {
+      const target = index * cardStep;
+
+      if (Math.abs(position - target) > 1) {
+        carouselRef.current?.scrollTo({ x: target, animated: true });
+      }
+    }, 120);
+  }
+
+  function handleDotPress(index: number) {
+    carouselRef.current?.scrollTo({ x: index * cardStep, animated: true });
+    setActiveIndex(index);
+  }
+
+  function getStepRange(index: number) {
+    return [(index - 1) * cardStep, index * cardStep, (index + 1) * cardStep];
   }
 
   function handleFilter() {
@@ -114,12 +163,32 @@ export function Orders() {
     });
   }
 
-  function handleAdvanceStatus(order: Order) {
-    advanceOrderStatus(order.id);
+  if (isLoading) {
+    return (
+      <SafeAreaView style={styles.screen} edges={["top", "left", "right"]}>
+        <View style={styles.center}>
+          <ActivityIndicator size="large" color={colors.primary} />
+        </View>
+      </SafeAreaView>
+    );
+  }
 
-    if (order.status === "delivering") {
-      setActiveIndex(0);
-    }
+  if (loadError) {
+    return (
+      <SafeAreaView style={styles.screen} edges={["top", "left", "right"]}>
+        <View style={styles.center}>
+          <Text style={styles.message_text}>{loadError}</Text>
+
+          <Pressable
+            style={styles.retry_button}
+            onPress={reload}
+            accessibilityRole="button"
+          >
+            <Text style={styles.retry_text}>Tentar novamente</Text>
+          </Pressable>
+        </View>
+      </SafeAreaView>
+    );
   }
 
   return (
@@ -142,43 +211,99 @@ export function Orders() {
           <View style={styles.section_header}>
             <Text style={styles.section_title}>Em andamento</Text>
 
-            <Text style={styles.section_hint}>Arraste para ver outros →</Text>
+            {hasManyActive && (
+              <Text style={styles.section_hint}>
+                {currentIndex + 1} de {activeOrders.length} · Arraste →
+              </Text>
+            )}
           </View>
 
           <View style={styles.carousel}>
             {activeOrders.length > 0 ? (
               <>
-                <ScrollView
+                <Animated.ScrollView
+                  ref={carouselRef}
                   horizontal
                   showsHorizontalScrollIndicator={false}
                   decelerationRate="fast"
-                  snapToInterval={cardWidth + CARD_GAP}
+                  snapToInterval={cardStep}
                   snapToAlignment="start"
-                  onMomentumScrollEnd={handleCarouselScroll}
+                  disableIntervalMomentum
+                  scrollEventThrottle={16}
+                  onScroll={handleCarouselScroll}
                   contentContainerStyle={styles.carousel_content}
                 >
-                  {activeOrders.map((order) => (
-                    <View key={order.id} style={{ width: cardWidth }}>
+                  {activeOrders.map((order, index) => (
+                    <Animated.View
+                      key={order.id}
+                      style={{
+                        width: cardWidth,
+                        opacity: hasManyActive
+                          ? scrollX.interpolate({
+                              inputRange: getStepRange(index),
+                              outputRange: [0.6, 1, 0.6],
+                              extrapolate: "clamp",
+                            })
+                          : 1,
+                        transform: [
+                          {
+                            scale: hasManyActive
+                              ? scrollX.interpolate({
+                                  inputRange: getStepRange(index),
+                                  outputRange: [0.94, 1, 0.94],
+                                  extrapolate: "clamp",
+                                })
+                              : 1,
+                          },
+                        ],
+                      }}
+                    >
                       <FeaturedOrder
                         order={order}
                         onPressDetails={handleOrderDetails}
-                        onAdvanceStatus={handleAdvanceStatus}
                       />
-                    </View>
+                    </Animated.View>
                   ))}
-                </ScrollView>
+                </Animated.ScrollView>
 
-                <View style={styles.pagination}>
-                  {activeOrders.map((order, index) => (
-                    <View
-                      key={order.id}
-                      style={[
-                        styles.pagination_dot,
-                        index === activeIndex && styles.pagination_dot_active,
-                      ]}
-                    />
-                  ))}
-                </View>
+                {hasManyActive && (
+                  <View style={styles.pagination}>
+                    {activeOrders.map((order, index) => (
+                      <Pressable
+                        key={order.id}
+                        onPress={() => handleDotPress(index)}
+                        hitSlop={8}
+                        accessibilityRole="button"
+                        accessibilityLabel={`Ver pedido ${index + 1} de ${activeOrders.length}`}
+                        accessibilityState={{
+                          selected: index === currentIndex,
+                        }}
+                      >
+                        <Animated.View
+                          style={[
+                            styles.pagination_dot,
+                            {
+                              width: scrollX.interpolate({
+                                inputRange: getStepRange(index),
+                                outputRange: [6, 20, 6],
+                                extrapolate: "clamp",
+                              }),
+                              backgroundColor: scrollX.interpolate({
+                                inputRange: getStepRange(index),
+                                outputRange: [
+                                  colors.border,
+                                  colors.primary,
+                                  colors.border,
+                                ],
+                                extrapolate: "clamp",
+                              }),
+                            },
+                          ]}
+                        />
+                      </Pressable>
+                    ))}
+                  </View>
+                )}
               </>
             ) : (
               <View style={styles.empty_state}>

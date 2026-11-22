@@ -101,6 +101,14 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
+  status_icon_glyph: {
+    width: 15,
+    height: 15,
+    lineHeight: 15,
+    textAlign: "center",
+    includeFontPadding: false,
+  },
+
   status_info: {
     flex: 1,
     gap: 3,
@@ -194,24 +202,6 @@ export const styles = StyleSheet.create({
 
   details_text: {
     fontSize: 12,
-    fontWeight: "600",
-    color: colors.primary,
-  },
-
-  mock_button: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    alignSelf: "center",
-    gap: spacing.sm,
-    paddingVertical: 7,
-    paddingHorizontal: 14,
-    backgroundColor: colors.primarySoft,
-    borderRadius: radius.full,
-  },
-
-  mock_button_text: {
-    fontSize: 11,
     fontWeight: "600",
     color: colors.primary,
   },

@@ -11,7 +11,7 @@ import { Alert, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { colors } from "../../../../Shared/Styles/commonStyles";
-import { useOrders } from "../../../Context/ordersContext";
+import { useCheckout } from "../../../Hooks/useCheckout";
 import type { CustomerStackParamList } from "../../../Types/navigation";
 
 import PixCopyCode from "../Components/PixCopyCode";
@@ -30,17 +30,13 @@ function createDemoCode() {
     .slice(2, 10)}`;
 }
 
-function createProtocol() {
-  return `#A-${Date.now().toString().slice(-8)}`;
-}
-
 export function PaymentPIX() {
   const navigation =
     useNavigation<NativeStackNavigationProp<CustomerStackParamList>>();
 
   const route = useRoute<RouteProp<CustomerStackParamList, "PaymentPIX">>();
 
-  const { addConfirmedOrder } = useOrders();
+  const { confirmOrder } = useCheckout();
 
   const lastTap = useRef(0);
   const confirming = useRef(false);
@@ -101,6 +97,29 @@ export function PaymentPIX() {
     confirming.current = false;
   }
 
+  async function handleConfirmPayment() {
+    const result = await confirmOrder(route.params.reviewToken, "PIX");
+
+    if (result.ok) {
+      navigation.replace("OrderConfirmed", {
+        protocol: result.order.protocol,
+        total: result.order.total,
+      });
+      return;
+    }
+
+    confirming.current = false;
+
+    if (result.reviewChanged) {
+      Alert.alert("Sua compra mudou", result.message, [
+        { text: "Revisar compra", onPress: () => navigation.goBack() },
+      ]);
+      return;
+    }
+
+    Alert.alert("Não foi possível confirmar", result.message);
+  }
+
   function handleQRCodePress() {
     if (expired || Date.now() >= expiresAt || confirming.current) {
       return;
@@ -113,18 +132,7 @@ export function PaymentPIX() {
       confirming.current = true;
       lastTap.current = 0;
 
-      const protocol = createProtocol();
-
-      addConfirmedOrder({
-        protocol,
-        total: route.params.amount,
-        items: route.params.items,
-      });
-
-      navigation.replace("OrderConfirmed", {
-        protocol,
-        total: route.params.amount,
-      });
+      handleConfirmPayment();
 
       return;
     }

@@ -1,4 +1,9 @@
 import { StyleSheet } from "react-native";
+import {
+  colors,
+  radius,
+  spacing,
+} from "../../../../Shared/Styles/commonStyles";
 
 export const styles = StyleSheet.create({
   screen: {
@@ -25,5 +30,28 @@ export const styles = StyleSheet.create({
   summaryArea: {
     flex: 1,
     minHeight: 0,
+  },
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: spacing.lg,
+    gap: spacing.md,
+  },
+  message_text: {
+    fontSize: 14,
+    color: colors.textMuted,
+    textAlign: "center",
+  },
+  retry_button: {
+    backgroundColor: colors.primary,
+    borderRadius: radius.full,
+    paddingVertical: 10,
+    paddingHorizontal: spacing.lg,
+  },
+  retry_text: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: colors.white,
   },
 });

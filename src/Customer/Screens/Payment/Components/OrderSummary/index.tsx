@@ -11,7 +11,6 @@ export default function OrderSummary({
   items,
   subtotal,
   delivery,
-  discount,
   total,
   onCoupon,
 }: OrderSummaryProps) {
@@ -63,12 +62,6 @@ export default function OrderSummary({
             <Text style={styles.muted}>Entrega</Text>
             <Text style={styles.amount}>{formatPrice(delivery)}</Text>
           </View>
-          {discount > 0 && (
-            <View style={styles.row}>
-              <Text style={styles.discount}>Desconto PIX (5%)</Text>
-              <Text style={styles.discount}>- {formatPrice(discount)}</Text>
-            </View>
-          )}
           <View style={[styles.row, styles.totalRow]}>
             <Text style={styles.totalLabel}>Total</Text>
             <Text style={styles.totalValue}>{formatPrice(total)}</Text>

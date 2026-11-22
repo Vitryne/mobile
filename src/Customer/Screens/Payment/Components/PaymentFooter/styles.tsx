@@ -20,6 +20,9 @@ export const styles = StyleSheet.create({
     shadowRadius: 9,
     elevation: 3,
   },
+  button_disabled: {
+    opacity: 0.7,
+  },
   text: {
     color: colors.white,
     fontWeight: "600",

@@ -37,7 +37,7 @@ export function Cart() {
   function handleAddCoupon() {}
 
   function handleCheckout() {
-    navigation.navigate("Payment", { items: cart.items, total: cart.total });
+    navigation.navigate("Payment");
   }
 
   function renderContent() {

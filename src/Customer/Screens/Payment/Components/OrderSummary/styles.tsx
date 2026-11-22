@@ -103,10 +103,6 @@ export const styles = StyleSheet.create({
     color: colors.text,
     fontSize: 11,
   },
-  discount: {
-    color: "#23A566",
-    fontSize: 11,
-  },
   totalRow: {
     marginTop: 4,
     paddingTop: 8,

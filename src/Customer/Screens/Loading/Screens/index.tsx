@@ -1,21 +1,15 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { useEffect } from "react";
 import { ActivityIndicator, ImageBackground, Text, View } from "react-native";
 import Logo from "../../../../../assets/Images/logo.svg";
 import { colors } from "../../../../Shared/Styles/commonStyles";
+import { useSessionRestore } from "../../../Hooks/useSessionRestore";
 import { CustomerStackParamList } from "../../../Types/navigation";
 import { styles } from "./style";
 
 type Props = NativeStackScreenProps<CustomerStackParamList, "Loading">;
 
 export function Loading({ navigation }: Props) {
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigation.replace("Starter");
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, [navigation]);
+  useSessionRestore(navigation);
 
   return (
     <ImageBackground

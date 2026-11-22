@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
+import { clearToken } from "../../Shared/Api/tokenStorage";
 
 export type CustomerUser = {
   fullName: string;
@@ -9,7 +10,7 @@ type CustomerSessionContextData = {
   currentUser: CustomerUser | null;
   registerCustomer: (user: CustomerUser) => void;
   loginCustomer: (email: string, fullName?: string) => void;
-  logoutCustomer: () => void;
+  logoutCustomer: () => Promise<void>;
 };
 
 const CustomerSessionContext = createContext<
@@ -73,8 +74,9 @@ export function CustomerSessionProvider({ children }: { children: ReactNode }) {
     });
   }
 
-  function logoutCustomer() {
+  async function logoutCustomer() {
     setCurrentUser(null);
+    await clearToken();
   }
 
   return (
