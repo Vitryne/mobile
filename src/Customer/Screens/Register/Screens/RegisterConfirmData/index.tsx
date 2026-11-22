@@ -67,7 +67,7 @@ export function RegisterConfirmData() {
 
     if (outcome === "logged_in") {
       loginCustomer(email);
-      navigation.navigate("Home");
+      navigation.navigate("MainTabs", { screen: "Home" });
       return;
     }
 

@@ -49,7 +49,8 @@ export function Login() {
       loginCustomer(form.email);
 
       navigation.navigate("CustomerStack", {
-        screen: "Home",
+        screen: "MainTabs",
+        params: { screen: "Home" },
       });
     }
   }

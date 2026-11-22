@@ -31,7 +31,7 @@ export function OrderConfirmed() {
   }
 
   function handleContinueShopping() {
-    navigation.navigate("Home");
+    navigation.navigate("MainTabs", { screen: "Home" });
   }
 
   return (

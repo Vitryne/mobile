@@ -9,7 +9,6 @@ import {
   type ListRenderItemInfo,
 } from "react-native";
 
-import { BottomNavBar } from "../../../../../Customer/Components/BottomNavBar";
 import { SearchBar } from "../../../../../Customer/Components/SearchBar";
 import { useRevealOnScrollUp } from "../../../../../Customer/Hooks/useRevealOnScrollUp";
 import { ScreenHeader } from "../../../../Components/ScreenHeader";
@@ -125,8 +124,6 @@ export function Category() {
           />
         </Animated.View>
       </View>
-
-      <BottomNavBar />
     </View>
   );
 }

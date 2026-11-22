@@ -6,23 +6,20 @@ import { HeaderBack } from "../Components/backButton";
 import { CustomerSessionProvider } from "../Context/customerSessionContext";
 import { OrdersProvider } from "../Context/ordersContext";
 import { Cart } from "../Screens/Cart";
-import { Category } from "../Screens/Category/Screens/Category";
-import { Home } from "../Screens/Home/Screens/Home";
 import { Loading } from "../Screens/Loading/index";
 import { Login } from "../Screens/Login";
 import { OrderConfirmed } from "../Screens/OrderConfirmed/Screens";
 import { OrderDetails } from "../Screens/OrderDetails/Screens";
-import { Orders } from "../Screens/Orders/Screens";
 import { Payment } from "../Screens/Payment";
 import { PaymentCardScreen } from "../Screens/PaymentCard";
 import { PaymentPIX } from "../Screens/PaymentPIX/Screens";
 import { Product } from "../Screens/Product/index";
-import { Profile } from "../Screens/Profile/Screens";
 import { RegisterAddressData } from "../Screens/Register/Screens/RegisterAddressData";
 import { RegisterAuthenticator } from "../Screens/Register/Screens/RegisterAuthenticator";
 import { RegisterConfirmData } from "../Screens/Register/Screens/RegisterConfirmData";
 import { RegisterPersonalData } from "../Screens/Register/Screens/RegisterPersonalData";
 import { Starter } from "../Screens/Starter";
+import { MainTabs } from "./tabs";
 
 const Stack = createNativeStackNavigator<CustomerStackParamList>();
 
@@ -86,13 +83,8 @@ export function CustomerRoutes() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Category"
-            component={Category}
+            name="MainTabs"
+            component={MainTabs}
             options={{ headerShown: false }}
           />
           <Stack.Screen
@@ -126,18 +118,8 @@ export function CustomerRoutes() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="Orders"
-            component={Orders}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
             name="OrderDetails"
             component={OrderDetails}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Profile"
-            component={Profile}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

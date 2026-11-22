@@ -29,7 +29,7 @@ export function Cart() {
   }
 
   function handleExplore() {
-    navigation.navigate("Home");
+    navigation.navigate("MainTabs", { screen: "Home" });
   }
 
   function handleChangeAddress() {}

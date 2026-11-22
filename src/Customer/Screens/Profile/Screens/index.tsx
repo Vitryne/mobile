@@ -1,11 +1,14 @@
+import type { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { ScrollView, StatusBar, Text, View } from "react-native";
 
-import { BottomNavBar } from "../../../Components/BottomNavBar";
 import { useCustomerSession } from "../../../Context/customerSessionContext";
-import type { CustomerStackParamList } from "../../../Types/navigation";
+import type {
+  CustomerStackParamList,
+  CustomerTabParamList,
+} from "../../../Types/navigation";
 
 import ProfileEditModal from "../Components/ProfileEditModal";
 import ProfileFeedback from "../Components/ProfileFeedback";
@@ -22,7 +25,9 @@ import {
 
 import { styles } from "./styles";
 
-type Navigation = NativeStackNavigationProp<CustomerStackParamList>;
+type Navigation = BottomTabNavigationProp<CustomerTabParamList, "Profile">;
+
+type StackNavigation = NativeStackNavigationProp<CustomerStackParamList>;
 
 const AVATAR_COLORS = ["#EEDAFF", "#D6E8FF", "#FCE7F3", "#D1FAE5"];
 
@@ -105,7 +110,7 @@ export function Profile() {
     setLogoutVisible(false);
     logoutCustomer();
 
-    navigation.reset({
+    navigation.getParent<StackNavigation>()?.reset({
       index: 0,
       routes: [
         {
@@ -145,8 +150,6 @@ export function Profile() {
           />
         )}
       </ScrollView>
-
-      <BottomNavBar />
 
       <ProfileEditModal
         visible={editVisible}

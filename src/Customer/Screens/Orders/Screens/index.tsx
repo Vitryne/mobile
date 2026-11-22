@@ -1,4 +1,8 @@
-import { useNavigation } from "@react-navigation/native";
+import type { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import {
+  useNavigation,
+  type CompositeNavigationProp,
+} from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
 import {
@@ -12,9 +16,11 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { BottomNavBar } from "../../../Components/BottomNavBar";
 import { useOrders } from "../../../Context/ordersContext";
-import type { CustomerStackParamList } from "../../../Types/navigation";
+import type {
+  CustomerStackParamList,
+  CustomerTabParamList,
+} from "../../../Types/navigation";
 import type { Order } from "../../../Types/orders";
 
 import FeaturedOrder from "../Components/FeaturedOrder";
@@ -26,9 +32,13 @@ type HistoryFilter = "all" | "in_progress" | "delivered" | "canceled";
 const CARD_GAP = 12;
 const SCREEN_PADDING = 18;
 
+type OrdersNavigation = CompositeNavigationProp<
+  BottomTabNavigationProp<CustomerTabParamList, "Orders">,
+  NativeStackNavigationProp<CustomerStackParamList>
+>;
+
 export function Orders() {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<CustomerStackParamList>>();
+  const navigation = useNavigation<OrdersNavigation>();
 
   const { width } = useWindowDimensions();
 
@@ -113,7 +123,7 @@ export function Orders() {
   }
 
   return (
-    <SafeAreaView style={styles.screen} edges={["top"]}>
+    <SafeAreaView style={styles.screen} edges={["top", "left", "right"]}>
       <View style={styles.container}>
         <ScrollView
           style={styles.scroll}
@@ -216,8 +226,6 @@ export function Orders() {
           </View>
         </ScrollView>
       </View>
-
-      <BottomNavBar />
     </SafeAreaView>
   );
 }
