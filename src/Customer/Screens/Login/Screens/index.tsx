@@ -1,6 +1,4 @@
-import { colors, commonStyles } from "@/Shared/Styles/commonStyles";
-import { AppStackParamList } from "@/Shared/Types/navigation";
-import { Feather, Octicons } from "@expo/vector-icons";
+import { Octicons } from "@expo/vector-icons";
 import type { CompositeNavigationProp } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -16,6 +14,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { colors, commonStyles } from "../../../../Shared/Styles/commonStyles";
+import { AppStackParamList } from "../../../../Shared/Types/navigation";
 
 import Logo from "../../../../../assets/Images/logo.svg";
 import { FormInput } from "../../../Components/FormInput";
@@ -74,7 +74,7 @@ export function Login() {
           <Logo width={159} height={28} color={colors.text} />
 
           <View style={styles.badge}>
-            <Feather name="truck" size={15} color={colors.primary} />
+            <Octicons name="person" size={20} color={colors.primary} />
             <Text style={styles.badge_text}>CONSUMIDOR</Text>
           </View>
         </View>

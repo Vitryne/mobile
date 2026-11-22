@@ -1,13 +1,16 @@
-import { create, AxiosError } from "axios";
+import { AxiosError, create } from "axios";
+import { Platform } from "react-native";
 import { clearToken, getToken } from "./tokenStorage";
 
+const defaultBaseUrl =
+  Platform.OS === "android" ? "http://10.0.2.2:8080" : "http://localhost:8080";
 /**
  * Instância central do axios.
  * Toda chamada da API deve importar 'api' daqui em vez de criar sua própria config.
  * Se a URL do backend mudar, só precisa trocar o baseURL abaixo
  */
 export const api = create({
-  baseURL: "http://localhost:8080",
+  baseURL: process.env.EXPO_PUBLIC_API_URL || defaultBaseUrl,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",

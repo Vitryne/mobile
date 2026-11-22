@@ -25,9 +25,7 @@ export function OrderConfirmed() {
   const { protocol, total } = route.params;
 
   function handleTrackOrder() {
-    navigation.replace("OrderDetails", {
-      orderId: protocol,
-    });
+    navigation.navigate("MainTabs", { screen: "Orders" });
   }
 
   function handleContinueShopping() {
