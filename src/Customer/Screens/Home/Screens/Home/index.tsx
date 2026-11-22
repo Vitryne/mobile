@@ -4,17 +4,18 @@ import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
 import { useCallback, useState } from "react";
 import {
-    Animated,
-    FlatList,
-    Image,
-    ImageBackground,
-    Pressable,
-    Text,
-    useWindowDimensions,
-    View,
-    type ListRenderItemInfo,
-    type NativeScrollEvent,
-    type NativeSyntheticEvent,
+  Animated,
+  FlatList,
+  Image,
+  ImageBackground,
+  Pressable,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+  type ListRenderItemInfo,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
 } from "react-native";
 
 import { BottomNavBar } from "../../../../../Customer/Components/BottomNavBar";
@@ -30,18 +31,19 @@ import { HomeHeader } from "../../Components/Header";
 import { ProductCard } from "../../Components/ProductCard";
 
 import {
-    BANNERS,
-    CATEGORIES,
-    DELIVERY_ADDRESS,
-    STORES,
-    type HomeBanner,
-    type HomeCategory,
-    type HomeStore,
+  BANNERS,
+  CATEGORIES,
+  DELIVERY_ADDRESS,
+  STORES,
+  type HomeBanner,
+  type HomeCategory,
+  type HomeStore,
 } from "../../Data/data";
 
 import { PRODUCT_GAP, SCREEN_PADDING, styles } from "./styles";
 
 const STAR_COLOR = "#F5A623";
+const SEARCH_AREA_HEIGHT = 62;
 
 type HomeNavigation = NativeStackNavigationProp<CustomerStackParamList>;
 
@@ -207,6 +209,18 @@ function StoreCard({ item }: { item: HomeStore }) {
   );
 }
 
+const searchStyles = StyleSheet.create({
+  touch_area: {
+    height: 48,
+    justifyContent: "center",
+    position: "relative",
+  },
+
+  touch_overlay: {
+    ...StyleSheet.absoluteFillObject,
+  },
+});
+
 export function Home() {
   const navigation = useNavigation<HomeNavigation>();
 
@@ -220,7 +234,9 @@ export function Home() {
   } = useProducts();
 
   const { cartCount } = useCartCount();
+
   const [searchVisible, setSearchVisible] = useState(false);
+
   const [selectedCategoryId, setSelectedCategoryId] = useState(
     CATEGORIES[0].id,
   );
@@ -306,7 +322,12 @@ export function Home() {
       <View style={styles.body}>
         <Animated.ScrollView
           style={styles.scroll}
-          contentContainerStyle={styles.scroll_content}
+          contentContainerStyle={[
+            styles.scroll_content,
+            {
+              paddingTop: SEARCH_AREA_HEIGHT,
+            },
+          ]}
           showsVerticalScrollIndicator={false}
           scrollEventThrottle={16}
           onScroll={onScroll}
@@ -421,11 +442,14 @@ export function Home() {
           style={[
             styles.search_area,
             {
+              height: SEARCH_AREA_HEIGHT,
+              paddingTop: 4,
+              paddingBottom: 10,
               transform: [{ translateY }],
             },
           ]}
         >
-          <View>
+          <View style={searchStyles.touch_area}>
             <SearchBar
               value=""
               onChangeText={handleOpenSearch}
@@ -433,13 +457,7 @@ export function Home() {
             />
 
             <Pressable
-              style={{
-                position: "absolute",
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0,
-              }}
+              style={searchStyles.touch_overlay}
               onPress={handleOpenSearch}
               accessibilityRole="button"
               accessibilityLabel="Abrir pesquisa"

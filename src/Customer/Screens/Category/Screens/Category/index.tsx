@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useMemo, useState } from "react";
@@ -5,7 +6,6 @@ import {
   Animated,
   FlatList,
   Pressable,
-  StyleSheet,
   Text,
   useWindowDimensions,
   View,
@@ -14,31 +14,45 @@ import {
 
 import { BottomNavBar } from "../../../../../Customer/Components/BottomNavBar";
 import CatalogSearch from "../../../../../Customer/Components/CatalogSearch";
-import { SearchBar } from "../../../../../Customer/Components/SearchBar";
 import { useRevealOnScrollUp } from "../../../../../Customer/Hooks/useRevealOnScrollUp";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
 
 import { ScreenHeader } from "../../../../Components/ScreenHeader";
 import { useProducts } from "../../../../Hooks/useProducts";
 import type { CustomerStackParamList } from "../../../../Types/navigation";
+import type { Product } from "../../../../Types/product";
 import { ProductCard } from "../../../Home/Components/ProductCard";
 import { CategoryCard } from "../../Components/CategoryCard";
 
-import { CATEGORIES, TREND_BANNER } from "../../Data/data";
+import {
+  CATEGORIES,
+  FILTERS,
+  TREND_BANNER,
+  type CategoryFilter,
+} from "../../Data/data";
 
 import { GRID_GAP, SCREEN_PADDING, styles } from "./styles";
 
 type CategoryNavigation = NativeStackNavigationProp<CustomerStackParamList>;
 
-type TypeFilter = {
-  id: string;
-  label: string;
+type FilterChipProps = {
+  item: CategoryFilter;
+  selected: boolean;
+  onPress: (id: CategoryFilter["id"]) => void;
 };
 
-type FilterChipProps = {
-  item: TypeFilter;
-  selected: boolean;
-  onPress: (id: string) => void;
+const AUDIENCE_TYPES: Record<string, string[]> = {
+  feminino: ["vestido", "saia", "blusa", "cropped", "body", "macaquinho"],
+  masculino: [
+    "camiseta",
+    "camisa",
+    "calca",
+    "bermuda",
+    "short",
+    "moletom",
+    "jaqueta",
+  ],
+  infantil: ["infantil", "bebe", "kids", "crianca"],
 };
 
 function normalizeType(value: string): string {
@@ -49,7 +63,32 @@ function normalizeType(value: string): string {
     .toLowerCase()
     .replace(/\s+/g, " ");
 
+  const exceptions = ["tenis", "jeans", "shorts"];
+
+  if (exceptions.includes(normalized)) {
+    return normalized === "shorts" ? "short" : normalized;
+  }
+
   return normalized.endsWith("s") ? normalized.slice(0, -1) : normalized;
+}
+
+function matchesCategory(product: Product, categoryName: string): boolean {
+  return normalizeType(product.type) === normalizeType(categoryName);
+}
+
+function matchesAudience(type: string, audience: string): boolean {
+  const normalizedType = normalizeType(type);
+  const allowedTypes = AUDIENCE_TYPES[audience];
+
+  if (!allowedTypes) {
+    return true;
+  }
+
+  if (audience === "infantil") {
+    return allowedTypes.some((value) => normalizedType.includes(value));
+  }
+
+  return allowedTypes.some((value) => normalizedType === value);
 }
 
 function FilterChip({ item, selected, onPress }: FilterChipProps) {
@@ -67,77 +106,20 @@ function FilterChip({ item, selected, onPress }: FilterChipProps) {
   );
 }
 
-const extraStyles = StyleSheet.create({
-  search_touch_area: {
-    position: "relative",
-  },
-
-  search_touch_overlay: {
-    ...StyleSheet.absoluteFill,
-  },
-
-  feedback_container: {
-    paddingHorizontal: SCREEN_PADDING,
-    paddingVertical: 20,
-    alignItems: "center",
-    gap: 8,
-  },
-
-  feedback_title: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: colors.text,
-    textAlign: "center",
-  },
-
-  feedback_description: {
-    fontSize: 12,
-    color: colors.textMuted,
-    textAlign: "center",
-  },
-
-  result_header: {
-    marginTop: 24,
-    marginBottom: 12,
-    paddingHorizontal: SCREEN_PADDING,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: 8,
-  },
-
-  result_title: {
-    fontSize: 16,
-    fontWeight: "700",
-    color: colors.text,
-  },
-
-  result_count: {
-    fontSize: 11,
-    color: colors.textMuted,
-  },
-
-  product_grid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    columnGap: GRID_GAP,
-    rowGap: 16,
-    paddingHorizontal: SCREEN_PADDING,
-    marginBottom: 24,
-  },
-});
-
 export function Category() {
   const navigation = useNavigation<CategoryNavigation>();
 
   const { width } = useWindowDimensions();
 
-  const { products, isLoading, errorMessage } = useProducts();
+  const { products, isLoading, errorMessage, reload } = useProducts();
 
   const [searchVisible, setSearchVisible] = useState(false);
 
-  const [selectedFilterId, setSelectedFilterId] = useState("all");
+  const [selectedFilterId, setSelectedFilterId] = useState<
+    CategoryFilter["id"]
+  >(FILTERS[0].id);
+
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const [favorites, setFavorites] = useState<Record<number, boolean>>({});
 
@@ -147,47 +129,70 @@ export function Category() {
 
   const cardWidth = (contentWidth - GRID_GAP) / 2;
 
-  const typeFilters = useMemo<TypeFilter[]>(() => {
-    const uniqueTypes = new Map<string, string>();
+  const selectedFilter = FILTERS.find(
+    (filter) => filter.id === selectedFilterId,
+  );
 
-    products.forEach((product) => {
-      const label = product.type.trim();
-      const id = normalizeType(label);
+  const filterName = normalizeType(selectedFilter?.label ?? "Todos");
 
-      if (id && !uniqueTypes.has(id)) {
-        uniqueTypes.set(id, label);
+  const audienceProducts = useMemo(() => {
+    if (filterName === "novidade") {
+      return products.filter((product) => product.isNew);
+    }
+
+    return products.filter((product) =>
+      matchesAudience(product.type, filterName),
+    );
+  }, [products, filterName]);
+
+  const visibleCategories = useMemo(() => {
+    return CATEGORIES.filter((category) => {
+      if (
+        filterName === "todos" ||
+        filterName === "todo" ||
+        filterName === "novidade"
+      ) {
+        return true;
       }
-    });
 
-    return [
-      { id: "all", label: "Todos" },
-      ...Array.from(uniqueTypes, ([id, label]) => ({ id, label })).sort(
-        (first, second) => first.label.localeCompare(second.label, "pt-BR"),
-      ),
-    ];
-  }, [products]);
+      return matchesAudience(category.name, filterName);
+    }).map((category) => ({
+      ...category,
+      count: audienceProducts.filter((product) =>
+        matchesCategory(product, category.name),
+      ).length,
+    }));
+  }, [audienceProducts, filterName]);
 
-  const filteredProducts = useMemo(
-    () =>
-      selectedFilterId === "all"
-        ? products
-        : products.filter(
-            (product) => normalizeType(product.type) === selectedFilterId,
-          ),
-    [products, selectedFilterId],
-  );
+  const selectedProducts = useMemo(() => {
+    if (!selectedCategory) {
+      return [];
+    }
 
-  const visibleCategories = useMemo(
-    () =>
-      CATEGORIES.map((category) => ({
-        ...category,
-        count: filteredProducts.filter(
-          (product) =>
-            normalizeType(product.type) === normalizeType(category.name),
-        ).length,
-      })).filter((category) => category.count > 0),
-    [filteredProducts],
-  );
+    return audienceProducts.filter((product) =>
+      matchesCategory(product, selectedCategory),
+    );
+  }, [audienceProducts, selectedCategory]);
+
+  const selectedCategoryLabel =
+    CATEGORIES.find(
+      (category) => normalizeType(category.name) === selectedCategory,
+    )?.name ??
+    selectedCategory ??
+    "";
+
+  function handleSelectFilter(id: CategoryFilter["id"]) {
+    setSelectedFilterId(id);
+    setSelectedCategory(null);
+  }
+
+  function handleSelectCategory(name: string) {
+    setSelectedCategory(normalizeType(name));
+  }
+
+  function handleBackToCategories() {
+    setSelectedCategory(null);
+  }
 
   function handleOpenSearch() {
     setSearchVisible(true);
@@ -212,11 +217,11 @@ export function Category() {
     }));
   }
 
-  const renderFilter = ({ item }: ListRenderItemInfo<TypeFilter>) => (
+  const renderFilter = ({ item }: ListRenderItemInfo<CategoryFilter>) => (
     <FilterChip
       item={item}
       selected={item.id === selectedFilterId}
-      onPress={setSelectedFilterId}
+      onPress={handleSelectFilter}
     />
   );
 
@@ -234,7 +239,7 @@ export function Category() {
           keyboardShouldPersistTaps="handled"
         >
           <FlatList
-            data={typeFilters}
+            data={FILTERS}
             keyExtractor={(item) => item.id}
             renderItem={renderFilter}
             extraData={selectedFilterId}
@@ -244,111 +249,166 @@ export function Category() {
             contentContainerStyle={styles.chip_list_content}
           />
 
-          {isLoading ? (
-            <View style={extraStyles.feedback_container}>
-              <Text style={extraStyles.feedback_title}>
-                Carregando produtos...
-              </Text>
-            </View>
-          ) : errorMessage ? (
-            <View style={extraStyles.feedback_container}>
-              <Text style={extraStyles.feedback_title}>
-                Não foi possível carregar os produtos.
-              </Text>
-
-              <Text style={extraStyles.feedback_description}>
-                {errorMessage}
-              </Text>
-            </View>
-          ) : filteredProducts.length === 0 ? (
-            <View style={extraStyles.feedback_container}>
-              <Text style={extraStyles.feedback_title}>
-                Nenhuma peça encontrada
-              </Text>
-
-              <Text style={extraStyles.feedback_description}>
-                Não há produtos disponíveis para esse filtro.
-              </Text>
-            </View>
-          ) : (
+          {selectedCategory === null ? (
             <>
-              <View style={styles.grid}>
-                {visibleCategories.map((category) => (
-                  <Pressable
-                    key={category.id}
-                    onPress={() =>
-                      setSelectedFilterId(normalizeType(category.name))
-                    }
-                    accessibilityRole="button"
-                    accessibilityLabel={`Filtrar por ${category.name}`}
-                    style={{ width: cardWidth }}
-                  >
-                    <CategoryCard
-                      name={category.name}
-                      count={category.count}
-                      image={category.image}
-                      style={{ width: cardWidth }}
-                    />
+              {isLoading ? (
+                <View style={styles.feedback_container}>
+                  <Text style={styles.feedback_title}>
+                    Carregando categorias...
+                  </Text>
+                </View>
+              ) : errorMessage ? (
+                <View style={styles.feedback_container}>
+                  <Text style={styles.feedback_title}>
+                    Não foi possível carregar os produtos.
+                  </Text>
+
+                  <Text style={styles.feedback_description}>
+                    {errorMessage}
+                  </Text>
+
+                  <Pressable onPress={reload} accessibilityRole="button">
+                    <Text style={styles.feedback_action}>Tentar novamente</Text>
                   </Pressable>
-                ))}
-              </View>
+                </View>
+              ) : visibleCategories.length === 0 ? (
+                <View style={styles.feedback_container}>
+                  <Text style={styles.feedback_title}>
+                    Nenhuma categoria encontrada
+                  </Text>
 
-              <View style={extraStyles.result_header}>
-                <Text style={extraStyles.result_title}>Peças disponíveis</Text>
+                  <Text style={styles.feedback_description}>
+                    Não há categorias cadastradas para este filtro.
+                  </Text>
+                </View>
+              ) : (
+                <View style={styles.grid}>
+                  {visibleCategories.map((category) => (
+                    <Pressable
+                      key={category.id}
+                      style={{ width: cardWidth }}
+                      onPress={() => handleSelectCategory(category.name)}
+                      accessibilityRole="button"
+                      accessibilityLabel={`Abrir categoria ${category.name}`}
+                    >
+                      <CategoryCard
+                        name={category.name}
+                        count={category.count}
+                        image={category.image}
+                        style={{ width: cardWidth }}
+                      />
+                    </Pressable>
+                  ))}
+                </View>
+              )}
 
-                <Text style={extraStyles.result_count}>
-                  {filteredProducts.length}{" "}
-                  {filteredProducts.length === 1 ? "produto" : "produtos"}
-                </Text>
-              </View>
+              <View style={styles.trend_banner}>
+                <View style={styles.trend_texts}>
+                  <Text style={styles.trend_title}>{TREND_BANNER.title}</Text>
 
-              <View style={extraStyles.product_grid}>
-                {filteredProducts.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    name={product.name}
-                    store={product.type}
-                    price={product.finalPrice}
-                    oldPrice={product.onSale ? product.price : undefined}
-                    discount={
-                      product.discountPercent > 0
-                        ? product.discountPercent
-                        : undefined
-                    }
-                    image={
-                      product.photoUrls[0]
-                        ? {
-                            uri: product.photoUrls[0],
-                          }
-                        : undefined
-                    }
-                    favorite={!!favorites[product.id]}
-                    onToggleFavorite={() => handleToggleFavorite(product.id)}
-                    onPress={() => handleOpenProduct(product.id)}
-                    style={{
-                      width: cardWidth,
-                    }}
-                  />
-                ))}
+                  <Text style={styles.trend_subtitle}>
+                    {TREND_BANNER.subtitle}
+                  </Text>
+                </View>
+
+                <Pressable
+                  style={styles.trend_button}
+                  accessibilityRole="button"
+                  onPress={handleOpenSearch}
+                >
+                  <Text style={styles.trend_button_text}>
+                    {TREND_BANNER.cta}
+                  </Text>
+                </Pressable>
               </View>
             </>
-          )}
+          ) : (
+            <View style={styles.results_section}>
+              <View style={styles.results_header}>
+                <Pressable
+                  style={styles.back_button}
+                  onPress={handleBackToCategories}
+                  accessibilityRole="button"
+                  accessibilityLabel="Voltar para categorias"
+                >
+                  <Ionicons name="arrow-back" size={22} color={colors.text} />
+                </Pressable>
 
-          <View style={styles.trend_banner}>
-            <View style={styles.trend_texts}>
-              <Text style={styles.trend_title}>{TREND_BANNER.title}</Text>
+                <View style={styles.results_heading}>
+                  <Text style={styles.results_title}>
+                    {selectedCategoryLabel}
+                  </Text>
 
-              <Text style={styles.trend_subtitle}>{TREND_BANNER.subtitle}</Text>
+                  <Text style={styles.results_count}>
+                    {selectedProducts.length}{" "}
+                    {selectedProducts.length === 1 ? "produto" : "produtos"}
+                  </Text>
+                </View>
+              </View>
+
+              {isLoading ? (
+                <View style={styles.feedback_container}>
+                  <Text style={styles.feedback_title}>
+                    Carregando produtos...
+                  </Text>
+                </View>
+              ) : errorMessage ? (
+                <View style={styles.feedback_container}>
+                  <Text style={styles.feedback_title}>
+                    Não foi possível carregar os produtos.
+                  </Text>
+
+                  <Text style={styles.feedback_description}>
+                    {errorMessage}
+                  </Text>
+
+                  <Pressable onPress={reload} accessibilityRole="button">
+                    <Text style={styles.feedback_action}>Tentar novamente</Text>
+                  </Pressable>
+                </View>
+              ) : selectedProducts.length === 0 ? (
+                <View style={styles.feedback_container}>
+                  <Text style={styles.feedback_title}>
+                    Nenhum produto encontrado
+                  </Text>
+
+                  <Text style={styles.feedback_description}>
+                    Ainda não existem produtos deste tipo.
+                  </Text>
+                </View>
+              ) : (
+                <View style={styles.product_grid}>
+                  {selectedProducts.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      name={product.name}
+                      store={product.type}
+                      price={product.finalPrice}
+                      oldPrice={product.onSale ? product.price : undefined}
+                      discount={
+                        product.discountPercent > 0
+                          ? product.discountPercent
+                          : undefined
+                      }
+                      image={
+                        product.photoUrls[0]
+                          ? {
+                              uri: product.photoUrls[0],
+                            }
+                          : undefined
+                      }
+                      favorite={!!favorites[product.id]}
+                      onToggleFavorite={() => handleToggleFavorite(product.id)}
+                      onPress={() => handleOpenProduct(product.id)}
+                      style={{
+                        width: cardWidth,
+                      }}
+                    />
+                  ))}
+                </View>
+              )}
             </View>
-
-            <Pressable
-              style={styles.trend_button}
-              accessibilityRole="button"
-              onPress={handleOpenSearch}
-            >
-              <Text style={styles.trend_button_text}>{TREND_BANNER.cta}</Text>
-            </Pressable>
-          </View>
+          )}
         </Animated.ScrollView>
 
         <Animated.View
@@ -359,20 +419,24 @@ export function Category() {
             },
           ]}
         >
-          <View style={extraStyles.search_touch_area}>
-            <SearchBar
-              value=""
-              onChangeText={handleOpenSearch}
-              onPressFilter={handleOpenSearch}
+          <Pressable
+            style={styles.search_button}
+            onPress={handleOpenSearch}
+            accessibilityRole="button"
+            accessibilityLabel="Abrir pesquisa"
+          >
+            <Ionicons
+              name="search-outline"
+              size={20}
+              color={colors.textMuted}
             />
 
-            <Pressable
-              style={extraStyles.search_touch_overlay}
-              onPress={handleOpenSearch}
-              accessibilityRole="button"
-              accessibilityLabel="Abrir pesquisa"
-            />
-          </View>
+            <Text style={styles.search_placeholder}>
+              Buscar peças, lojas ou marcas
+            </Text>
+
+            <Ionicons name="options-outline" size={21} color={colors.primary} />
+          </Pressable>
         </Animated.View>
       </View>
 
