@@ -1,5 +1,9 @@
 import { Feather, Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import type { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import {
+  useNavigation,
+  type CompositeNavigationProp,
+} from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
 import { useCallback, useState } from "react";
@@ -18,14 +22,16 @@ import {
   type NativeSyntheticEvent,
 } from "react-native";
 
-import { BottomNavBar } from "../../../../../Customer/Components/BottomNavBar";
 import CatalogSearch from "../../../../../Customer/Components/CatalogSearch";
 import { SearchBar } from "../../../../../Customer/Components/SearchBar";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
 import { useCartCount } from "../../../../Hooks/useCartCount";
 import { useProducts } from "../../../../Hooks/useProducts";
 import { useRevealOnScrollUp } from "../../../../Hooks/useRevealOnScrollUp";
-import type { CustomerStackParamList } from "../../../../Types/navigation";
+import type {
+  CustomerStackParamList,
+  CustomerTabParamList,
+} from "../../../../Types/navigation";
 
 import { HomeHeader } from "../../Components/Header";
 import { ProductCard } from "../../Components/ProductCard";
@@ -45,7 +51,10 @@ import { PRODUCT_GAP, SCREEN_PADDING, styles } from "./styles";
 const STAR_COLOR = "#F5A623";
 const SEARCH_AREA_HEIGHT = 62;
 
-type HomeNavigation = NativeStackNavigationProp<CustomerStackParamList>;
+type HomeNavigation = CompositeNavigationProp<
+  BottomTabNavigationProp<CustomerTabParamList, "Home">,
+  NativeStackNavigationProp<CustomerStackParamList>
+>;
 
 type SectionHeaderProps = {
   title: string;
@@ -465,8 +474,6 @@ export function Home() {
           </View>
         </Animated.View>
       </View>
-
-      <BottomNavBar />
 
       <CatalogSearch
         visible={searchVisible}

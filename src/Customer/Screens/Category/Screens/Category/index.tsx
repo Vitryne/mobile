@@ -1,5 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import type { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import {
+  useNavigation,
+  type CompositeNavigationProp,
+} from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useMemo, useState } from "react";
 import {
@@ -12,14 +16,16 @@ import {
   type ListRenderItemInfo,
 } from "react-native";
 
-import { BottomNavBar } from "../../../../../Customer/Components/BottomNavBar";
 import CatalogSearch from "../../../../../Customer/Components/CatalogSearch";
 import { useRevealOnScrollUp } from "../../../../../Customer/Hooks/useRevealOnScrollUp";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
 
 import { ScreenHeader } from "../../../../Components/ScreenHeader";
 import { useProducts } from "../../../../Hooks/useProducts";
-import type { CustomerStackParamList } from "../../../../Types/navigation";
+import type {
+  CustomerStackParamList,
+  CustomerTabParamList,
+} from "../../../../Types/navigation";
 import type { Product } from "../../../../Types/product";
 import { ProductCard } from "../../../Home/Components/ProductCard";
 import { CategoryCard } from "../../Components/CategoryCard";
@@ -33,7 +39,10 @@ import {
 
 import { GRID_GAP, SCREEN_PADDING, styles } from "./styles";
 
-type CategoryNavigation = NativeStackNavigationProp<CustomerStackParamList>;
+type CategoryNavigation = CompositeNavigationProp<
+  BottomTabNavigationProp<CustomerTabParamList, "Category">,
+  NativeStackNavigationProp<CustomerStackParamList>
+>;
 
 type FilterChipProps = {
   item: CategoryFilter;
@@ -439,8 +448,6 @@ export function Category() {
           </Pressable>
         </Animated.View>
       </View>
-
-      <BottomNavBar />
 
       <CatalogSearch
         visible={searchVisible}

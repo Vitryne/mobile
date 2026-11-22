@@ -1,3 +1,4 @@
+import type { NavigatorScreenParams } from "@react-navigation/native";
 import type { CartItem } from "./cart";
 
 export type AddressData = {
@@ -10,17 +11,21 @@ export type AddressData = {
   complement: string;
 };
 
-export type CustomerStackParamList = {
-  Loading: undefined;
-  Starter: undefined;
-  Login: undefined;
+export type CustomerTabParamList = {
   Home: undefined;
   Category: {
     categoryId: string;
     categoryName: string;
   };
-
+  Orders: undefined;
   Profile: undefined;
+};
+
+export type CustomerStackParamList = {
+  Loading: undefined;
+  Starter: undefined;
+  Login: undefined;
+  MainTabs: NavigatorScreenParams<CustomerTabParamList>;
   Product: { productId: number };
   PaymentCard: undefined;
   Cart: undefined;
@@ -28,7 +33,6 @@ export type CustomerStackParamList = {
     items: CartItem[];
     total: number;
   };
-  Orders: undefined;
 
   PaymentPIX: {
     amount: number;

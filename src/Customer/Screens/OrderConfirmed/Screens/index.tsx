@@ -25,11 +25,11 @@ export function OrderConfirmed() {
   const { protocol, total } = route.params;
 
   function handleTrackOrder() {
-    navigation.replace("Orders");
+    navigation.navigate("MainTabs", { screen: "Orders" });
   }
 
   function handleContinueShopping() {
-    navigation.navigate("Home");
+    navigation.navigate("MainTabs", { screen: "Home" });
   }
 
   return (

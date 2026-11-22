@@ -36,7 +36,7 @@ export function OrderDetails() {
   const order = getOrderById(route.params.orderId);
 
   function handleBuyAgain() {
-    navigation.navigate("Home");
+    navigation.navigate("MainTabs", { screen: "Home" });
   }
 
   function handleDownloadInvoice() {
@@ -52,7 +52,11 @@ export function OrderDetails() {
         <View style={styles.empty_container}>
           <Text style={styles.empty_text}>Pedido não encontrado.</Text>
 
-          <Pressable onPress={() => navigation.navigate("Orders")}>
+          <Pressable
+            onPress={() =>
+              navigation.navigate("MainTabs", { screen: "Orders" })
+            }
+          >
             <Text style={styles.empty_link}>Voltar para Pedidos</Text>
           </Pressable>
         </View>
@@ -79,7 +83,7 @@ export function OrderDetails() {
             onPress={() =>
               navigation.canGoBack()
                 ? navigation.goBack()
-                : navigation.navigate("Orders")
+                : navigation.navigate("MainTabs", { screen: "Orders" })
             }
             accessibilityRole="button"
             accessibilityLabel="Voltar"
