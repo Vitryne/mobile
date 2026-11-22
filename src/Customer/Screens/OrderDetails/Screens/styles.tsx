@@ -198,4 +198,24 @@ export const styles = StyleSheet.create({
     fontWeight: "700",
     color: colors.primary,
   },
+
+  message_text: {
+    fontSize: 14,
+    color: colors.textMuted,
+    textAlign: "center",
+    paddingHorizontal: spacing.lg,
+  },
+
+  retry_button: {
+    backgroundColor: colors.primary,
+    borderRadius: radius.full,
+    paddingVertical: 10,
+    paddingHorizontal: spacing.lg,
+  },
+
+  retry_text: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: colors.white,
+  },
 });

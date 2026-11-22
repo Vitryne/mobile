@@ -82,8 +82,8 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    gap: 5,
-    marginTop: spacing.sm,
+    gap: 6,
+    marginTop: spacing.md,
   },
 
   pagination_dot: {
@@ -91,11 +91,6 @@ export const styles = StyleSheet.create({
     height: 6,
     borderRadius: radius.full,
     backgroundColor: colors.border,
-  },
-
-  pagination_dot_active: {
-    width: 18,
-    backgroundColor: colors.primary,
   },
 
   history_header: {
@@ -140,5 +135,32 @@ export const styles = StyleSheet.create({
   empty_text: {
     fontSize: 13,
     color: colors.textMuted,
+  },
+
+  center: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: spacing.lg,
+    gap: spacing.md,
+  },
+
+  message_text: {
+    fontSize: 14,
+    color: colors.textMuted,
+    textAlign: "center",
+  },
+
+  retry_button: {
+    backgroundColor: colors.primary,
+    borderRadius: radius.full,
+    paddingVertical: 10,
+    paddingHorizontal: spacing.lg,
+  },
+
+  retry_text: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: colors.white,
   },
 });

@@ -1,8 +1,9 @@
-import type { CartItem } from "./cart";
+import type { CheckoutIssue, CheckoutReviewItem } from "./checkout";
 
 export type PaymentMethod = "pix" | "savedCard" | "newCard";
 
 export type DeliveryAddressProps = {
+  address?: string;
   onChange: () => void;
 };
 
@@ -12,6 +13,8 @@ export type PaymentHeaderProps = {
 
 export type PaymentFooterProps = {
   onConfirm: () => void;
+  isLoading?: boolean;
+  disabled?: boolean;
 };
 
 export type PaymentMethodsProps = {
@@ -20,10 +23,13 @@ export type PaymentMethodsProps = {
 };
 
 export type OrderSummaryProps = {
-  items: CartItem[];
+  items: CheckoutReviewItem[];
   subtotal: number;
   delivery: number;
-  discount: number;
   total: number;
   onCoupon: () => void;
+};
+
+export type CheckoutIssuesProps = {
+  issues: CheckoutIssue[];
 };

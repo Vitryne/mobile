@@ -1,14 +1,14 @@
-import {
-  useNavigation,
-  useRoute,
-  type RouteProp,
-} from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
-import { Alert, View } from "react-native";
+import { ActivityIndicator, Alert, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { colors } from "../../../../Shared/Styles/commonStyles";
+import { useCheckout } from "../../../Hooks/useCheckout";
+import { useCheckoutReview } from "../../../Hooks/useCheckoutReview";
 import type { CustomerStackParamList } from "../../../Types/navigation";
 import type { PaymentMethod } from "../../../Types/payment";
+import CheckoutIssues from "../Components/CheckoutIssues";
 import DeliveryAddress from "../Components/DeliveryAddress";
 import OrderSummary from "../Components/OrderSummary";
 import PaymentFooter from "../Components/PaymentFooter";
@@ -19,22 +19,14 @@ import { styles } from "./styles";
 
 type Navigation = NativeStackNavigationProp<CustomerStackParamList, "Payment">;
 
-type PaymentRoute = RouteProp<CustomerStackParamList, "Payment">;
-
 export function Payment() {
   const navigation = useNavigation<Navigation>();
-  const route = useRoute<PaymentRoute>();
 
   const [method, setMethod] = useState<PaymentMethod>("pix");
 
-  const { items, total: subtotal } = route.params;
+  const { review, isLoading, loadError, reload } = useCheckoutReview();
 
-  // Frete ainda não vem da API
-  const delivery = 0;
-
-  const discount = method === "pix" ? subtotal * 0.05 : 0;
-
-  const total = subtotal + delivery - discount;
+  const { isSubmitting, confirmOrder } = useCheckout();
 
   function handleBack() {
     navigation.goBack();
@@ -60,22 +52,64 @@ export function Payment() {
     setMethod(selectedMethod);
   }
 
+  async function handleConfirmCard(reviewToken: string) {
+    const result = await confirmOrder(reviewToken, "CREDIT_CARD");
+
+    if (result.ok) {
+      navigation.replace("OrderConfirmed", {
+        protocol: result.order.protocol,
+        total: result.order.total,
+      });
+      return;
+    }
+
+    if (result.reviewChanged) reload();
+
+    Alert.alert("Não foi possível confirmar", result.message);
+  }
+
   function handleConfirm() {
+    if (!review?.canConfirm || !review.reviewToken) return;
+
     if (method === "pix") {
       navigation.navigate("PaymentPIX", {
-        amount: total,
-        items,
+        amount: review.total,
+        reviewToken: review.reviewToken,
       });
       return;
     }
 
     if (method === "savedCard") {
-      Alert.alert(
-        "Cartão salvo",
-        "O pagamento com cartão ainda não foi implementado.",
-      );
-      return;
+      handleConfirmCard(review.reviewToken);
     }
+  }
+
+  if (isLoading || loadError || !review) {
+    return (
+      <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
+        <PaymentHeader onBack={handleBack} />
+
+        <View style={styles.center}>
+          {isLoading ? (
+            <ActivityIndicator size="large" color={colors.primary} />
+          ) : (
+            <>
+              <Text style={styles.message_text}>
+                {loadError ?? "Não foi possível revisar sua compra."}
+              </Text>
+
+              <Pressable
+                style={styles.retry_button}
+                onPress={reload}
+                accessibilityRole="button"
+              >
+                <Text style={styles.retry_text}>Tentar novamente</Text>
+              </Pressable>
+            </>
+          )}
+        </View>
+      </SafeAreaView>
+    );
   }
 
   return (
@@ -83,7 +117,12 @@ export function Payment() {
       <PaymentHeader onBack={handleBack} />
 
       <View style={styles.content}>
-        <DeliveryAddress onChange={handleChangeAddress} />
+        <DeliveryAddress
+          address={review.address}
+          onChange={handleChangeAddress}
+        />
+
+        <CheckoutIssues issues={review.issues} />
 
         <View style={styles.flexSections}>
           <View style={styles.paymentArea}>
@@ -92,18 +131,21 @@ export function Payment() {
 
           <View style={styles.summaryArea}>
             <OrderSummary
-              items={items}
-              subtotal={subtotal}
-              delivery={delivery}
-              discount={discount}
-              total={total}
+              items={review.items}
+              subtotal={review.subtotal}
+              delivery={review.shipping}
+              total={review.total}
               onCoupon={handleAddCoupon}
             />
           </View>
         </View>
       </View>
 
-      <PaymentFooter onConfirm={handleConfirm} />
+      <PaymentFooter
+        onConfirm={handleConfirm}
+        isLoading={isSubmitting}
+        disabled={!review.canConfirm}
+      />
     </SafeAreaView>
   );
 }

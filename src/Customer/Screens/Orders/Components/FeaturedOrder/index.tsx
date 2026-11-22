@@ -67,7 +67,6 @@ function formatPrice(value: number) {
 export default function FeaturedOrder({
   order,
   onPressDetails,
-  onAdvanceStatus,
 }: FeaturedOrderProps) {
   const status = STATUS_INFO[order.status];
 
@@ -105,7 +104,7 @@ export default function FeaturedOrder({
                 ? "PEDIDO ENTREGUE"
                 : isCanceled
                   ? "CANCELADO"
-                  : `CHEGA EM ${order.estimatedTime ?? "12-18 MIN"}`}
+                  : order.date}
             </Text>
           </View>
         </View>
@@ -124,7 +123,12 @@ export default function FeaturedOrder({
 
         <View style={styles.status_row}>
           <View style={styles.status_icon}>
-            <Feather name={status.icon} size={15} color={colors.white} />
+            <Feather
+              name={status.icon}
+              size={15}
+              color={colors.white}
+              style={styles.status_icon_glyph}
+            />
           </View>
 
           <View style={styles.status_info}>
@@ -180,18 +184,6 @@ export default function FeaturedOrder({
           <Feather name="chevron-right" size={14} color={colors.primary} />
         </Pressable>
       </View>
-
-      {onAdvanceStatus && !isDelivered && !isCanceled && (
-        <Pressable
-          style={styles.mock_button}
-          onPress={() => onAdvanceStatus(order)}
-          accessibilityRole="button"
-        >
-          <Feather name="refresh-cw" size={13} color={colors.primary} />
-
-          <Text style={styles.mock_button_text}>Avançar status (mock)</Text>
-        </Pressable>
-      )}
     </View>
   );
 }

@@ -4,7 +4,10 @@ import { colors } from "../../../../../Shared/Styles/commonStyles";
 import type { DeliveryAddressProps } from "../../../../Types/payment";
 import { styles } from "./styles";
 
-export default function DeliveryAddress({ onChange }: DeliveryAddressProps) {
+export default function DeliveryAddress({
+  address,
+  onChange,
+}: DeliveryAddressProps) {
   return (
     <View style={styles.container}>
       <View style={styles.heading}>
@@ -19,11 +22,12 @@ export default function DeliveryAddress({ onChange }: DeliveryAddressProps) {
         </View>
         <View style={styles.info}>
           <View style={styles.line}>
-            <Text style={styles.name}>Casa</Text>
-            <Text style={styles.tag}>PADRÃO</Text>
+            <Text style={styles.name}>
+              {address ? "Endereço selecionado" : "Nenhum endereço selecionado"}
+            </Text>
           </View>
-          <Text style={styles.address} numberOfLines={1}>
-            Rua das Palmeiras, 218 · Zona 7 · Maringá
+          <Text style={styles.address} numberOfLines={2}>
+            {address ?? "Selecione um endereço para receber o pedido."}
           </Text>
         </View>
       </View>

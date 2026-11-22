@@ -106,9 +106,9 @@ export function Profile() {
     setLogoutVisible(false);
   }
 
-  function handleConfirmLogout() {
+  async function handleConfirmLogout() {
     setLogoutVisible(false);
-    logoutCustomer();
+    await logoutCustomer();
 
     navigation.getParent<StackNavigation>()?.reset({
       index: 0,

@@ -1,5 +1,4 @@
 import type { NavigatorScreenParams } from "@react-navigation/native";
-import type { CartItem } from "./cart";
 
 export type AddressData = {
   cep: string;
@@ -29,14 +28,11 @@ export type CustomerStackParamList = {
   Product: { productId: number };
   PaymentCard: undefined;
   Cart: undefined;
-  Payment: {
-    items: CartItem[];
-    total: number;
-  };
+  Payment: undefined;
 
   PaymentPIX: {
     amount: number;
-    items: CartItem[];
+    reviewToken: string;
   };
 
   OrderConfirmed: {

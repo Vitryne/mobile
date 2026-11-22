@@ -5,11 +5,18 @@ import {
   type RouteProp,
 } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { Alert, Pressable, ScrollView, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { colors } from "../../../../Shared/Styles/commonStyles";
-import { useOrders } from "../../../Context/ordersContext";
+import { useOrderDetails } from "../../../Hooks/useOrderDetails";
 import type { CustomerStackParamList } from "../../../Types/navigation";
 
 import OrderDetailsProducts from "../Components/OrderDetailsProducts";
@@ -31,9 +38,9 @@ export function OrderDetails() {
   const navigation = useNavigation<Navigation>();
   const route = useRoute<DetailsRoute>();
 
-  const { getOrderById } = useOrders();
-
-  const order = getOrderById(route.params.orderId);
+  const { order, isLoading, notFound, loadError, reload } = useOrderDetails(
+    route.params.orderId,
+  );
 
   function handleBuyAgain() {
     navigation.navigate("MainTabs", { screen: "Home" });
@@ -46,7 +53,35 @@ export function OrderDetails() {
     );
   }
 
-  if (!order) {
+  if (isLoading) {
+    return (
+      <SafeAreaView style={styles.screen}>
+        <View style={styles.empty_container}>
+          <ActivityIndicator size="large" color={colors.primary} />
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <SafeAreaView style={styles.screen}>
+        <View style={styles.empty_container}>
+          <Text style={styles.message_text}>{loadError}</Text>
+
+          <Pressable
+            style={styles.retry_button}
+            onPress={reload}
+            accessibilityRole="button"
+          >
+            <Text style={styles.retry_text}>Tentar novamente</Text>
+          </Pressable>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  if (notFound || !order) {
     return (
       <SafeAreaView style={styles.screen}>
         <View style={styles.empty_container}>
@@ -64,7 +99,7 @@ export function OrderDetails() {
     );
   }
 
-  const paymentLabel = order.paymentMethod === "card" ? "Cartão" : "PIX";
+  const paymentLabel = order.paymentMethod === "pix" ? "PIX" : "Cartão";
 
   const subtotal = order.subtotal;
   const delivery = order.deliveryFee;
@@ -115,7 +150,7 @@ export function OrderDetails() {
             <Text style={styles.info_title}>Endereço</Text>
 
             <Text style={styles.info_description}>
-              {order.address ?? "Rua das Palmeiras, 218 · Zona 7 · Maringá"}
+              {order.address ?? "Endereço não informado"}
             </Text>
           </View>
         </View>

@@ -60,11 +60,8 @@ export default function PaymentMethods({
           </View>
           <View style={styles.details}>
             <Text style={styles.methodName}>PIX</Text>
-            <Text style={styles.description}>
-              5% de desconto · aprovação na hora
-            </Text>
+            <Text style={styles.description}>Aprovação na hora</Text>
           </View>
-          <Text style={styles.discount}>-5%</Text>
           <Radio selected={selected === "pix"} />
         </Pressable>
 
