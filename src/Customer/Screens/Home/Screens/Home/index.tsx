@@ -9,6 +9,7 @@ import {
   Image,
   ImageBackground,
   Pressable,
+  StyleSheet,
   Text,
   useWindowDimensions,
   View,
@@ -18,6 +19,7 @@ import {
 } from "react-native";
 
 import { BottomNavBar } from "../../../../../Customer/Components/BottomNavBar";
+import CatalogSearch from "../../../../../Customer/Components/CatalogSearch";
 import { SearchBar } from "../../../../../Customer/Components/SearchBar";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
 import { useCartCount } from "../../../../Hooks/useCartCount";
@@ -41,6 +43,7 @@ import {
 import { PRODUCT_GAP, SCREEN_PADDING, styles } from "./styles";
 
 const STAR_COLOR = "#F5A623";
+const SEARCH_AREA_HEIGHT = 62;
 
 type HomeNavigation = NativeStackNavigationProp<CustomerStackParamList>;
 
@@ -206,8 +209,21 @@ function StoreCard({ item }: { item: HomeStore }) {
   );
 }
 
+const searchStyles = StyleSheet.create({
+  touch_area: {
+    height: 48,
+    justifyContent: "center",
+    position: "relative",
+  },
+
+  touch_overlay: {
+    ...StyleSheet.absoluteFill,
+  },
+});
+
 export function Home() {
   const navigation = useNavigation<HomeNavigation>();
+
   const { width: windowWidth } = useWindowDimensions();
 
   const {
@@ -218,10 +234,13 @@ export function Home() {
   } = useProducts();
 
   const { cartCount } = useCartCount();
-  const [query, setQuery] = useState("");
+
+  const [searchVisible, setSearchVisible] = useState(false);
+
   const [selectedCategoryId, setSelectedCategoryId] = useState(
     CATEGORIES[0].id,
   );
+
   const [bannerIndex, setBannerIndex] = useState(0);
 
   const [favorites, setFavorites] = useState<Record<number, boolean>>({});
@@ -232,7 +251,13 @@ export function Home() {
 
   const { onScroll, translateY } = useRevealOnScrollUp();
 
-  function handleOpenFilters() {}
+  function handleOpenSearch() {
+    setSearchVisible(true);
+  }
+
+  function handleCloseSearch() {
+    setSearchVisible(false);
+  }
 
   function handleToggleFavorite(id: number) {
     setFavorites((previous) => ({
@@ -251,7 +276,11 @@ export function Home() {
   }
 
   function handleOpenProduct(productId: number) {
-    navigation.navigate("Product", { productId });
+    setSearchVisible(false);
+
+    navigation.navigate("Product", {
+      productId,
+    });
   }
 
   const handleBannerScroll = useCallback(
@@ -293,7 +322,12 @@ export function Home() {
       <View style={styles.body}>
         <Animated.ScrollView
           style={styles.scroll}
-          contentContainerStyle={styles.scroll_content}
+          contentContainerStyle={[
+            styles.scroll_content,
+            {
+              paddingTop: SEARCH_AREA_HEIGHT,
+            },
+          ]}
           showsVerticalScrollIndicator={false}
           scrollEventThrottle={16}
           onScroll={onScroll}
@@ -388,13 +422,17 @@ export function Home() {
                 }
                 image={
                   product.photoUrls[0]
-                    ? { uri: product.photoUrls[0] }
+                    ? {
+                        uri: product.photoUrls[0],
+                      }
                     : undefined
                 }
                 favorite={!!favorites[product.id]}
                 onToggleFavorite={() => handleToggleFavorite(product.id)}
                 onPress={() => handleOpenProduct(product.id)}
-                style={{ width: productWidth }}
+                style={{
+                  width: productWidth,
+                }}
               />
             ))}
           </View>
@@ -404,19 +442,38 @@ export function Home() {
           style={[
             styles.search_area,
             {
+              height: SEARCH_AREA_HEIGHT,
+              paddingTop: 4,
+              paddingBottom: 10,
               transform: [{ translateY }],
             },
           ]}
         >
-          <SearchBar
-            value={query}
-            onChangeText={setQuery}
-            onPressFilter={handleOpenFilters}
-          />
+          <View style={searchStyles.touch_area}>
+            <SearchBar
+              value=""
+              onChangeText={handleOpenSearch}
+              onPressFilter={handleOpenSearch}
+            />
+
+            <Pressable
+              style={searchStyles.touch_overlay}
+              onPress={handleOpenSearch}
+              accessibilityRole="button"
+              accessibilityLabel="Abrir pesquisa"
+            />
+          </View>
         </Animated.View>
       </View>
 
       <BottomNavBar />
+
+      <CatalogSearch
+        visible={searchVisible}
+        products={products}
+        onClose={handleCloseSearch}
+        onOpenProduct={handleOpenProduct}
+      />
     </View>
   );
 }
