@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
 
 import {
-    colors,
-    radius,
-    spacing,
+  colors,
+  radius,
+  spacing,
 } from "../../../../../Shared/Styles/commonStyles";
 
 export const SCREEN_PADDING = 22;
