@@ -12,6 +12,7 @@ import { OrderConfirmed } from "../Screens/OrderConfirmed/Screens";
 import { OrderDetails } from "../Screens/OrderDetails/Screens";
 import { Payment } from "../Screens/Payment";
 import { PaymentCardScreen } from "../Screens/PaymentCard";
+import { PaymentMethods } from "../Screens/PaymentMethods";
 import { PaymentPIX } from "../Screens/PaymentPIX/Screens";
 import { Product } from "../Screens/Product/index";
 import { RegisterAddressData } from "../Screens/Register/Screens/RegisterAddressData";
@@ -103,6 +104,11 @@ export function CustomerRoutes() {
         <Stack.Screen
           name="PaymentCard"
           component={PaymentCardScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PaymentMethods"
+          component={PaymentMethods}
           options={{ headerShown: false }}
         />
         <Stack.Screen

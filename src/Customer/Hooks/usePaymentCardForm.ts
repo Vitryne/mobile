@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useMemo, useState } from "react";
 import { Alert } from "react-native";
 
-import { mockSavePaymentCard } from "../../Customer/Screens/PaymentCard/mockPaymentCard";
+import { saveCard } from "@/Customer/Api/savedCards";
 import {
   CardBrand,
   FieldStatus,
@@ -184,14 +184,14 @@ export const usePaymentCardForm = () => {
     setIsSubmitting(true);
 
     try {
-      await mockSavePaymentCard({
-        brand: preview.brand,
-        lastDigits: onlyDigits(values.number).slice(12, 16),
-        holderName: values.holderName.trim(),
-        expiry: values.expiry,
-        holderCpf: onlyDigits(values.cpf),
-        saveForLater,
-      });
+      if (saveForLater) {
+        await saveCard({
+          brand: preview.brand,
+          lastFour: onlyDigits(values.number).slice(-4),
+          holderName: values.holderName.trim(),
+          expiry: values.expiry,
+        });
+      }
 
       navigation.goBack();
     } catch {

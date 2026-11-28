@@ -10,6 +10,7 @@ import type {
   ProductStoreData,
 } from "@/Customer/Types/product";
 import { ApiError } from "@/Shared/Api/apiConfig";
+import { FIXED_SHIPPING_FEE } from "@/Shared/Constants/shipping";
 import { formatPrice } from "@/Shared/Utils/formatPrice";
 import {
   useNavigation,
@@ -44,7 +45,7 @@ const STORE_MOCK: ProductStoreData = {
 const DELIVERY_MOCK = {
   deliveryTitle: "Entrega hoje · 45-60 min",
   deliveryAddress: "Av. Brasil, 123 · Higienópolis, SP",
-  deliveryFee: "R$ 9,90",
+  deliveryFee: formatPrice(FIXED_SHIPPING_FEE),
 };
 
 // Mockado até a API de avaliações existir
