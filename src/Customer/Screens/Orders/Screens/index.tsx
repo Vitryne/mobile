@@ -306,10 +306,12 @@ export function Orders() {
                 )}
               </>
             ) : (
-              <View style={styles.empty_state}>
-                <Text style={styles.empty_text}>
-                  Nenhum pedido em andamento.
-                </Text>
+              <View style={styles.carousel_content}>
+                <View style={styles.empty_state}>
+                  <Text style={styles.empty_text}>
+                    Nenhum pedido em andamento.
+                  </Text>
+                </View>
               </View>
             )}
           </View>
