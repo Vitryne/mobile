@@ -25,38 +25,6 @@ export const styles = StyleSheet.create({
     gap: spacing.sm,
   },
 
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: spacing.md,
-    marginBottom: spacing.md,
-  },
-
-  back_button: {
-    width: 40,
-    height: 40,
-    borderRadius: radius.full,
-    backgroundColor: colors.card,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  header_info: {
-    flex: 1,
-    gap: 4,
-  },
-
-  title: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: colors.text,
-  },
-
-  store_name: {
-    fontSize: 12,
-    color: colors.textMuted,
-  },
-
   info_card: {
     flexDirection: "row",
     alignItems: "center",

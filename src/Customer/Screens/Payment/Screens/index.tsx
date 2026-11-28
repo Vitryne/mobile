@@ -3,6 +3,7 @@ import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { ActivityIndicator, Alert, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ScreenHeader } from "../../../../Shared/Components/ScreenHeader";
 import { colors } from "../../../../Shared/Styles/commonStyles";
 import { useCheckout } from "../../../Hooks/useCheckout";
 import { useCheckoutReview } from "../../../Hooks/useCheckoutReview";
@@ -12,7 +13,6 @@ import CheckoutIssues from "../Components/CheckoutIssues";
 import DeliveryAddress from "../Components/DeliveryAddress";
 import OrderSummary from "../Components/OrderSummary";
 import PaymentFooter from "../Components/PaymentFooter";
-import PaymentHeader from "../Components/PaymentHeader";
 import PaymentMethods from "../Components/PaymentMethods";
 
 import { styles } from "./styles";
@@ -33,10 +33,7 @@ export function Payment() {
   }
 
   function handleChangeAddress() {
-    Alert.alert(
-      "Endereço",
-      "A alteração de endereço ainda não foi implementada.",
-    );
+    navigation.navigate("AddressList", { mode: "order" });
   }
 
   function handleAddCoupon() {
@@ -86,8 +83,8 @@ export function Payment() {
 
   if (isLoading || loadError || !review) {
     return (
-      <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
-        <PaymentHeader onBack={handleBack} />
+      <SafeAreaView style={styles.screen} edges={["bottom", "left", "right"]}>
+        <ScreenHeader title="Pagamento" onBack={handleBack} />
 
         <View style={styles.center}>
           {isLoading ? (
@@ -113,8 +110,8 @@ export function Payment() {
   }
 
   return (
-    <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
-      <PaymentHeader onBack={handleBack} />
+    <SafeAreaView style={styles.screen} edges={["bottom", "left", "right"]}>
+      <ScreenHeader title="Pagamento" onBack={handleBack} />
 
       <View style={styles.content}>
         <DeliveryAddress

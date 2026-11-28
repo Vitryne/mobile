@@ -1,10 +1,10 @@
+import { colors, spacing } from "@/Shared/Styles/commonStyles";
 import { StyleSheet } from "react-native";
-import { colors } from "../../../Shared/Styles/commonStyles";
 
 export const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 22,
-    paddingBottom: 12,
+    gap: spacing.xs,
+    paddingBottom: spacing.sm,
     backgroundColor: colors.background,
   },
   title: {
@@ -12,5 +12,9 @@ export const styles = StyleSheet.create({
     fontWeight: "700",
     lineHeight: 30,
     color: colors.text,
+  },
+  subtitle: {
+    fontSize: 13,
+    color: colors.textMuted,
   },
 });

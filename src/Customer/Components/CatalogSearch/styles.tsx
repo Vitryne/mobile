@@ -15,13 +15,6 @@ export const styles = StyleSheet.create({
     paddingVertical: 12,
   },
 
-  back_button: {
-    width: 32,
-    height: 40,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
   input_container: {
     flex: 1,
     minHeight: 46,

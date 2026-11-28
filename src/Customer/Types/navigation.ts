@@ -44,6 +44,10 @@ export type CustomerStackParamList = {
     orderId: string;
   };
 
+  AddressList: { mode?: "manage" | "order" } | undefined;
+
+  AddressForm: { addressId?: number } | undefined;
+
   RegisterPersonalData:
     | {
         editMode?: boolean;

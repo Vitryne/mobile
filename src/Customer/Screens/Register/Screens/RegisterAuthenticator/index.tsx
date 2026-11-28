@@ -6,7 +6,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
 import { PrimaryButton } from "../../../../Components/PrimaryButton";
 import { CustomerStackParamList } from "../../../../Types/navigation";
-import { RegisterHeader } from "../../Components/RegisterHeader";
+import { ScreenHeader } from "@/Shared/Components/ScreenHeader";
+import { StepIndicator } from "@/Shared/Components/StepIndicator";
 import { styles } from "./styles";
 
 const CODE_LENGTH = 6;
@@ -122,7 +123,7 @@ export function RegisterAuthenticator({ navigation, route }: Props) {
 
   return (
     <View style={styles.container}>
-      <RegisterHeader currentStep={2} />
+      <ScreenHeader right={<StepIndicator currentStep={2} />} />
 
       <View style={styles.content}>
         <Text style={styles.title}>Confirme que é você.</Text>

@@ -14,7 +14,8 @@ import { useVehicleForm } from "../../../../Hooks/useVehicleForm";
 import type { DeliveryStackParamList } from "../../../../Types/navigation";
 import type { VehicleFieldWidth } from "../../../../Types/vehicle";
 import { PrimaryButton } from "../../Components/PrimaryButton";
-import { RegisterHeader } from "../../Components/RegisterHeader";
+import { ScreenHeader } from "@/Shared/Components/ScreenHeader";
+import { StepIndicator } from "@/Shared/Components/StepIndicator";
 import { styles } from "./styles";
 
 const FIELD_WIDTH_STYLES: Record<VehicleFieldWidth, object> = {
@@ -44,7 +45,7 @@ export function RegisterVehicle() {
 
   return (
     <SafeAreaView style={styles.container} edges={["top"]}>
-      <RegisterHeader currentStep={3} />
+      <ScreenHeader right={<StepIndicator currentStep={3} />} />
 
       <ScrollView
         style={commonStyles.flex_1}

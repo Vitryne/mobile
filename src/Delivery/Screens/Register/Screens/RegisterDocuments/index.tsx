@@ -10,7 +10,8 @@ import {
   DocumentUploadItem,
 } from "../../Components/DocumentUploadItem";
 import { PrimaryButton } from "../../Components/PrimaryButton";
-import { RegisterHeader } from "../../Components/RegisterHeader";
+import { ScreenHeader } from "@/Shared/Components/ScreenHeader";
+import { StepIndicator } from "@/Shared/Components/StepIndicator";
 import { styles } from "./styles";
 
 type NavigationProps = NativeStackNavigationProp<DeliveryStackParamList>;
@@ -70,7 +71,7 @@ export function RegisterDocuments() {
 
   return (
     <View style={styles.container}>
-      <RegisterHeader currentStep={2} />
+      <ScreenHeader right={<StepIndicator currentStep={2} />} />
 
       <ScrollView
         style={commonStyles.flex_1}

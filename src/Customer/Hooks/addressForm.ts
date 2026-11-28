@@ -105,7 +105,7 @@ const INITIAL_VALUES: AddressFormValues = {
   complement: "",
 };
 
-function formatCep(value: string) {
+export function formatCep(value: string) {
   const digitsOnly = value.replace(/[^0-9]/g, "").slice(0, 8);
 
   if (digitsOnly.length <= 5) {
@@ -115,7 +115,7 @@ function formatCep(value: string) {
   return `${digitsOnly.slice(0, 5)}-${digitsOnly.slice(5)}`;
 }
 
-function formatState(value: string) {
+export function formatState(value: string) {
   return value
     .toUpperCase()
     .replace(/[^A-Z]/g, "")

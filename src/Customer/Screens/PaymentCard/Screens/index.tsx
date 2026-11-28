@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { ScreenHeader } from "../../../../Shared/Components/ScreenHeader";
 import { colors, commonStyles } from "../../../../Shared/Styles/commonStyles";
 import { usePaymentCardForm } from "../../../Hooks/usePaymentCardForm";
 import CardField from "../Components/CardField";
@@ -31,13 +32,11 @@ export const PaymentCardScreen = () => {
   } = usePaymentCardForm();
 
   return (
-    <SafeAreaView style={commonStyles.screen}>
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.back_button} onPress={goBack}>
-          <Feather name="arrow-left" size={20} color={colors.text} />
-        </TouchableOpacity>
-        <Text style={styles.title}>Novo cartão</Text>
-      </View>
+    <SafeAreaView
+      style={commonStyles.screen}
+      edges={["bottom", "left", "right"]}
+    >
+      <ScreenHeader title="Novo cartão" onBack={goBack} />
 
       <ScrollView
         contentContainerStyle={commonStyles.scroll_content}

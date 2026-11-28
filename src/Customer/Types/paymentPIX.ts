@@ -1,4 +1,3 @@
-export type PixHeaderProps = { onBack: () => void };
 export type PixStatusProps = {
   amount: number;
   expired: boolean;

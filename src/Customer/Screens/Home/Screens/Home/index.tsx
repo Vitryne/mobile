@@ -25,6 +25,7 @@ import {
 import CatalogSearch from "../../../../../Customer/Components/CatalogSearch";
 import { SearchBar } from "../../../../../Customer/Components/SearchBar";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
+import { useAddresses } from "../../../../Hooks/useAddresses";
 import { useCartCount } from "../../../../Hooks/useCartCount";
 import { useProducts } from "../../../../Hooks/useProducts";
 import { useRevealOnScrollUp } from "../../../../Hooks/useRevealOnScrollUp";
@@ -39,7 +40,6 @@ import { ProductCard } from "../../Components/ProductCard";
 import {
   BANNERS,
   CATEGORIES,
-  DELIVERY_ADDRESS,
   STORES,
   type HomeBanner,
   type HomeCategory,
@@ -244,6 +244,16 @@ export function Home() {
 
   const { cartCount } = useCartCount();
 
+  const { selectedAddress, loading: isLoadingAddress } = useAddresses();
+
+  const deliveryAddressLabel = selectedAddress
+    ? [selectedAddress.neighborhood, selectedAddress.city]
+        .filter(Boolean)
+        .join(", ")
+    : isLoadingAddress
+      ? "Carregando..."
+      : "Selecione um endereço";
+
   const [searchVisible, setSearchVisible] = useState(false);
 
   const [selectedCategoryId, setSelectedCategoryId] = useState(
@@ -282,6 +292,10 @@ export function Home() {
       categoryId: category.id,
       categoryName: category.label,
     });
+  }
+
+  function handleOpenAddresses() {
+    navigation.navigate("AddressList");
   }
 
   function handleOpenProduct(productId: number) {
@@ -326,7 +340,11 @@ export function Home() {
 
   return (
     <View style={styles.container}>
-      <HomeHeader address={DELIVERY_ADDRESS} cartCount={cartCount} />
+      <HomeHeader
+        address={deliveryAddressLabel}
+        cartCount={cartCount}
+        onPressAddress={handleOpenAddresses}
+      />
 
       <View style={styles.body}>
         <Animated.ScrollView

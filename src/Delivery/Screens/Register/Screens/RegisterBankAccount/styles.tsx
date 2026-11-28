@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
   scroll_content: {
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.xl,
-    paddingTop: 150,
+    paddingTop: spacing.md,
   },
   title: {
     fontSize: 26,

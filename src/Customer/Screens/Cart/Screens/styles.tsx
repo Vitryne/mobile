@@ -75,4 +75,9 @@ export const styles = StyleSheet.create({
     fontWeight: "600",
     color: colors.white,
   },
+  clear_text: {
+    fontSize: 13,
+    fontWeight: "600",
+    color: colors.primary,
+  },
 });

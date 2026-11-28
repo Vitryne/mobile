@@ -2,8 +2,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { colors } from "../../Shared/Styles/commonStyles";
 import type { CustomerStackParamList } from "../Types/navigation";
 
-import { HeaderBack } from "../Components/backButton";
 import { CustomerSessionProvider } from "../Context/customerSessionContext";
+import { AddressForm } from "../Screens/AddressForm";
+import { AddressList } from "../Screens/AddressList";
 import { Cart } from "../Screens/Cart";
 import { Loading } from "../Screens/Loading/index";
 import { Login } from "../Screens/Login";
@@ -39,7 +40,6 @@ export function CustomerRoutes() {
           headerTitleAlign: "left",
           headerShadowVisible: false,
           headerBackVisible: false,
-          headerLeft: () => <HeaderBack />,
           contentStyle: {
             backgroundColor: colors.background,
           },
@@ -118,6 +118,16 @@ export function CustomerRoutes() {
         <Stack.Screen
           name="OrderDetails"
           component={OrderDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AddressList"
+          component={AddressList}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AddressForm"
+          component={AddressForm}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

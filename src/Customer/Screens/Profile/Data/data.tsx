@@ -48,6 +48,12 @@ export const PROFILE_SHORTCUTS: ProfileShortcut[] = [
 
 export const PROFILE_MENU: ProfileMenuOption[] = [
   {
+    id: "addresses",
+    title: "Meus endereços",
+    description: "Cadastre e escolha onde receber",
+    icon: "map-pin",
+  },
+  {
     id: "settings",
     title: "Configurações",
     description: "Notificações, tema, idioma",

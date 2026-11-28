@@ -1,5 +1,6 @@
 import { login } from "@/Customer/Api/auth";
 import { ApiError } from "@/Shared/Api/apiConfig";
+import { restoreDefaultAddress } from "@/Customer/Hooks/useOrderAddress";
 import { saveToken } from "@/Shared/Api/tokenStorage";
 import { useState } from "react";
 
@@ -51,6 +52,7 @@ export function useLogin() {
       }
 
       await saveToken(session.accessToken);
+      restoreDefaultAddress().catch(() => undefined);
       return true;
     } catch (error) {
       setErrorMessage(getLoginErrorMessage(error));

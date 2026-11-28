@@ -1,4 +1,5 @@
 import type { CustomerStackParamList } from "@/Customer/Types/navigation";
+import { ScreenHeader } from "@/Shared/Components/ScreenHeader";
 import { colors, commonStyles } from "@/Shared/Styles/commonStyles";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -11,9 +12,10 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAddresses } from "../../../Hooks/useAddresses";
 import { useCart } from "../../../Hooks/useCart";
+import { useRestoreDefaultAddressOnLeave } from "../../../Hooks/useOrderAddress";
 import CartFooter from "../Components/CartFooter";
-import CartHeader from "../Components/CartHeader";
 import CartItemList from "../Components/CartItemList";
 import EmptyCart from "../Components/EmptyCart";
 import RemoveModal from "../Components/RemoveModal";
@@ -23,6 +25,16 @@ export function Cart() {
   const navigation =
     useNavigation<NativeStackNavigationProp<CustomerStackParamList>>();
   const cart = useCart();
+  useRestoreDefaultAddressOnLeave();
+  const { selectedAddress } = useAddresses();
+
+  const addressLabel = selectedAddress
+    ? [selectedAddress.street, selectedAddress.number]
+        .filter(Boolean)
+        .join(", ")
+    : null;
+
+  const showClear = !cart.isLoading && !cart.loadError && !cart.isEmpty;
 
   function handleBack() {
     navigation.goBack();
@@ -32,7 +44,9 @@ export function Cart() {
     navigation.navigate("MainTabs", { screen: "Home" });
   }
 
-  function handleChangeAddress() {}
+  function handleChangeAddress() {
+    navigation.navigate("AddressList", { mode: "order" });
+  }
 
   function handleAddCoupon() {}
 
@@ -77,11 +91,17 @@ export function Cart() {
               color={colors.primary}
             />
             <Text style={styles.address_text} numberOfLines={1}>
-              Entregar em{" "}
-              <Text style={styles.address_bold}>Rua das Palmeiras, 218</Text>
+              {addressLabel ? (
+                <>
+                  Entregar em{" "}
+                  <Text style={styles.address_bold}>{addressLabel}</Text>
+                </>
+              ) : (
+                "Selecione um endereço"
+              )}
             </Text>
             <TouchableOpacity onPress={handleChangeAddress}>
-              <Text style={styles.link_text}>Trocar</Text>
+              <Text style={styles.link_text}>Alterar</Text>
             </TouchableOpacity>
           </View>
 
@@ -121,12 +141,21 @@ export function Cart() {
   }
 
   return (
-    <SafeAreaView style={commonStyles.screen}>
-      <CartHeader
-        itemCount={cart.itemCount}
-        showClear={!cart.isLoading && !cart.loadError && !cart.isEmpty}
+    <SafeAreaView
+      style={commonStyles.screen}
+      edges={["bottom", "left", "right"]}
+    >
+      <ScreenHeader
+        title="Sacola"
+        subtitle={`${cart.itemCount} ${cart.itemCount === 1 ? "item" : "itens"}`}
         onBack={handleBack}
-        onClear={cart.clearAll}
+        right={
+          showClear ? (
+            <TouchableOpacity onPress={cart.clearAll}>
+              <Text style={styles.clear_text}>Limpar</Text>
+            </TouchableOpacity>
+          ) : null
+        }
       />
 
       {renderContent()}

@@ -13,7 +13,7 @@ export default function DeliveryAddress({
       <View style={styles.heading}>
         <Text style={styles.title}>Endereço de entrega</Text>
         <Pressable onPress={onChange} accessibilityRole="button">
-          <Text style={styles.change}>Trocar</Text>
+          <Text style={styles.change}>Alterar</Text>
         </Pressable>
       </View>
       <View style={styles.card}>

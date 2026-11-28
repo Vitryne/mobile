@@ -11,7 +11,10 @@ export function StepIndicator({
   totalSteps = 4,
 }: StepIndicatorProps) {
   return (
-    <View style={styles.container}>
+    <View
+      style={styles.container}
+      accessibilityLabel={`Etapa ${currentStep} de ${totalSteps}`}
+    >
       {Array.from({ length: totalSteps }).map((_, index) => (
         <View
           key={index}
