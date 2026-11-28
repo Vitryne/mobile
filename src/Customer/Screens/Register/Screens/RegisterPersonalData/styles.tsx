@@ -1,5 +1,9 @@
 import { StyleSheet } from "react-native";
-import { colors, radius } from "../../../../../Shared/Styles/commonStyles";
+import {
+  colors,
+  radius,
+  spacing,
+} from "../../../../../Shared/Styles/commonStyles";
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,7 +13,7 @@ export const styles = StyleSheet.create({
   scroll_content: {
     flexGrow: 1,
     paddingHorizontal: 20,
-    paddingTop: 90,
+    paddingTop: spacing.md,
     paddingBottom: 140,
   },
   title: {

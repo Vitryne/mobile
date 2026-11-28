@@ -1,4 +1,4 @@
-import { Platform, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import {
   colors,
   radius,
@@ -13,10 +13,7 @@ export const styles = StyleSheet.create({
 
   content: {
     paddingHorizontal: 22,
-    paddingTop: Platform.select({
-      web: 32 + 24,
-      default: 32,
-    }),
+    paddingTop: spacing.md,
   },
 
   title: {

@@ -9,13 +9,13 @@ import * as Clipboard from "expo-clipboard";
 import { useEffect, useRef, useState } from "react";
 import { Alert, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ScreenHeader } from "../../../../Shared/Components/ScreenHeader";
 
 import { colors } from "../../../../Shared/Styles/commonStyles";
 import { useCheckout } from "../../../Hooks/useCheckout";
 import type { CustomerStackParamList } from "../../../Types/navigation";
 
 import PixCopyCode from "../Components/PixCopyCode";
-import PixHeader from "../Components/PixHeader";
 import PixInstructions from "../Components/PixInstructions";
 import PixQRCode from "../Components/PixQRCode";
 import PixStatus from "../Components/PixStatus";
@@ -141,8 +141,8 @@ export function PaymentPIX() {
   }
 
   return (
-    <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
-      <PixHeader onBack={() => navigation.goBack()} />
+    <SafeAreaView style={styles.screen} edges={["bottom", "left", "right"]}>
+      <ScreenHeader title="Pagamento PIX" onBack={() => navigation.goBack()} />
 
       <ScrollView
         style={styles.scroll}

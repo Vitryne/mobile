@@ -11,7 +11,8 @@ import { PrimaryButton } from "../../../../Components/PrimaryButton";
 import { useCustomerSession } from "../../../../Context/customerSessionContext";
 import { useRegister } from "../../../../Hooks/useRegister";
 import type { CustomerStackParamList } from "../../../../Types/navigation";
-import { RegisterHeader } from "../../Components/RegisterHeader";
+import { ScreenHeader } from "@/Shared/Components/ScreenHeader";
+import { StepIndicator } from "@/Shared/Components/StepIndicator";
 import { styles } from "./styles";
 
 export function RegisterConfirmData() {
@@ -78,7 +79,7 @@ export function RegisterConfirmData() {
 
   return (
     <View style={styles.container}>
-      <RegisterHeader currentStep={4} />
+      <ScreenHeader right={<StepIndicator currentStep={4} />} />
 
       <ScrollView
         contentContainerStyle={styles.scrollContent}

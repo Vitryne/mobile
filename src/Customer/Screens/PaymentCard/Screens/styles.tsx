@@ -7,28 +7,6 @@ import {
 } from "../../../../Shared/Styles/commonStyles";
 
 export const styles = StyleSheet.create({
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-  },
-  back_button: {
-    width: 40,
-    height: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: radius.full,
-    backgroundColor: colors.white,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  title: {
-    marginLeft: spacing.md,
-    fontSize: 20,
-    fontWeight: "700",
-    color: colors.text,
-  },
   form: {
     gap: spacing.md,
   },

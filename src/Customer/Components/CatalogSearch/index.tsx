@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { BackButton } from "../../../Shared/Components/BackButton";
 import { colors } from "../../../Shared/Styles/commonStyles";
 import {
   getActiveProducts,
@@ -147,14 +148,7 @@ export default function CatalogSearch({
     <Modal visible={visible} animationType="slide" onRequestClose={handleClose}>
       <SafeAreaView style={styles.screen}>
         <View style={styles.header}>
-          <Pressable
-            style={styles.back_button}
-            onPress={handleClose}
-            accessibilityRole="button"
-            accessibilityLabel="Voltar"
-          >
-            <Feather name="arrow-left" size={20} color={colors.text} />
-          </Pressable>
+          <BackButton onPress={handleClose} />
 
           <View style={styles.input_container}>
             <Feather name="search" size={18} color={colors.textMuted} />

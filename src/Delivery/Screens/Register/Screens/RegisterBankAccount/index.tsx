@@ -15,7 +15,8 @@ import {
 import { FormInput } from "../../../../Components/FormInput";
 import { useBankAccountForm } from "../../../../Hooks/useBankAccountForm";
 import { PrimaryButton } from "../../Components/PrimaryButton";
-import { RegisterHeader } from "../../Components/RegisterHeader";
+import { ScreenHeader } from "@/Shared/Components/ScreenHeader";
+import { StepIndicator } from "@/Shared/Components/StepIndicator";
 import { BANKS } from "./banks";
 import { styles } from "./styles";
 
@@ -46,7 +47,7 @@ export function RegisterBankAccount() {
 
   return (
     <View style={styles.container}>
-      <RegisterHeader currentStep={4} />
+      <ScreenHeader right={<StepIndicator currentStep={4} />} />
 
       <KeyboardAvoidingView
         style={commonStyles.flex_1}

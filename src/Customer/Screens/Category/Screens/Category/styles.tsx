@@ -13,6 +13,10 @@ export const GRID_ROW_GAP = 20;
 const SEARCH_HEIGHT = 62;
 
 export const styles = StyleSheet.create({
+  title_container: {
+    paddingHorizontal: SCREEN_PADDING,
+  },
+
   container: {
     flex: 1,
     backgroundColor: colors.background,
@@ -161,17 +165,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: SCREEN_PADDING,
     marginBottom: 16,
     gap: 12,
-  },
-
-  back_button: {
-    height: 40,
-    width: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: radius.full,
-    backgroundColor: colors.white,
-    borderWidth: 1,
-    borderColor: colors.border,
   },
 
   results_heading: {

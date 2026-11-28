@@ -16,7 +16,8 @@ import { useRegisterForm } from "../../../../Hooks/registroForm";
 import { DeliveryStackParamList } from "../../../../Types/navigation";
 import { PasswordStrength } from "../../Components/PasswordStrength";
 import { PrimaryButton } from "../../Components/PrimaryButton";
-import { RegisterHeader } from "../../Components/RegisterHeader";
+import { ScreenHeader } from "@/Shared/Components/ScreenHeader";
+import { StepIndicator } from "@/Shared/Components/StepIndicator";
 import { styles } from "./styles";
 
 export function RegisterPersonalData() {
@@ -68,7 +69,7 @@ export function RegisterPersonalData() {
 
   return (
     <View style={styles.container}>
-      <RegisterHeader currentStep={1} />
+      <ScreenHeader right={<StepIndicator currentStep={1} />} />
 
       <KeyboardAvoidingView
         style={commonStyles.flex_1}

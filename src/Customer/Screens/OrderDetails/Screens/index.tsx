@@ -15,6 +15,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { ScreenHeader } from "../../../../Shared/Components/ScreenHeader";
 import { colors } from "../../../../Shared/Styles/commonStyles";
 import { useOrderDetails } from "../../../Hooks/useOrderDetails";
 import type { CustomerStackParamList } from "../../../Types/navigation";
@@ -106,33 +107,22 @@ export function OrderDetails() {
   const discount = order.discount ?? 0;
 
   return (
-    <SafeAreaView style={styles.screen} edges={["top", "bottom"]}>
+    <SafeAreaView style={styles.screen} edges={["bottom", "left", "right"]}>
+      <ScreenHeader
+        title={`Pedido ${order.protocol}`}
+        subtitle={order.store}
+        onBack={() =>
+          navigation.canGoBack()
+            ? navigation.goBack()
+            : navigation.navigate("MainTabs", { screen: "Orders" })
+        }
+      />
+
       <ScrollView
         style={styles.scroll}
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.header}>
-          <Pressable
-            style={styles.back_button}
-            onPress={() =>
-              navigation.canGoBack()
-                ? navigation.goBack()
-                : navigation.navigate("MainTabs", { screen: "Orders" })
-            }
-            accessibilityRole="button"
-            accessibilityLabel="Voltar"
-          >
-            <Feather name="arrow-left" size={20} color={colors.text} />
-          </Pressable>
-
-          <View style={styles.header_info}>
-            <Text style={styles.title}>Pedido {order.protocol}</Text>
-
-            <Text style={styles.store_name}>{order.store}</Text>
-          </View>
-        </View>
-
         <OrderDetailsStatus
           status={order.status}
           date={order.date}

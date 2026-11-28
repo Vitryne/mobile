@@ -20,7 +20,8 @@ import CatalogSearch from "../../../../../Customer/Components/CatalogSearch";
 import { useRevealOnScrollUp } from "../../../../../Customer/Hooks/useRevealOnScrollUp";
 import { colors } from "../../../../../Shared/Styles/commonStyles";
 
-import { ScreenHeader } from "../../../../Components/ScreenHeader";
+import { BackButton } from "../../../../../Shared/Components/BackButton";
+import { ScreenTitle } from "../../../../../Shared/Components/ScreenTitle";
 import { useProducts } from "../../../../Hooks/useProducts";
 import type {
   CustomerStackParamList,
@@ -236,7 +237,9 @@ export function Category() {
 
   return (
     <View style={styles.container}>
-      <ScreenHeader title="Categorias" />
+      <View style={styles.title_container}>
+        <ScreenTitle title="Categorias" withTopInset />
+      </View>
 
       <View style={styles.body}>
         <Animated.ScrollView
@@ -334,14 +337,10 @@ export function Category() {
           ) : (
             <View style={styles.results_section}>
               <View style={styles.results_header}>
-                <Pressable
-                  style={styles.back_button}
+                <BackButton
                   onPress={handleBackToCategories}
-                  accessibilityRole="button"
                   accessibilityLabel="Voltar para categorias"
-                >
-                  <Ionicons name="arrow-back" size={22} color={colors.text} />
-                </Pressable>
+                />
 
                 <View style={styles.results_heading}>
                   <Text style={styles.results_title}>

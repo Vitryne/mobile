@@ -15,7 +15,8 @@ import { FormInput } from "../../../../Components/FormInput";
 import { PrimaryButton } from "../../../../Components/PrimaryButton";
 import { useAddressForm } from "../../../../Hooks/addressForm";
 import { CustomerStackParamList } from "../../../../Types/navigation";
-import { RegisterHeader } from "../../Components/RegisterHeader";
+import { ScreenHeader } from "@/Shared/Components/ScreenHeader";
+import { StepIndicator } from "@/Shared/Components/StepIndicator";
 import { styles } from "./styles";
 
 export function RegisterAddressData() {
@@ -84,7 +85,7 @@ export function RegisterAddressData() {
 
   return (
     <View style={styles.container}>
-      <RegisterHeader currentStep={3} />
+      <ScreenHeader right={<StepIndicator currentStep={3} />} />
 
       <KeyboardAvoidingView
         style={commonStyles.flex_1}

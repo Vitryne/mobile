@@ -1,5 +1,6 @@
 import { useCustomerSession } from "@/Customer/Context/customerSessionContext";
 import type { CustomerStackParamList } from "@/Customer/Types/navigation";
+import { restoreDefaultAddress } from "@/Customer/Hooks/useOrderAddress";
 import { getValidSession } from "@/Shared/Api/tokenStorage";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useEffect } from "react";
@@ -28,6 +29,7 @@ export function useSessionRestore(navigation: LoadingNavigation) {
 
       if (storedSession && storedSession.role === "CONSUMER") {
         loginCustomer(storedSession.email);
+        restoreDefaultAddress().catch(() => undefined);
         navigation.replace("MainTabs", { screen: "Home" });
         return;
       }

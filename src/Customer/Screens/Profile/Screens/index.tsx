@@ -88,11 +88,26 @@ export function Profile() {
     setEditVisible(false);
   }
 
+  function handleOpenAddresses() {
+    setFeedback(null);
+    navigation.getParent<StackNavigation>()?.navigate("AddressList");
+  }
+
   function handleShortcutPress(shortcut: ProfileShortcut) {
+    if (shortcut.id === "addresses") {
+      handleOpenAddresses();
+      return;
+    }
+
     setFeedback(`${shortcut.label}: funcionalidade em demonstração.`);
   }
 
   function handleMenuPress(option: ProfileMenuOption) {
+    if (option.id === "addresses") {
+      handleOpenAddresses();
+      return;
+    }
+
     if (option.id === "logout") {
       setFeedback(null);
       setLogoutVisible(true);

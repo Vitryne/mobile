@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import { clearToken } from "../../Shared/Api/tokenStorage";
+import { restoreDefaultAddress } from "../Hooks/useOrderAddress";
 
 export type CustomerUser = {
   fullName: string;
@@ -75,6 +76,7 @@ export function CustomerSessionProvider({ children }: { children: ReactNode }) {
   }
 
   async function logoutCustomer() {
+    await restoreDefaultAddress().catch(() => undefined);
     setCurrentUser(null);
     await clearToken();
   }

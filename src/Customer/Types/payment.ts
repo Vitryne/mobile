@@ -7,10 +7,6 @@ export type DeliveryAddressProps = {
   onChange: () => void;
 };
 
-export type PaymentHeaderProps = {
-  onBack: () => void;
-};
-
 export type PaymentFooterProps = {
   onConfirm: () => void;
   isLoading?: boolean;
