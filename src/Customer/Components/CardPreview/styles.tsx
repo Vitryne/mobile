@@ -1,10 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import {
-  colors,
-  radius,
-  spacing,
-} from "../../../../../Shared/Styles/commonStyles";
+import { colors, radius, spacing } from "@/Shared/Styles/commonStyles";
 
 export const styles = StyleSheet.create({
   card: {
@@ -15,6 +11,26 @@ export const styles = StyleSheet.create({
     borderRadius: radius.lg,
     backgroundColor: colors.primary,
     overflow: "hidden",
+  },
+  card_dark: {
+    backgroundColor: colors.primaryDark,
+  },
+  top_row: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+  },
+  status_badge: {
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.sm,
+    borderRadius: radius.full,
+    backgroundColor: colors.white + "33",
+  },
+  status_badge_text: {
+    fontSize: 10,
+    fontWeight: "700",
+    letterSpacing: 0.5,
+    color: colors.white,
   },
   decoration_circle: {
     position: "absolute",

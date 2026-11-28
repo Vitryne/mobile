@@ -27,6 +27,7 @@ export type CustomerStackParamList = {
   MainTabs: NavigatorScreenParams<CustomerTabParamList>;
   Product: { productId: number };
   PaymentCard: undefined;
+  PaymentMethods: undefined;
   Cart: undefined;
   Payment: undefined;
 

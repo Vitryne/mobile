@@ -1,11 +1,16 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-import { CardBrand, PaymentCardPreview } from "../../../../Types/paymentCard";
+import type {
+  CardBrand,
+  PaymentCardPreview,
+} from "@/Customer/Types/paymentCard";
 import { styles } from "./styles";
 
 type CardPreviewProps = {
   preview: PaymentCardPreview;
+  tone?: "primary" | "dark";
+  badge?: string;
 };
 
 const brandLabels: Record<CardBrand, string> = {
@@ -17,17 +22,31 @@ const brandLabels: Record<CardBrand, string> = {
 const hiddenGroups = [0, 1, 2];
 const dotsPerGroup = [0, 1, 2, 3];
 
-const CardPreview = ({ preview }: CardPreviewProps) => {
+const CardPreview = ({
+  preview,
+  tone = "primary",
+  badge,
+}: CardPreviewProps) => {
   const brandLabel = brandLabels[preview.brand];
   const lastDigits = preview.maskedNumber.slice(-4);
 
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, tone === "dark" && styles.card_dark]}>
       <View style={styles.decoration_circle} />
 
-      <View style={styles.brand_badge}>
-        <View style={styles.chip} />
-        <Text style={styles.brand_badge_text}>{brandLabel.toUpperCase()}</Text>
+      <View style={styles.top_row}>
+        <View style={styles.brand_badge}>
+          <View style={styles.chip} />
+          <Text style={styles.brand_badge_text}>
+            {brandLabel.toUpperCase()}
+          </Text>
+        </View>
+
+        {badge ? (
+          <View style={styles.status_badge}>
+            <Text style={styles.status_badge_text}>{badge}</Text>
+          </View>
+        ) : null}
       </View>
 
       <View style={styles.number_row}>

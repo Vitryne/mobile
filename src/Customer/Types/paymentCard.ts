@@ -17,16 +17,3 @@ export type PaymentCardPreview = {
   holderName: string;
   expiry: string;
 };
-
-export type NewPaymentCard = {
-  brand: CardBrand;
-  lastDigits: string;
-  holderName: string;
-  expiry: string;
-  holderCpf: string;
-  saveForLater: boolean;
-};
-
-export type SavedPaymentCard = NewPaymentCard & {
-  id: string;
-};

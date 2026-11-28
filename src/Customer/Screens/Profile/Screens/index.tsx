@@ -93,9 +93,19 @@ export function Profile() {
     navigation.getParent<StackNavigation>()?.navigate("AddressList");
   }
 
+  function handleOpenPaymentMethods() {
+    setFeedback(null);
+    navigation.getParent<StackNavigation>()?.navigate("PaymentMethods");
+  }
+
   function handleShortcutPress(shortcut: ProfileShortcut) {
     if (shortcut.id === "addresses") {
       handleOpenAddresses();
+      return;
+    }
+
+    if (shortcut.id === "payment") {
+      handleOpenPaymentMethods();
       return;
     }
 

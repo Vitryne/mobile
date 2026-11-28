@@ -13,7 +13,7 @@ import { ScreenHeader } from "../../../../Shared/Components/ScreenHeader";
 import { colors, commonStyles } from "../../../../Shared/Styles/commonStyles";
 import { usePaymentCardForm } from "../../../Hooks/usePaymentCardForm";
 import CardField from "../Components/CardField";
-import CardPreview from "../Components/CardPreview";
+import CardPreview from "../../../Components/CardPreview";
 import { styles } from "./styles";
 
 export const PaymentCardScreen = () => {
