@@ -3,16 +3,28 @@ import { Pressable, Text, View } from "react-native";
 import { styles } from "./styles";
 
 type Props = {
+  subtotal: number;
+  delivery: number;
   total: number;
   onContinue: () => void;
 };
 
-export default function CartFooter({ total, onContinue }: Props) {
+export default function CartFooter({
+  subtotal,
+  delivery,
+  total,
+  onContinue,
+}: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
+        <Text style={styles.label}>Subtotal</Text>
+        <Text style={styles.value}>{formatPrice(subtotal)}</Text>
+      </View>
+
+      <View style={styles.row}>
         <Text style={styles.label}>Entrega</Text>
-        <Text style={styles.value}>Calculada no pagamento</Text>
+        <Text style={styles.value}>{formatPrice(delivery)}</Text>
       </View>
 
       <View style={styles.row}>
