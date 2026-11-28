@@ -53,11 +53,13 @@ async function fetchCheckoutReview(): Promise<CheckoutReview> {
 async function checkout(
   reviewToken: string,
   paymentMethod: CheckoutPaymentMethod,
+  idempotencyKey: string,
 ): Promise<Order | null> {
-  const response = await api.post<CheckoutResponseDTO>("/orders/checkout", {
-    reviewToken,
-    paymentMethod,
-  });
+  const response = await api.post<CheckoutResponseDTO>(
+    "/orders/checkout",
+    { reviewToken, paymentMethod },
+    { headers: { "Idempotency-Key": idempotencyKey } },
+  );
 
   return response.data.order ? mapOrder(response.data.order) : null;
 }

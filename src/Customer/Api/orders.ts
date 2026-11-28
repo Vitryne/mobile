@@ -9,10 +9,18 @@ import { api } from "@/Shared/Api/apiConfig";
 // Usada quando o item do pedido não traz foto
 const DEFAULT_IMAGE = require("../../../assets/Images/detail_1.jpg");
 
+const ORDER_STATUS_MAP: Record<string, OrderStatus> = {
+  AWAITING_ACCEPTANCE: "pending",
+  CONFIRMED: "confirmed",
+  PREPARING: "preparing",
+  READY_FOR_PICKUP: "ready_for_pickup",
+  OUT_FOR_DELIVERY: "delivering",
+  DELIVERED: "delivered",
+  CANCELED: "canceled",
+};
+
 function mapOrderStatus(status?: string): OrderStatus {
-  // CONFIRMED = pagamento aprovado, aguardando a loja aceitar (PREPARING)
-  if (status === "PREPARING") return "preparing";
-  return "pending";
+  return (status && ORDER_STATUS_MAP[status]) || "pending";
 }
 
 function formatOrderDate(value?: string) {

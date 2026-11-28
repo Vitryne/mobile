@@ -5,9 +5,11 @@ import { useAddressForm } from "@/Customer/Hooks/useAddressForm";
 import type { AddressFormField } from "@/Customer/Types/address";
 import type { CustomerStackParamList } from "@/Customer/Types/navigation";
 import { colors, commonStyles } from "@/Shared/Styles/commonStyles";
+import { Feather } from "@expo/vector-icons";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import {
   ActivityIndicator,
+  Alert,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -104,6 +106,13 @@ export function AddressForm({ navigation, route }: Props) {
 
   const isBusy = form.submitting || form.selecting;
 
+  function handleDelete() {
+    Alert.alert(
+      "Excluir endereço",
+      "A exclusão de endereços ainda não está disponível.",
+    );
+  }
+
   const title = form.isEditing ? "Editar endereço" : "Novo endereço";
 
   if (form.loading) {
@@ -179,14 +188,34 @@ export function AddressForm({ navigation, route }: Props) {
         </ScrollView>
 
         <View style={styles.footer}>
-          {form.isEditing && !form.isSelected ? (
-            <SecundaryButton
-              label={
-                form.selecting ? "Definindo..." : "Definir como endereço padrão"
-              }
-              onPress={handleMakeDefault}
-              disabled={isBusy}
-            />
+          {form.isEditing ? (
+            <View style={styles.actions_row}>
+              <View style={styles.actions_main}>
+                {!form.isSelected ? (
+                  <SecundaryButton
+                    label={
+                      form.selecting ? "Definindo..." : "Definir como padrão"
+                    }
+                    onPress={handleMakeDefault}
+                    disabled={isBusy}
+                  />
+                ) : null}
+              </View>
+
+              <Pressable
+                style={({ pressed }) => [
+                  styles.delete_button,
+                  pressed && styles.delete_button_pressed,
+                ]}
+                onPress={handleDelete}
+                disabled={isBusy}
+                accessibilityRole="button"
+                accessibilityLabel="Excluir endereço"
+              >
+                <Feather name="trash-2" size={16} color={colors.danger} />
+                <Text style={styles.delete_text}>Excluir</Text>
+              </Pressable>
+            </View>
           ) : null}
 
           <PrimaryButton
