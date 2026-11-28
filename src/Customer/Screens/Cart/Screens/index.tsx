@@ -110,7 +110,12 @@ export function Cart() {
           </TouchableOpacity>
         </ScrollView>
 
-        <CartFooter total={cart.total} onContinue={handleCheckout} />
+        <CartFooter
+          subtotal={cart.subtotal}
+          delivery={cart.delivery}
+          total={cart.total}
+          onContinue={handleCheckout}
+        />
       </>
     );
   }

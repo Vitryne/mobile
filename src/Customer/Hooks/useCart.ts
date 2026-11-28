@@ -6,6 +6,8 @@ import {
 } from "@/Customer/Api/cart";
 import type { Cart, CartItem } from "@/Customer/Types/cart";
 import { ApiError } from "@/Shared/Api/apiConfig";
+import { FIXED_SHIPPING_FEE } from "@/Shared/Constants/shipping";
+import { roundCurrency } from "@/Shared/Utils/roundCurrency";
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useRef, useState } from "react";
 
@@ -120,12 +122,21 @@ export function useCart() {
   }
 
   const itemCount = cart.items.reduce((sum, item) => sum + item.quantity, 0);
+  const isEmpty = cart.items.length === 0;
+
+  const subtotal = roundCurrency(
+    cart.items.reduce((sum, item) => sum + item.quantity * item.price, 0),
+  );
+  const delivery = isEmpty ? 0 : FIXED_SHIPPING_FEE;
+  const total = isEmpty ? 0 : roundCurrency(subtotal + delivery);
 
   return {
     items: cart.items,
     itemCount,
-    total: cart.total,
-    isEmpty: cart.items.length === 0,
+    subtotal,
+    delivery,
+    total,
+    isEmpty,
     isLoading,
     loadError,
     updateError,
