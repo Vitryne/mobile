@@ -57,4 +57,32 @@ export const styles = StyleSheet.create({
     paddingBottom: spacing.md,
     gap: spacing.sm,
   },
+  actions_row: {
+    flexDirection: "row",
+    gap: spacing.sm,
+  },
+  actions_main: {
+    flex: 1,
+  },
+  delete_button: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: spacing.xs,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.danger,
+    backgroundColor: colors.dangerSoft,
+  },
+  delete_button_pressed: {
+    opacity: 0.8,
+  },
+  delete_text: {
+    fontSize: 15,
+    fontWeight: "700",
+    color: colors.danger,
+  },
 });
